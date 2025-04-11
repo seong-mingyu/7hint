@@ -2,96 +2,87 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>오늘의 직무 Hint Dream</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      background-color: #f0f4f8;
+      background-image: url('background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
       text-align: center;
       padding: 50px;
+      margin: 0;
     }
+
     h1 {
+      color: #1e3a8a;
       font-size: 2.5em;
       margin-bottom: 10px;
     }
-    .highlight {
-      color: #1e3a8a;
+
+    .title-highlight {
+      color: #2563eb;
       font-weight: bold;
-      font-size: 1.2em;
+      font-size: 1.1em;
     }
+
     .subtitle {
       font-size: 1.2em;
-      color: #475569;
-      margin-bottom: 30px;
+      color: #e2e8f0;
+      margin-bottom: 40px;
     }
+
     .box {
-      display: flex;
-      align-items: flex-start;
-      background: white;
+      background: rgba(255, 255, 255, 0.9);
       padding: 30px;
       border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      max-width: 800px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 900px;
       margin: auto;
+      display: flex;
+      align-items: flex-start;
+      gap: 30px;
       text-align: left;
-      gap: 20px;
     }
+
     .profile-img {
-      width: 160px;
-      height: auto;
+      width: 180px;
       border-radius: 12px;
       flex-shrink: 0;
     }
-    .content {
-      flex: 1;
-    }
-    .content h2 {
+
+    .text-content h2 {
       color: #2563eb;
-      margin: 0 0 5px;
-    }
-    .name {
-      font-weight: bold;
-      color: #334155;
-      margin-bottom: 15px;
-    }
-    .content p {
-      font-size: 1.05em;
-      color: #555;
-      line-height: 1.6;
+      margin-top: 0;
     }
 
-    @media (max-width: 768px) {
-      .box {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
-      .content {
-        text-align: left;
-      }
+    .text-content p {
+      font-size: 1.05em;
+      color: #333;
+      line-height: 1.6;
+      white-space: pre-line;
     }
   </style>
 </head>
 <body>
-  <h1>
-    오늘의 직무 <span class="highlight">H</span>int <span class="highlight">D</span>ream
-  </h1>
-  <div class="subtitle">현대중공업 직무를 한눈에!</div>
+  <h1><span class="title-highlight">Hint</span>-<span class="title-highlight">Dream</span></h1>
+  <div class="subtitle">현대중공업 오늘의 직무 이야기 ✨</div>
 
   <div class="box">
-    <img src="min.png" alt="민성제 인턴 사진" class="profile-img">
-    <div class="content">
-      <h2>🏭 엔진기계사업부 생산기술1부</h2>
-      <div class="name">민성제 인턴</div>
+    <img src="min.png" alt="민성제 인턴 사진" class="profile-img" />
+    <div class="text-content">
+      <h2>🏭 엔진기계사업부 생산기술1부 - 민성제 인턴</h2>
       <p>
-        저는 스마트팩토리와 엔진 블록 가공 업무를 담당하기 위해 엔진 공정을 배우고 있습니다.
-        이 과정에서 엔진 생산의 흐름을 이해하고, 각 공정에서의 세부 사항을 학습하며 실무 경험을 쌓고 있습니다.
-        <br><br>
-        특히, <strong>“엔진 블록 Holding point 적용으로 품질 및 안전 개선”</strong>이라는 개인 과제를 수행하며,
-        품질 향상과 안전성 강화 방안을 모색하고 있습니다.
-        <br><br>
-        이 경험을 통해 현장에서의 업무 이해도를 높이는 한편, 보다 효율적이고 안전한 공정을 만들어 나가는 데 기여하고 싶습니다.
+저는 스마트팩토리와 엔진 블록 가공 업무를 담당하기 위해 엔진 공정을 배우고 있습니다. 
+이 과정에서 엔진 생산의 흐름을 이해하고, 각 공정에서의 세부 사항을 학습하며 실무 경험을 쌓고 있습니다. 
+
+특히, “엔진 블록 Holding point 적용으로 품질 및 안전 개선”이라는 개인 과제를 하며,
+품질 향상과 안전성 강화 방안을 모색하고 있습니다.
+
+이 경험을 통해 현장에서의 업무 이해도를 높이는 한편, 보다 효율적이고 안전한 공정을 만들어 나가는 데 기여하고 싶습니다.
       </p>
     </div>
   </div>
