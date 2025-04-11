@@ -19,15 +19,21 @@
     }
 
     .title {
-      font-size: 2.8em;
-      margin-bottom: 10px;
+      font-size: 2.2em;
+      margin-bottom: 5px;
       line-height: 1.2;
     }
 
     .title .highlight {
       color: #2563eb;
       font-weight: bold;
-      font-size: 1.4em;
+      font-size: 1.6em;
+    }
+
+    .subtitle {
+      font-size: 1em;
+      color: #f1f5f9;
+      margin-bottom: 10px;
     }
 
     .date {
@@ -103,15 +109,15 @@
     <span class="highlight">H</span><span>int </span>
     <span class="highlight">D</span><span>ream</span>
   </div>
-
+  <div class="subtitle">현대중공업 오늘의 직무 이야기 ✨</div>
   <div class="date" id="todayDate"></div>
 
   <div class="carousel-container">
     <button class="arrow left" onclick="moveSlide(-1)">&#8592;</button>
     <div class="carousel" id="carousel">
       <div class="card">
-        <img src="min.png" alt="민성제 인턴" />
-        <h2>🏭 엔진기계사업부 생산기술1부 - 민성제 인턴</h2>
+        <img src="min.png" alt="성민제 인턴" />
+        <h2>🏭 엔진기계사업부 생산기술1부 - 성민제 인턴</h2>
         <p>저는 스마트팩토리와 엔진 블록 가공 업무를 담당하기 위해 엔진 공정을 배우고 있습니다. 이 과정에서 엔진 생산의 흐름을 이해하고, 각 공정에서의 세부 사항을 학습하며 실무 경험을 쌓고 있습니다.
 특히, “엔진 블록 Holding point 적용으로 품질 및 안전 개선”이라는 개인 과제를 하며, 품질 향상과 안전성 강화 방안을 모색하고 있습니다. 이 경험을 통해 현장에서의 업무 이해도를 높이는 한편, 보다 효율적이고 안전한 공정을 만들어 나가는 데 기여하고 싶습니다.</p>
       </div>
@@ -160,13 +166,19 @@
   </div>
 
   <script>
-    document.getElementById('todayDate').textContent = new Date().toLocaleDateString('ko-KR', {
-      year: 'numeric', month: 'long', day: 'numeric'
-    });
-
-    let currentIndex = 0;
+    const baseDate = new Date("2025-04-11");
+    const dateDisplay = document.getElementById('todayDate');
     const carousel = document.getElementById('carousel');
-    const cardWidth = 320; // 카드 + 마진
+    const cardWidth = 320;
+    let currentIndex = 0;
+
+    function updateDate() {
+      const currentDate = new Date(baseDate);
+      currentDate.setDate(baseDate.getDate() + currentIndex);
+      dateDisplay.textContent = currentDate.toLocaleDateString('ko-KR', {
+        year: 'numeric', month: 'long', day: 'numeric'
+      });
+    }
 
     function moveSlide(direction) {
       currentIndex += direction;
@@ -174,7 +186,10 @@
       if (currentIndex < 0) currentIndex = 0;
       if (currentIndex > maxIndex) currentIndex = maxIndex;
       carousel.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+      updateDate();
     }
+
+    updateDate();
   </script>
 </body>
 </html>
