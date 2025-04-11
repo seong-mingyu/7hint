@@ -19,27 +19,33 @@
     }
 
     .title {
-      font-size: 2.2em;
-      margin-bottom: 5px;
+      font-size: 2.4em;
+      margin-bottom: 10px;
       line-height: 1.2;
+      word-break: keep-all;
     }
 
     .title .highlight {
       color: #2563eb;
       font-weight: bold;
-      font-size: 1.6em;
+      font-size: 1.4em;
     }
 
     .subtitle {
-      font-size: 1em;
+      font-size: 1.1em;
       color: #f1f5f9;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }
 
     .date {
-      font-size: 1.2em;
-      color: #f1f5f9;
+      font-size: 1em;
+      color: #ffffff;
+      font-weight: bold;
       margin-bottom: 20px;
+    }
+
+    .date::before {
+      content: '\1F4C5 '; /* 📅 달력 이모지 */
     }
 
     .carousel-container {
@@ -55,25 +61,29 @@
     }
 
     .card {
-      flex: 0 0 300px;
+      flex: 0 0 280px;
       background: rgba(255, 255, 255, 0.95);
-      padding: 20px;
+      padding: 15px;
       border-radius: 16px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      text-align: left;
-      margin: 0 10px;
+      margin: 0 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .card img {
-      width: 100%;
+      width: 90%;
+      max-height: 160px;
+      object-fit: cover;
       border-radius: 12px;
       margin-bottom: 10px;
     }
 
     .card h2 {
-      font-size: 1.1em;
+      font-size: 1em;
       color: #2563eb;
-      margin: 0 0 10px;
+      margin: 5px 0 10px;
     }
 
     .card p {
@@ -96,11 +106,20 @@
     }
 
     .arrow.left {
-      left: 10px;
+      left: 5px;
     }
 
     .arrow.right {
-      right: 10px;
+      right: 5px;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        flex: 0 0 250px;
+      }
+      .card img {
+        max-height: 140px;
+      }
     }
   </style>
 </head>
@@ -166,30 +185,30 @@
   </div>
 
   <script>
-    const baseDate = new Date("2025-04-11");
-    const dateDisplay = document.getElementById('todayDate');
+    const today = new Date();
+    const startDate = new Date('2024-04-11');
+    const currentIndex = { value: 0 };
     const carousel = document.getElementById('carousel');
-    const cardWidth = 320;
-    let currentIndex = 0;
+    const cardWidth = 304;
 
-    function updateDate() {
-      const currentDate = new Date(baseDate);
-      currentDate.setDate(baseDate.getDate() + currentIndex);
-      dateDisplay.textContent = currentDate.toLocaleDateString('ko-KR', {
+    function updateDate(index) {
+      const targetDate = new Date(startDate);
+      targetDate.setDate(startDate.getDate() + index);
+      document.getElementById('todayDate').textContent = targetDate.toLocaleDateString('ko-KR', {
         year: 'numeric', month: 'long', day: 'numeric'
       });
     }
 
     function moveSlide(direction) {
-      currentIndex += direction;
       const maxIndex = carousel.children.length - 1;
-      if (currentIndex < 0) currentIndex = 0;
-      if (currentIndex > maxIndex) currentIndex = maxIndex;
-      carousel.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
-      updateDate();
+      currentIndex.value += direction;
+      if (currentIndex.value < 0) currentIndex.value = 0;
+      if (currentIndex.value > maxIndex) currentIndex.value = maxIndex;
+      carousel.style.transform = `translateX(-${currentIndex.value * cardWidth}px)`;
+      updateDate(currentIndex.value);
     }
 
-    updateDate();
+    updateDate(currentIndex.value);
   </script>
 </body>
 </html>
