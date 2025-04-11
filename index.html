@@ -26,27 +26,50 @@
       margin-bottom: 30px;
     }
     .box {
+      display: flex;
+      align-items: flex-start;
       background: white;
       padding: 30px;
-      border-radius: 12px;
+      border-radius: 16px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      max-width: 600px;
+      max-width: 800px;
       margin: auto;
+      text-align: left;
+      gap: 20px;
     }
-    h2 {
+    .profile-img {
+      width: 160px;
+      height: auto;
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+    .content {
+      flex: 1;
+    }
+    .content h2 {
       color: #2563eb;
-      margin-top: 0;
+      margin: 0 0 5px;
     }
     .name {
       font-weight: bold;
       color: #334155;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
-    p {
-      font-size: 1.1em;
+    .content p {
+      font-size: 1.05em;
       color: #555;
       line-height: 1.6;
-      text-align: left;
+    }
+
+    @media (max-width: 768px) {
+      .box {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .content {
+        text-align: left;
+      }
     }
   </style>
 </head>
@@ -57,17 +80,20 @@
   <div class="subtitle">현대중공업 직무를 한눈에!</div>
 
   <div class="box">
-    <h2>🏭 엔진기계사업부 생산기술1부</h2>
-    <div class="name">민성제 인턴</div>
-    <p>
-      저는 스마트팩토리와 엔진 블록 가공 업무를 담당하기 위해 엔진 공정을 배우고 있습니다.
-      이 과정에서 엔진 생산의 흐름을 이해하고, 각 공정에서의 세부 사항을 학습하며 실무 경험을 쌓고 있습니다.
-      <br><br>
-      특히, <strong>“엔진 블록 Holding point 적용으로 품질 및 안전 개선”</strong>이라는 개인 과제를 수행하며,
-      품질 향상과 안전성 강화 방안을 모색하고 있습니다.
-      <br><br>
-      이 경험을 통해 현장에서의 업무 이해도를 높이는 한편, 보다 효율적이고 안전한 공정을 만들어 나가는 데 기여하고 싶습니다.
-    </p>
+    <img src="min.png" alt="민성제 인턴 사진" class="profile-img">
+    <div class="content">
+      <h2>🏭 엔진기계사업부 생산기술1부</h2>
+      <div class="name">민성제 인턴</div>
+      <p>
+        저는 스마트팩토리와 엔진 블록 가공 업무를 담당하기 위해 엔진 공정을 배우고 있습니다.
+        이 과정에서 엔진 생산의 흐름을 이해하고, 각 공정에서의 세부 사항을 학습하며 실무 경험을 쌓고 있습니다.
+        <br><br>
+        특히, <strong>“엔진 블록 Holding point 적용으로 품질 및 안전 개선”</strong>이라는 개인 과제를 수행하며,
+        품질 향상과 안전성 강화 방안을 모색하고 있습니다.
+        <br><br>
+        이 경험을 통해 현장에서의 업무 이해도를 높이는 한편, 보다 효율적이고 안전한 공정을 만들어 나가는 데 기여하고 싶습니다.
+      </p>
+    </div>
   </div>
 </body>
 </html>
