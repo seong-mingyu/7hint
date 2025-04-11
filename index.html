@@ -15,28 +15,34 @@
       text-align: center;
       padding: 50px;
       margin: 0;
+      color: #333;
     }
 
-    h1 {
-      color: #1e3a8a;
-      font-size: 2.5em;
+    .title {
+      font-size: 3.5em;
       margin-bottom: 10px;
     }
 
-    .title-highlight {
+    .title .highlight {
       color: #2563eb;
       font-weight: bold;
-      font-size: 1.1em;
+      font-size: 1.3em;
     }
 
     .subtitle {
       font-size: 1.2em;
       color: #e2e8f0;
+      margin-bottom: 10px;
+    }
+
+    .date {
+      font-size: 1em;
+      color: #f1f5f9;
       margin-bottom: 40px;
     }
 
     .box {
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.95);
       padding: 30px;
       border-radius: 16px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -68,8 +74,12 @@
   </style>
 </head>
 <body>
-  <h1><span class="title-highlight">Hint</span>-<span class="title-highlight">Dream</span></h1>
+  <div class="title">
+    <span class="highlight">H</span><span>int </span>
+    <span class="highlight">D</span><span>ream</span>
+  </div>
   <div class="subtitle">현대중공업 오늘의 직무 이야기 ✨</div>
+  <div class="date" id="today"></div>
 
   <div class="box">
     <img src="min.png" alt="민성제 인턴 사진" class="profile-img" />
@@ -86,5 +96,13 @@
       </p>
     </div>
   </div>
+
+  <script>
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = ("0" + (today.getMonth() + 1)).slice(-2);
+    const date = ("0" + today.getDate()).slice(-2);
+    document.getElementById("today").textContent = `📅 ${year}년 ${month}월 ${date}일`;
+  </script>
 </body>
 </html>
