@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>오늘의 직무 Hint Dream</title>
+  <title>Hint Dream 인터뷰 모음</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -19,26 +19,30 @@
     }
 
     .title {
-      font-size: 3.5em;
+      font-size: 4em;
       margin-bottom: 10px;
     }
 
     .title .highlight {
       color: #2563eb;
       font-weight: bold;
-      font-size: 1.3em;
-    }
-
-    .subtitle {
-      font-size: 1.2em;
-      color: #e2e8f0;
-      margin-bottom: 10px;
+      font-size: 1.5em;
     }
 
     .date {
       font-size: 1em;
       color: #f1f5f9;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
+    }
+
+    .interview-selector {
+      margin-bottom: 30px;
+    }
+
+    select {
+      padding: 10px;
+      font-size: 1em;
+      border-radius: 6px;
     }
 
     .box {
@@ -78,31 +82,105 @@
     <span class="highlight">H</span><span>int </span>
     <span class="highlight">D</span><span>ream</span>
   </div>
-  <div class="subtitle">현대중공업 오늘의 직무 이야기 ✨</div>
-  <div class="date" id="today"></div>
 
-  <div class="box">
-    <img src="min.png" alt="민성제 인턴 사진" class="profile-img" />
+  <div class="date" id="todayDate"></div>
+
+  <div class="interview-selector">
+    <label for="interviewDate">📅 날짜 선택: </label>
+    <select id="interviewDate" onchange="showInterview(this.value)">
+      <option value="">-- 날짜 선택 --</option>
+      <option value="2025-04-03">2025년 4월 3일</option>
+      <option value="2025-04-04">2025년 4월 4일</option>
+      <option value="2025-04-05">2025년 4월 5일</option>
+      <option value="2025-04-06">2025년 4월 6일</option>
+      <option value="2025-04-07">2025년 4월 7일</option>
+      <option value="2025-04-08">2025년 4월 8일</option>
+      <option value="2025-04-09">2025년 4월 9일</option>
+      <option value="2025-04-10">2025년 4월 10일</option>
+      <option value="2025-04-11">2025년 4월 11일</option>
+      <option value="2025-04-12">2025년 4월 12일</option>
+    </select>
+  </div>
+
+  <div class="box" id="interviewBox" style="display: none;">
+    <img src="" id="profileImg" alt="인터뷰 사진" class="profile-img" />
     <div class="text-content">
-      <h2>🏭 엔진기계사업부 생산기술1부 - 민성제 인턴</h2>
-      <p>
-저는 스마트팩토리와 엔진 블록 가공 업무를 담당하기 위해 엔진 공정을 배우고 있습니다. 
-이 과정에서 엔진 생산의 흐름을 이해하고, 각 공정에서의 세부 사항을 학습하며 실무 경험을 쌓고 있습니다. 
-
-특히, “엔진 블록 Holding point 적용으로 품질 및 안전 개선”이라는 개인 과제를 하며,
-품질 향상과 안전성 강화 방안을 모색하고 있습니다.
-
-이 경험을 통해 현장에서의 업무 이해도를 높이는 한편, 보다 효율적이고 안전한 공정을 만들어 나가는 데 기여하고 싶습니다.
-      </p>
+      <h2 id="interviewTitle"></h2>
+      <p id="interviewText"></p>
     </div>
   </div>
 
   <script>
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = ("0" + (today.getMonth() + 1)).slice(-2);
-    const date = ("0" + today.getDate()).slice(-2);
-    document.getElementById("today").textContent = `📅 ${year}년 ${month}월 ${date}일`;
+    document.getElementById('todayDate').textContent = new Date().toLocaleDateString('ko-KR', {
+      year: 'numeric', month: 'long', day: 'numeric'
+    });
+
+    const interviews = {
+      "2025-04-03": {
+        title: "🛠 엔진기계사업기획부 - 성민규 인턴",
+        image: "question.png",
+        text: "?"
+      },
+      "2025-04-04": {
+        title: "🚀 엔진개발부 - 김동현 인턴",
+        image: "question.png",
+        text: "?"
+      },
+      "2025-04-05": {
+        title: "🔥 힘센엔진개발부 - 전수민 인턴",
+        image: "question.png",
+        text: "?"
+      },
+      "2025-04-06": {
+        title: "📞 엔진시스템기술영업부 - 정명수 인턴",
+        image: "question.png",
+        text: "?"
+      },
+      "2025-04-07": {
+        title: "🏭 생산기술2부 - 노건우 인턴",
+        image: "question.png",
+        text: "?"
+      },
+      "2025-04-08": {
+        title: "📐 대형엔진설계부 - 김동현 인턴",
+        image: "question.png",
+        text: "?"
+      },
+      "2025-04-09": {
+        title: "💻 엔진기계업무시스템기획부 - 김우진 인턴",
+        image: "question.png",
+        text: "?"
+      },
+      "2025-04-10": {
+        title: "🔬 엔진개발시험부 - 이제진 인턴",
+        image: "question.png",
+        text: "?"
+      },
+      "2025-04-11": {
+        title: "🏗 생산기술2부 - 이민규 인턴",
+        image: "question.png",
+        text: "?"
+      },
+      "2025-04-12": {
+        title: "🧠 연구기획팀 - ?",
+        image: "question.png",
+        text: "?"
+      }
+    };
+
+    function showInterview(date) {
+      const box = document.getElementById('interviewBox');
+      const data = interviews[date];
+
+      if (data) {
+        document.getElementById('profileImg').src = data.image;
+        document.getElementById('interviewTitle').textContent = data.title;
+        document.getElementById('interviewText').textContent = data.text;
+        box.style.display = 'flex';
+      } else {
+        box.style.display = 'none';
+      }
+    }
   </script>
 </body>
 </html>
