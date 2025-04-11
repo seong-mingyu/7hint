@@ -13,38 +13,39 @@
       background-repeat: no-repeat;
       background-attachment: fixed;
       text-align: center;
-      padding: 50px;
+      padding: 20px;
       margin: 0;
       color: #333;
     }
 
     .title {
-      font-size: 5em;
+      font-size: 2.8em;
       margin-bottom: 10px;
+      line-height: 1.2;
     }
 
     .title .highlight {
       color: #2563eb;
       font-weight: bold;
-      font-size: 1.5em;
+      font-size: 1.4em;
     }
 
     .date {
       font-size: 1.2em;
       color: #f1f5f9;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
+    }
+
+    .carousel-container {
+      position: relative;
+      max-width: 100%;
+      overflow: hidden;
     }
 
     .carousel {
       display: flex;
-      overflow-x: auto;
-      gap: 20px;
-      padding: 20px 0;
-      scroll-snap-type: x mandatory;
-    }
-
-    .carousel::-webkit-scrollbar {
-      display: none;
+      transition: transform 0.3s ease-in-out;
+      width: fit-content;
     }
 
     .card {
@@ -54,7 +55,7 @@
       border-radius: 16px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       text-align: left;
-      scroll-snap-align: start;
+      margin: 0 10px;
     }
 
     .card img {
@@ -64,15 +65,36 @@
     }
 
     .card h2 {
-      font-size: 1.2em;
+      font-size: 1.1em;
       color: #2563eb;
       margin: 0 0 10px;
     }
 
     .card p {
-      font-size: 1em;
+      font-size: 0.95em;
       white-space: pre-line;
       color: #333;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(255, 255, 255, 0.8);
+      border: none;
+      font-size: 2em;
+      cursor: pointer;
+      z-index: 1;
+      padding: 10px;
+      border-radius: 50%;
+    }
+
+    .arrow.left {
+      left: 10px;
+    }
+
+    .arrow.right {
+      right: 10px;
     }
   </style>
 </head>
@@ -84,67 +106,75 @@
 
   <div class="date" id="todayDate"></div>
 
-  <div class="carousel">
-    <div class="card">
-      <img src="profile.png" alt="민성제 인턴" />
-      <h2>🏭 엔진기계사업부 생산기술1부 - 민성제 인턴</h2>
-      <p>저는 스마트팩토리와 엔진 블록 가공 업무를 담당하기 위해 엔진 공정을 배우고 있습니다. 이 과정에서 엔진 생산의 흐름을 이해하고, 각 공정에서의 세부 사항을 학습하며 실무 경험을 쌓고 있습니다.
+  <div class="carousel-container">
+    <button class="arrow left" onclick="moveSlide(-1)">&#8592;</button>
+    <div class="carousel" id="carousel">
+      <div class="card">
+        <img src="min.png" alt="민성제 인턴" />
+        <h2>🏭 엔진기계사업부 생산기술1부 - 민성제 인턴</h2>
+        <p>저는 스마트팩토리와 엔진 블록 가공 업무를 담당하기 위해 엔진 공정을 배우고 있습니다. 이 과정에서 엔진 생산의 흐름을 이해하고, 각 공정에서의 세부 사항을 학습하며 실무 경험을 쌓고 있습니다.
 특히, “엔진 블록 Holding point 적용으로 품질 및 안전 개선”이라는 개인 과제를 하며, 품질 향상과 안전성 강화 방안을 모색하고 있습니다. 이 경험을 통해 현장에서의 업무 이해도를 높이는 한편, 보다 효율적이고 안전한 공정을 만들어 나가는 데 기여하고 싶습니다.</p>
+      </div>
+      <div class="card">
+        <img src="question.png" alt="김동현 인턴" />
+        <h2>🚀 엔진개발부 - 김동현 인턴</h2>
+        <p>?</p>
+      </div>
+      <div class="card">
+        <img src="question.png" alt="전수민 인턴" />
+        <h2>🔥 힘센엔진개발부 - 전수민 인턴</h2>
+        <p>?</p>
+      </div>
+      <div class="card">
+        <img src="question.png" alt="정명수 인턴" />
+        <h2>📞 엔진시스템기술영업부 - 정명수 인턴</h2>
+        <p>?</p>
+      </div>
+      <div class="card">
+        <img src="question.png" alt="노건우 인턴" />
+        <h2>🏭 생산기술2부 - 노건우 인턴</h2>
+        <p>?</p>
+      </div>
+      <div class="card">
+        <img src="question.png" alt="김동현 인턴" />
+        <h2>📐 대형엔진설계부 - 김동현 인턴</h2>
+        <p>?</p>
+      </div>
+      <div class="card">
+        <img src="question.png" alt="김우진 인턴" />
+        <h2>💻 엔진기계업무시스템기획부 - 김우진 인턴</h2>
+        <p>?</p>
+      </div>
+      <div class="card">
+        <img src="question.png" alt="이제진 인턴" />
+        <h2>🔬 엔진개발시험부 - 이제진 인턴</h2>
+        <p>?</p>
+      </div>
+      <div class="card">
+        <img src="question.png" alt="이민규 인턴" />
+        <h2>🏗 생산기술2부 - 이민규 인턴</h2>
+        <p>?</p>
+      </div>
     </div>
-
-    <div class="card">
-      <img src="question.png" alt="김동현 인턴" />
-      <h2>🚀 엔진개발부 - 김동현 인턴</h2>
-      <p>?</p>
-    </div>
-
-    <div class="card">
-      <img src="question.png" alt="전수민 인턴" />
-      <h2>🔥 힘센엔진개발부 - 전수민 인턴</h2>
-      <p>?</p>
-    </div>
-
-    <div class="card">
-      <img src="question.png" alt="정명수 인턴" />
-      <h2>📞 엔진시스템기술영업부 - 정명수 인턴</h2>
-      <p>?</p>
-    </div>
-
-    <div class="card">
-      <img src="question.png" alt="노건우 인턴" />
-      <h2>🏭 생산기술2부 - 노건우 인턴</h2>
-      <p>?</p>
-    </div>
-
-    <div class="card">
-      <img src="question.png" alt="김동현 인턴" />
-      <h2>📐 대형엔진설계부 - 김동현 인턴</h2>
-      <p>?</p>
-    </div>
-
-    <div class="card">
-      <img src="question.png" alt="김우진 인턴" />
-      <h2>💻 엔진기계업무시스템기획부 - 김우진 인턴</h2>
-      <p>?</p>
-    </div>
-
-    <div class="card">
-      <img src="question.png" alt="이제진 인턴" />
-      <h2>🔬 엔진개발시험부 - 이제진 인턴</h2>
-      <p>?</p>
-    </div>
-
-    <div class="card">
-      <img src="question.png" alt="이민규 인턴" />
-      <h2>🏗 생산기술2부 - 이민규 인턴</h2>
-      <p>?</p>
-    </div>
+    <button class="arrow right" onclick="moveSlide(1)">&#8594;</button>
   </div>
 
   <script>
     document.getElementById('todayDate').textContent = new Date().toLocaleDateString('ko-KR', {
       year: 'numeric', month: 'long', day: 'numeric'
     });
+
+    let currentIndex = 0;
+    const carousel = document.getElementById('carousel');
+    const cardWidth = 320; // 카드 + 마진
+
+    function moveSlide(direction) {
+      currentIndex += direction;
+      const maxIndex = carousel.children.length - 1;
+      if (currentIndex < 0) currentIndex = 0;
+      if (currentIndex > maxIndex) currentIndex = maxIndex;
+      carousel.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+    }
   </script>
 </body>
 </html>
