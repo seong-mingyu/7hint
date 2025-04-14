@@ -28,6 +28,7 @@
     .header-left {
       display: flex;
       align-items: center;
+      cursor: pointer;
     }
 
     .header-left img {
@@ -50,12 +51,13 @@
       gap: 10px;
     }
 
-    .language-btn {
+    .language-btn, .menu-button {
       font-size: 0.9em;
-      border: none;
-      background: none;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background-color: #fff;
+      padding: 6px 10px;
       cursor: pointer;
-      color: #333;
     }
 
     .main-title {
@@ -69,8 +71,13 @@
       width: fit-content;
       border-radius: 999px;
     }
+    .main-title span {
+      color: #0c4a6e;
+    }
     .main-title .highlight {
       color: #2563eb;
+      font-weight: bold;
+      font-size: 1.1em;
     }
 
     .carousel-wrapper {
@@ -183,17 +190,19 @@
 </head>
 <body>
   <div class="header">
-    <div class="header-left">
+    <div class="header-left" onclick="scrollToToday()">
       <img src="logo.png" alt="로고">
       <div class="title"><span class="highlight">H</span>int <span class="highlight">D</span>ream</div>
     </div>
     <div class="menu-group">
       <button class="language-btn">🌐 한국어</button>
-      <div class="menu-button">&#9776;</div>
+      <button class="menu-button">메뉴</button>
     </div>
   </div>
 
-  <div class="main-title">Daily <span class="highlight">직무 Hint</span></div>
+  <div class="main-title">
+    <span>Daily 직무 </span><span class="highlight">Hint</span>
+  </div>
 
   <div class="carousel-wrapper">
     <div class="nav-controls">
@@ -265,12 +274,12 @@
       }
     }
 
-    function initCurrentIndex() {
+    function scrollToToday() {
       currentIndex = 0;
+      renderCards();
     }
 
-    initCurrentIndex();
-    renderCards();
+    scrollToToday();
   </script>
 </body>
 </html>
