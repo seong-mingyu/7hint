@@ -61,7 +61,7 @@
     .main-title {
       font-size: 1.3em;
       font-weight: bold;
-      margin: 30px auto 20px;
+      margin: 30px auto 30px;
       text-align: center;
       background-color: #e0f2fe;
       color: #0c4a6e;
@@ -106,7 +106,7 @@
       display: flex;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
-      padding: 20px 0;
+      padding: 60px 0 20px;
       gap: 20px;
       justify-content: center;
     }
@@ -138,10 +138,13 @@
 
     .card .date-label {
       position: absolute;
-      top: -30px;
+      top: -24px;
       left: 0;
       font-size: 0.9em;
       color: #555;
+      background-color: #f1f5f9;
+      padding: 2px 8px;
+      border-radius: 8px;
     }
 
     .card-header {
@@ -203,36 +206,22 @@
   </div>
 
   <script>
-    const cardData = [
-      {
-        date: "2024-04-14",
+    const cardData = Array.from({ length: 6 }).map((_, i) => {
+      const baseDate = new Date("2024-04-14");
+      baseDate.setDate(baseDate.getDate() + i);
+      const yyyy = baseDate.getFullYear();
+      const mm = String(baseDate.getMonth() + 1).padStart(2, '0');
+      const dd = String(baseDate.getDate()).padStart(2, '0');
+      const date = `${yyyy}-${mm}-${dd}`;
+
+      return {
+        date,
         name: "민성제 인턴",
         dept: "🏭 엔진기계생산기술1부",
         img: "min.png",
         desc: `민성제 인턴은 생산 라인 효율성 분석과 자동화 개선 프로젝트에 참여하며 현장 실무 경험을 쌓고 있습니다.`
-      },
-      {
-        date: "2024-04-15",
-        name: "김우진 인턴",
-        dept: "💻 엔진기계업무시스템기획부",
-        img: "question.png",
-        desc: `4월 15일에 공개됩니다!`
-      },
-      {
-        date: "2024-04-16",
-        name: "전수민 인턴",
-        dept: "🔥 힘센엔진개발부",
-        img: "question.png",
-        desc: `4월 16일에 공개됩니다!`
-      },
-      {
-        date: "2024-04-17",
-        name: "성민규 인턴",
-        dept: "🔬 엔진기계사업기획부",
-        img: "question.png",
-        desc: `4월 17일에 공개됩니다!`
-      }
-    ];
+      };
+    });
 
     const carousel = document.getElementById("carousel");
     let currentIndex = 0;
@@ -274,9 +263,7 @@
     }
 
     function initCurrentIndex() {
-      const todayStr = "2024-04-14"; // 강제로 14일 고정 (민성제)
-      const idx = cardData.findIndex(c => c.date === todayStr);
-      currentIndex = idx >= 0 ? idx : 0;
+      currentIndex = 0; // 민성제 인턴 카드가 기본
     }
 
     initCurrentIndex();
