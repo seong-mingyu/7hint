@@ -12,7 +12,6 @@
       color: #333;
     }
 
-    /* 상단 고정 헤더 */
     .header {
       display: flex;
       align-items: center;
@@ -71,14 +70,20 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       padding: 20px;
       display: flex;
-      align-items: flex-start;
+      flex-direction: column;
       width: 90%;
-      max-width: 500px;
+      max-width: 600px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 15px;
     }
 
     .card img {
-      width: 90px;
-      height: 120px;
+      width: 100px;
+      height: 130px;
       object-fit: cover;
       border-radius: 10px;
       margin-right: 15px;
@@ -100,6 +105,13 @@
       font-size: 0.95em;
       color: #2563eb;
     }
+
+    .card-description {
+      font-size: 0.95em;
+      line-height: 1.5;
+      color: #444;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -116,10 +128,17 @@
 
   <div class="card-container">
     <div class="card">
-      <img src="min.png" alt="민성제 인턴">
-      <div class="card-info">
-        <div class="dept">🏭 엔진기계생산기술1부</div>
-        <div class="name">민성제 인턴</div>
+      <div class="card-header">
+        <img src="min.png" alt="민성제 인턴">
+        <div class="card-info">
+          <div class="dept">🏭 엔진기계생산기술1부</div>
+          <div class="name">민성제 인턴</div>
+        </div>
+      </div>
+      <div class="card-description">
+        민성제 짱짱맨 민성제 최고.민성제 짱짱맨 민성제 최고.민성제 짱짱맨 민성제 최고.
+민성제 짱짱맨 민성제 최고.민성제 짱짱맨 민성제 최고.민성제 짱짱맨 민성제 최고.민성제 짱짱맨 민성제 최고.
+민성제 짱짱맨 민성제 최고.민성제 짱짱맨 민성제 최고.민성제 짱짱맨 민성제 최고.
       </div>
     </div>
   </div>
