@@ -2,284 +2,134 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>현대중공업 직무 Hint Dream!</title>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hint Dream 직무 소개</title>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
-      background-image: url('background.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
       margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
       color: #333;
     }
 
-    header {
+    /* 상단 고정 헤더 */
+    .header {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 20px;
-      padding-top: 20px;
+      justify-content: space-between;
+      padding: 10px 20px;
+      background-color: #f8fafc;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
-    header img {
-      width: 160px;
+    .header-left {
+      display: flex;
+      align-items: center;
     }
 
-    .title {
-      font-size: 2.4em;
-      font-weight: bold;
-      line-height: 1.2;
-      word-break: keep-all;
+    .header-left img {
+      width: 40px;
+      margin-right: 10px;
     }
 
-    .highlight {
-      color: #2563eb;
-      font-size: 1.5em;
-    }
-
-    .plain {
-      color: #111;
-    }
-
-    .subtitle {
-      text-align: center;
-      margin-top: 10px;
+    .header-left .title {
       font-size: 1.2em;
       font-weight: bold;
-      color: #0f172a;
-      border-top: 2px solid #2563eb;
-      border-bottom: 2px solid #2563eb;
-      padding: 10px 0;
-      background-color: rgba(255, 255, 255, 0.7);
+    }
+
+    .menu-button {
+      font-size: 1.5em;
+      cursor: pointer;
+    }
+
+    .main-title {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin: 20px 0 10px;
+      text-align: center;
     }
 
     .date {
       text-align: center;
-      font-size: 1.4em;
-      font-weight: bold;
-      color: #ef4444;
-      margin: 10px auto 20px;
-      background: #fff3f3;
-      padding: 8px 14px;
-      border-radius: 12px;
-      width: fit-content;
+      font-size: 1em;
+      color: #666;
+      margin-bottom: 20px;
     }
 
-    .carousel-container {
-      position: relative;
-      width: 100%;
+    .card-container {
       display: flex;
       justify-content: center;
-      overflow: hidden;
       margin-bottom: 40px;
     }
 
-    .carousel {
-      display: flex;
-      transition: transform 0.4s ease-in-out;
-      width: fit-content;
-    }
-
     .card {
-      flex: 0 0 280px;
-      background: rgba(255, 255, 255, 0.95);
-      padding: 15px;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      margin: 0 12px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      padding: 20px;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      opacity: 0.9;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .card.active {
-      opacity: 1;
-      transform: scale(1.05);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      align-items: flex-start;
+      width: 90%;
+      max-width: 500px;
     }
 
     .card img {
       width: 90px;
       height: 120px;
       object-fit: cover;
-      border-radius: 12px;
-      margin-bottom: 10px;
+      border-radius: 10px;
+      margin-right: 15px;
     }
 
-    .card p {
+    .card-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .card-info .dept {
+      font-size: 1em;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .card-info .name {
       font-size: 0.95em;
-      white-space: pre-line;
-      color: #333;
-    }
-
-    .heart-btn {
-      margin-top: 10px;
-      font-size: 1.2em;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #f43f5e;
-    }
-
-    .arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: rgba(255, 255, 255, 0.8);
-      border: none;
-      font-size: 2em;
-      cursor: pointer;
-      z-index: 1;
-      padding: 10px;
-      border-radius: 50%;
-    }
-
-    .arrow.left { left: 5px; }
-    .arrow.right { right: 5px; }
-
-    .visitor {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      font-size: 0.9em;
-      color: #ffffff;
-      background-color: rgba(0, 0, 0, 0.5);
-      padding: 6px 12px;
-      border-radius: 8px;
-    }
-
-    @media (max-width: 600px) {
-      .card {
-        flex: 0 0 240px;
-        margin: 0 6px;
-      }
-      .carousel {
-        gap: 0;
-      }
+      color: #2563eb;
     }
   </style>
 </head>
 <body>
-  <header>
-    <img src="logo.png" alt="로고">
-    <div class="title">
-      <div><span class="highlight">H</span><span class="plain">int</span></div>
-      <div><span class="highlight">D</span><span class="plain">ream</span></div>
+  <div class="header">
+    <div class="header-left">
+      <img src="logo.png" alt="로고">
+      <div class="title">Hint Dream</div>
     </div>
-  </header>
-  <div class="subtitle">현대중공업 오늘의 직무 이야기 ✨</div>
-  <div class="date" id="todayDate"></div>
-
-  <div class="carousel-container">
-    <button class="arrow left" onclick="moveSlide(-1)">&#8592;</button>
-    <div class="carousel" id="carousel"></div>
-    <button class="arrow right" onclick="moveSlide(1)">&#8594;</button>
+    <div class="menu-button">&#9776;</div>
   </div>
 
-  <div class="visitor" id="visitorCount">오늘 방문자 수: 0명</div>
+  <div class="main-title">오늘의 직무 이야기</div>
+  <div class="date" id="todayDate"></div>
+
+  <div class="card-container">
+    <div class="card">
+      <img src="min.png" alt="민성제 인턴">
+      <div class="card-info">
+        <div class="dept">🏭 엔진기계생산기술1부</div>
+        <div class="name">민성제 인턴</div>
+      </div>
+    </div>
+  </div>
 
   <script>
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-      databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT_ID.appspot.com",
-      messagingSenderId: "SENDER_ID",
-      appId: "APP_ID"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
-    const carousel = document.getElementById("carousel");
-    const currentIndex = { value: 0 };
-    const cardWidth = 280 + 24; // 카드 너비 + 마진
-
-    const cardData = [
-      {
-        name: "민성제 인턴",
-        dept: "🏭 엔진기계생산기술1부",
-        img: "min.png",
-        desc: `저는 스마트팩토리와 엔진 블록 가공 업무를 담당하기 위해 엔진 공정을 배우고 있습니다.\n특히, \"엔진 블록 Holding point 적용으로 품질 및 안전 개선\"이라는 개인 과제를 하며 방안을 모색하고 있습니다.`
-      },
-      { name: "성민규 인턴", dept: "🔬 엔진기계사업기획부", img: "question.png", desc: "" },
-      { name: "김동현 인턴", dept: "🚀 엔진개발부", img: "question.png", desc: "" },
-      { name: "전수민 인턴", dept: "🔥 힘센엔진개발부", img: "question.png", desc: "" },
-    ];
-
-    const todayKey = new Date().toISOString().split("T")[0];
-    db.ref(`visits/${todayKey}`).transaction(count => (count || 0) + 1);
-    db.ref(`visits/${todayKey}`).on("value", snapshot => {
-      document.getElementById("visitorCount").textContent = `오늘 방문자 수: ${snapshot.val()}명`;
+    const today = new Date();
+    const todayText = today.toLocaleDateString('ko-KR', {
+      year: 'numeric', month: 'long', day: 'numeric'
     });
-
-    const startDate = new Date("2024-04-11");
-    function updateDate(index) {
-      const targetDate = new Date(startDate);
-      targetDate.setDate(startDate.getDate() + index);
-      document.getElementById("todayDate").textContent = targetDate.toLocaleDateString("ko-KR", {
-        year: "numeric", month: "long", day: "numeric"
-      });
-    }
-
-    function renderCards() {
-      carousel.innerHTML = "";
-      cardData.forEach((card, index) => {
-        const cardEl = document.createElement("div");
-        cardEl.className = "card";
-        if (index === currentIndex.value) cardEl.classList.add("active");
-        cardEl.innerHTML = `
-          <img src="${card.img}" alt="${card.name}" />
-          <div style="margin-top: 5px;">
-            <div style="font-weight: bold; font-size: 0.95em; color: #1e293b;">${card.dept}</div>
-            <div style="font-size: 0.9em; color: #2563eb; margin-top: 4px;">${card.name}</div>
-          </div>
-          <p>${card.desc || "작성 중입니다 😊"}</p>
-          <button class="heart-btn" onclick="likeCard(${index})">❤️ <span id="like-${index}">0</span></button>
-        `;
-        carousel.appendChild(cardEl);
-      });
-    }
-
-    function moveSlide(direction) {
-      const maxIndex = cardData.length - 1;
-      currentIndex.value += direction;
-      if (currentIndex.value < 0) currentIndex.value = 0;
-      if (currentIndex.value > maxIndex) currentIndex.value = maxIndex;
-      const offset = currentIndex.value * cardWidth;
-      carousel.style.transform = `translateX(calc(50vw - ${cardWidth / 2}px - ${offset}px))`;
-      updateDate(currentIndex.value);
-      renderCards();
-    }
-
-    function likeCard(index) {
-      const ref = db.ref(`likes/${index}`);
-      ref.transaction(like => (like || 0) + 1);
-    }
-
-    cardData.forEach((_, index) => {
-      db.ref(`likes/${index}`).on("value", snapshot => {
-        document.getElementById(`like-${index}`).textContent = snapshot.val() || 0;
-      });
-    });
-
-    let startX = 0;
-    carousel.addEventListener("touchstart", e => startX = e.touches[0].clientX);
-    carousel.addEventListener("touchend", e => {
-      const diff = startX - e.changedTouches[0].clientX;
-      if (diff > 50) moveSlide(1);
-      else if (diff < -50) moveSlide(-1);
-    });
-
-    updateDate(currentIndex.value);
-    renderCards();
+    document.getElementById('todayDate').textContent = todayText;
   </script>
 </body>
 </html>
