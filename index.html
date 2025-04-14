@@ -16,7 +16,7 @@
     .language-btn { font-size: 0.9em; border: 1px solid #ccc; border-radius: 6px; background-color: #fff; padding: 6px 10px; cursor: pointer; }
 
     .main-title { font-size: 1.3em; font-weight: bold; margin: 30px auto 20px; text-align: center; background-color: #e0f2fe; color: #0c4a6e; padding: 12px 26px; width: fit-content; border-radius: 999px; }
-    .main-title .highlight { color: #2563eb; font-weight: bold; font-size: 1em; }
+    .main-title .highlight { color: #2563eb; font-weight: bold; font-size: 1.3em; }
 
     .carousel-wrapper { padding-bottom: 30px; text-align: center; }
     .nav-controls { display: flex; align-items: center; justify-content: center; margin-bottom: 20px; gap: 20px; }
@@ -138,28 +138,35 @@
         `;
         carousel.appendChild(cardEl);
       });
+    }
 
+    function updateInfo() {
       const card = cardData[currentIndex];
       dateLabel.textContent = `${card.date} (${card.day})`;
       newsText.textContent = card.news.title;
       newsLink.href = card.news.url;
-
-      const activeCard = document.querySelector(`.card[data-index='${currentIndex}']`);
-      if (activeCard) {
-        activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-      }
     }
 
     function moveSlide(direction) {
       const newIndex = currentIndex + direction;
       if (newIndex >= 0 && newIndex < cardData.length) {
         currentIndex = newIndex;
+        const targetCard = document.querySelector(`.card[data-index='${currentIndex}']`);
+        if (targetCard) {
+          carousel.scrollTo({ left: targetCard.offsetLeft - 20, behavior: 'smooth' });
+        }
+        updateInfo();
         renderCards();
       }
     }
 
     function scrollToToday() {
       currentIndex = 0;
+      const targetCard = document.querySelector(`.card[data-index='0']`);
+      if (targetCard) {
+        carousel.scrollTo({ left: targetCard.offsetLeft - 20, behavior: 'smooth' });
+      }
+      updateInfo();
       renderCards();
     }
 
@@ -184,6 +191,7 @@
 
         if (closestIndex !== currentIndex) {
           currentIndex = closestIndex;
+          updateInfo();
           renderCards();
         }
 
