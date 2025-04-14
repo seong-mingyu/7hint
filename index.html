@@ -51,18 +51,17 @@
     }
 
     .language-btn {
-      padding: 4px 8px;
       font-size: 0.9em;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      background-color: #fff;
+      border: none;
+      background: none;
       cursor: pointer;
+      color: #333;
     }
 
     .main-title {
       font-size: 1.3em;
       font-weight: bold;
-      margin: 20px auto 10px;
+      margin: 30px auto 20px;
       text-align: center;
       background-color: #e0f2fe;
       color: #0c4a6e;
@@ -73,29 +72,34 @@
 
     .carousel-wrapper {
       position: relative;
-      padding: 0 40px;
+      padding: 0 50px;
+      margin-bottom: 40px;
     }
 
     .nav-btn {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background-color: #f1f5f9;
+      background-color: #2563eb;
+      color: white;
       border: none;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      font-size: 1.2em;
+      border-radius: 8px;
+      width: 28px;
+      height: 28px;
+      font-size: 1.1em;
       cursor: pointer;
       z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .nav-btn.left {
-      left: 0;
+      left: 10px;
     }
 
     .nav-btn.right {
-      right: 0;
+      right: 10px;
     }
 
     .carousel-container {
@@ -185,7 +189,7 @@
       <div class="title"><span class="highlight">H</span>int <span class="highlight">D</span>ream</div>
     </div>
     <div class="menu-group">
-      <button class="language-btn">언어</button>
+      <button class="language-btn">🌐 한국어</button>
       <div class="menu-button">&#9776;</div>
     </div>
   </div>
@@ -193,9 +197,9 @@
   <div class="main-title">오늘의 직무 이야기</div>
 
   <div class="carousel-wrapper">
-    <button class="nav-btn left" onclick="moveSlide(-1)">&#8592;</button>
+    <button class="nav-btn left" onclick="moveSlide(-1)">&#8249;</button>
     <div class="carousel-container" id="carousel"></div>
-    <button class="nav-btn right" onclick="moveSlide(1)">&#8594;</button>
+    <button class="nav-btn right" onclick="moveSlide(1)">&#8250;</button>
   </div>
 
   <script>
@@ -254,6 +258,11 @@
         `;
         carousel.appendChild(cardEl);
       });
+
+      const activeCard = document.querySelector(`.card[data-index='${currentIndex}']`);
+      if (activeCard) {
+        activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
     }
 
     function moveSlide(direction) {
@@ -261,16 +270,11 @@
       if (newIndex >= 0 && newIndex < cardData.length) {
         currentIndex = newIndex;
         renderCards();
-        const activeCard = document.querySelector(`.card[data-index='${currentIndex}']`);
-        if (activeCard) {
-          activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-        }
       }
     }
 
-    // 오늘 날짜 기준 카드로 초기화
     function initCurrentIndex() {
-      const todayStr = new Date().toISOString().split('T')[0];
+      const todayStr = "2024-04-14"; // 강제로 14일 고정 (민성제)
       const idx = cardData.findIndex(c => c.date === todayStr);
       currentIndex = idx >= 0 ? idx : 0;
     }
