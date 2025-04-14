@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hint Dream 직무 소개</title>
   <style>
@@ -78,8 +78,11 @@
       display: flex;
       flex-direction: column;
       scroll-snap-align: center;
-      opacity: 0.7;
       transition: all 0.3s ease;
+    }
+
+    .card.inactive {
+      opacity: 0.5;
     }
 
     .card.active {
@@ -132,15 +135,11 @@
   <div class="main-title">오늘의 직무 이야기</div>
   <div class="date" id="todayDate"></div>
 
-  <div class="carousel-container" id="carousel">
-  </div>
+  <div class="carousel-container" id="carousel"></div>
 
   <script>
     const today = new Date();
-    const todayDateStr = today.toISOString().split("T")[0];
-    document.getElementById("todayDate").textContent = today.toLocaleDateString('ko-KR', {
-      year: 'numeric', month: 'long', day: 'numeric'
-    });
+    const todayStr = today.toISOString().split('T')[0];
 
     const cardData = [
       {
@@ -174,39 +173,65 @@
     ];
 
     const carousel = document.getElementById("carousel");
+    const todayDate = new Date(todayStr);
 
-    cardData.forEach((card, index) => {
-      const cardDate = new Date(card.date);
-      const isPastOrToday = cardDate <= today;
-      const visibleText = isPastOrToday ? card.desc : `${cardDate.getMonth() + 1}월 ${cardDate.getDate()}일에 공개됩니다!`;
+    function renderCards() {
+      carousel.innerHTML = "";
 
-      const cardEl = document.createElement("div");
-      cardEl.className = "card";
-      cardEl.innerHTML = `
-        <div class="card-header">
-          <img src="${card.img}" alt="${card.name}">
-          <div class="card-info">
-            <div class="dept">${card.dept}</div>
-            <div class="name">${card.name}</div>
+      cardData.forEach((card, index) => {
+        const cardDate = new Date(card.date);
+        const isToday = card.date === todayStr;
+        const isPast = cardDate < todayDate;
+        const isFuture = cardDate > todayDate;
+
+        const description = isPast || isToday
+          ? card.desc
+          : `${cardDate.getMonth() + 1}월 ${cardDate.getDate()}일에 공개됩니다!`;
+
+        const cardEl = document.createElement("div");
+        cardEl.className = `card${isToday ? ' active' : ''}${isFuture ? ' inactive' : ''}`;
+        cardEl.setAttribute("data-date", card.date);
+        cardEl.innerHTML = `
+          <div class="card-header">
+            <img src="${card.img}" alt="${card.name}">
+            <div class="card-info">
+              <div class="dept">${card.dept}</div>
+              <div class="name">${card.name}</div>
+            </div>
           </div>
-        </div>
-        <div class="card-description">${visibleText}</div>
-      `;
-      carousel.appendChild(cardEl);
-    });
-
-    const allCards = document.querySelectorAll('.card');
-
-    function updateActiveCard() {
-      const todayIndex = cardData.findIndex(c => c.date === todayDateStr);
-      const selected = allCards[todayIndex];
-      if (selected) {
-        selected.classList.add('active');
-        selected.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-      }
+          <div class="card-description">${description}</div>
+        `;
+        carousel.appendChild(cardEl);
+      });
     }
 
-    updateActiveCard();
+    function updateDateText(dateStr) {
+      const targetDate = new Date(dateStr);
+      document.getElementById("todayDate").textContent = targetDate.toLocaleDateString("ko-KR", {
+        year: "numeric", month: "long", day: "numeric"
+      });
+    }
+
+    function observeCards() {
+      const cards = document.querySelectorAll(".card");
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            cards.forEach(card => card.classList.remove("active"));
+            entry.target.classList.add("active");
+            updateDateText(entry.target.dataset.date);
+          }
+        });
+      }, {
+        root: document.querySelector(".carousel-container"),
+        threshold: 0.6
+      });
+
+      cards.forEach(card => observer.observe(card));
+    }
+
+    renderCards();
+    observeCards();
   </script>
 </body>
 </html>
