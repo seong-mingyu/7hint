@@ -166,14 +166,16 @@
 
     function scrollToToday() {
       currentIndex = 0;
-      isProgrammaticScroll = true;
-      const targetCard = document.querySelector(`.card[data-index='0']`);
-      if (targetCard) {
-        carousel.scrollTo({ left: targetCard.offsetLeft - 20, behavior: 'smooth' });
-      }
-      updateInfo();
       renderCards();
-      setTimeout(() => { isProgrammaticScroll = false; }, 400);
+      updateInfo();
+      setTimeout(() => {
+        const targetCard = document.querySelector(`.card[data-index='0']`);
+        if (targetCard) {
+          isProgrammaticScroll = true;
+          carousel.scrollTo({ left: targetCard.offsetLeft - 20, behavior: 'smooth' });
+          setTimeout(() => { isProgrammaticScroll = false; }, 400);
+        }
+      }, 0);
     }
 
     carousel.addEventListener("scroll", () => {
