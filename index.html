@@ -10,29 +10,30 @@
     .header-left { display: flex; align-items: center; cursor: pointer; }
     .header-left img { width: 60px; margin-right: 10px; }
     .title { font-size: 1.5em; font-weight: bold; }
-    .highlight { color: #2563eb; }
+    .highlight { color: #2563eb; font-weight: bold; }
     .menu-group { display: flex; align-items: center; gap: 10px; margin-left: auto; }
-    .language-btn { font-size: 0.9em; border: 1px solid #ccc; border-radius: 6px; background-color: #fff; padding: 6px 10px; cursor: pointer; }
     .menu-button { font-size: 1.8em; background: none; border: none; cursor: pointer; color: #333; }
-    .main-title { font-size: 1.4em; font-weight: bold; margin: 30px auto 20px; text-align: center; background-color: #e0f2fe; color: #0c4a6e; padding: 10px 20px; width: fit-content; border-radius: 999px; }
-    .main-title span { color: #0c4a6e; }
-    .main-title .highlight { color: #2563eb; font-weight: bold; font-size: 1.1em; }
+    .language-btn { font-size: 0.9em; border: 1px solid #ccc; border-radius: 6px; background-color: #fff; padding: 6px 10px; cursor: pointer; }
+    .main-title { font-size: 1.7em; font-weight: bold; margin: 30px auto 20px; text-align: center; background-color: #e0f2fe; color: #0c4a6e; padding: 12px 26px; width: fit-content; border-radius: 999px; }
+    .main-title .highlight { color: #2563eb; font-weight: bold; font-size: 1.2em; }
     .carousel-wrapper { padding-bottom: 30px; text-align: center; }
     .nav-controls { display: flex; align-items: center; justify-content: center; margin-bottom: 20px; gap: 20px; }
     .nav-btn { background-color: #f1f5f9; color: #475569; border: none; border-radius: 8px; width: 32px; height: 32px; font-size: 1.1em; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
     .date-label { font-size: 1em; font-weight: bold; padding: 6px 14px; background-color: #e2e8f0; border-radius: 999px; color: #1e293b; font-family: 'Segoe UI', sans-serif; }
     .carousel-container { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding: 20px 0; gap: 20px; justify-content: center; }
-    .card { flex: 0 0 90%; max-width: 500px; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); padding: 20px; display: flex; flex-direction: column; scroll-snap-align: center; transition: all 0.3s ease; gap: 15px; }
+    .card { flex: 0 0 90%; max-width: 500px; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); padding: 20px; display: flex; flex-direction: row; scroll-snap-align: center; transition: all 0.3s ease; gap: 15px; }
     .card.inactive { opacity: 0.5; }
     .card.active { opacity: 1; transform: scale(1.03); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); }
-    .card-header { display: flex; flex-direction: row; align-items: flex-start; }
-    .card img { width: 100px; height: 130px; object-fit: cover; border-radius: 10px; margin-right: 15px; }
-    .card-info { text-align: left; }
+    .card-header { display: flex; flex-direction: column; align-items: center; width: 120px; }
+    .card img { width: 100px; height: 130px; object-fit: cover; border-radius: 10px; margin-bottom: 8px; }
+    .card-info { text-align: center; }
     .card-info .name { font-size: 1em; font-weight: bold; color: #2563eb; }
-    .card-description { font-size: 0.95em; line-height: 1.5; color: #444; }
+    .card-description { font-size: 0.95em; line-height: 1.5; color: #444; flex: 1; }
     .card-description .dept { font-weight: bold; font-size: 0.95em; margin-bottom: 8px; color: #1e293b; }
-    .news-box { margin: 20px auto 30px; text-align: center; font-size: 0.9em; color: #334155; }
-    .news-box a { color: #2563eb; text-decoration: none; font-weight: bold; }
+    .news-title { font-size: 1.1em; font-weight: bold; text-align: center; margin-top: 40px; color: #1e293b; }
+    .news-box { text-align: center; margin: 10px auto 40px; }
+    .news-box a { display: inline-block; background-color: #f1f5f9; padding: 10px 16px; border-radius: 8px; text-decoration: none; color: #2563eb; font-weight: bold; transition: background 0.3s; }
+    .news-box a:hover { background-color: #e2e8f0; }
     .footer { text-align: center; font-size: 0.9em; margin-top: 30px; padding-bottom: 30px; }
     .footer a { color: #2563eb; text-decoration: none; font-weight: bold; }
   </style>
@@ -44,13 +45,13 @@
       <div class="title"><span class="highlight">H</span>int <span class="highlight">D</span>ream</div>
     </div>
     <div class="menu-group">
-      <button class="menu-button">≡</button>
       <button class="language-btn">🌐 한국어</button>
+      <button class="menu-button">≡</button>
     </div>
   </div>
 
   <div class="main-title">
-    <span>Daily 직무 </span><span class="highlight">Hint</span>
+    <span class="highlight">직무</span> Hint Dream
   </div>
 
   <div class="carousel-wrapper">
@@ -62,16 +63,23 @@
     <div class="carousel-container" id="carousel"></div>
   </div>
 
-  <div class="news-box">
-    <a href="https://www.kita.net/board/totalTradeNews/totalTradeNewsDetail.do?no=90153&siteId=2" target="_blank">트럼프 조선업 재건의지에 韓 협력가능성 더커져 →</a><br>
-    <a href="https://news.nate.com/view/20250414n01634" target="_blank">흑자 전환에 트럼프 훈풍까지…호황 볕 드는 중형조선사 →</a>
-  </div>
+  <div class="news-title">오늘의 주요 NEWS</div>
+  <div class="news-box" id="newsBox"></div>
 
   <div class="footer">
     <a href="https://www.hhi.co.kr/" target="_blank">HD현대중공업 홈페이지 바로가기 →</a>
   </div>
 
   <script>
+    const newsLinks = [
+      { title: "LNG선 수주 세계 1위 지속 중", url: "https://www.kita.net/board/totalTradeNews/totalTradeNewsDetail.do?no=90153&siteId=2" },
+      { title: "흑자 전환에 트럼프 훈풍까지…호황 볕 드는 중형조선사", url: "https://news.nate.com/view/20250414n01634" },
+      { title: "친환경 연료 시장 확산, 조선업계 탄소 중립 박차", url: "https://www.sedaily.com/NewsView/29P8NYZNH8" },
+      { title: "HD현대, 디지털 트윈 기술 상용화 착수", url: "https://biz.chosun.com/industry/company/2025/04/01/VBGONIE6K5AHTAMNLMQDR4VOGY/" },
+      { title: "고부가가치 선박 집중 수주로 업계 호황 기대", url: "https://www.hankyung.com/economy/article/2025032984381" },
+      { title: "중형조선소, 블록 자동화 기술로 경쟁력 확보", url: "https://www.mk.co.kr/news/business/10852676" }
+    ];
+
     const cardData = Array.from({ length: 6 }).map((_, i) => {
       const baseDate = new Date("2025-04-14");
       baseDate.setDate(baseDate.getDate() + i);
@@ -87,12 +95,14 @@
         name: "민성제 인턴",
         dept: "🏭 엔진기계생산기술1부",
         img: "min.png",
-        desc: `민성제 인턴은 생산 라인 효율성 분석과 자동화 개선 프로젝트에 참여하며 현장 실무 경험을 쌓고 있습니다.`
+        desc: `민성제 인턴은 생산 라인 효율성 분석과 자동화 개선 프로젝트에 참여하며 현장 실무 경험을 쌓고 있습니다.`,
+        news: newsLinks[i % newsLinks.length]
       };
     });
 
     const carousel = document.getElementById("carousel");
     const dateLabel = document.getElementById("dateLabel");
+    const newsBox = document.getElementById("newsBox");
     let currentIndex = 0;
 
     function renderCards() {
@@ -120,6 +130,7 @@
 
       const card = cardData[currentIndex];
       dateLabel.textContent = `${card.date} (${card.day})`;
+      newsBox.innerHTML = `<a href="${card.news.url}" target="_blank">본문 읽기: ${card.news.title}</a>`;
 
       const activeCard = document.querySelector(`.card[data-index='${currentIndex}']`);
       if (activeCard) {
@@ -139,6 +150,11 @@
       currentIndex = 0;
       renderCards();
     }
+
+    carousel.addEventListener("wheel", (e) => {
+      if (e.deltaY > 0 || e.deltaX > 0) moveSlide(1);
+      else moveSlide(-1);
+    });
 
     scrollToToday();
   </script>
