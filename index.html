@@ -5,218 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hint Dream 직무 소개</title>
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #ffffff;
-      color: #333;
-      overflow-x: hidden;
-    }
-
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 20px;
-      background-color: #f8fafc;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-    }
-
-    .header-left img {
-      width: 60px;
-      margin-right: 10px;
-    }
-
-    .title {
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-
-    .highlight {
-      color: #2563eb;
-    }
-
-    .menu-group {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .language-btn {
-      font-size: 0.9em;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      background-color: #fff;
-      padding: 6px 10px;
-      cursor: pointer;
-    }
-
-    .menu-button {
-      font-size: 1.8em;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #333;
-    }
-
-    .main-title {
-      font-size: 1.4em;
-      font-weight: bold;
-      margin: 30px auto 20px;
-      text-align: center;
-      background-color: #e0f2fe;
-      color: #0c4a6e;
-      padding: 10px 20px;
-      width: fit-content;
-      border-radius: 999px;
-    }
-    .main-title span {
-      color: #0c4a6e;
-    }
-    .main-title .highlight {
-      color: #2563eb;
-      font-weight: bold;
-      font-size: 1.1em;
-    }
-
-    .carousel-wrapper {
-      padding-bottom: 60px;
-      text-align: center;
-    }
-
-    .nav-controls {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-      gap: 20px;
-    }
-
-    .nav-btn {
-      background-color: #f1f5f9;
-      color: #475569;
-      border: none;
-      border-radius: 8px;
-      width: 32px;
-      height: 32px;
-      font-size: 1.1em;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.08);
-    }
-
-    .date-label {
-      font-size: 1em;
-      font-weight: bold;
-      padding: 6px 14px;
-      background-color: #e2e8f0;
-      border-radius: 999px;
-      color: #1e293b;
-      font-family: 'Segoe UI', sans-serif;
-    }
-
-    .carousel-container {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      padding: 20px 0;
-      gap: 20px;
-      justify-content: center;
-    }
-
-    .card {
-      flex: 0 0 90%;
-      max-width: 500px;
-      background: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      scroll-snap-align: center;
-      transition: all 0.3s ease;
-      gap: 15px;
-    }
-
-    .card.inactive {
-      opacity: 0.5;
-    }
-
-    .card.active {
-      opacity: 1;
-      transform: scale(1.03);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    .card-header {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
-    }
-
-    .card img {
-      width: 100px;
-      height: 130px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-right: 15px;
-    }
-
-    .card-info {
-      text-align: left;
-    }
-
-    .card-info .name {
-      font-size: 1em;
-      font-weight: bold;
-      color: #2563eb;
-    }
-
-    .card-description {
-      font-size: 0.95em;
-      line-height: 1.5;
-      color: #444;
-    }
-
-    .card-description .dept {
-      font-weight: bold;
-      font-size: 0.95em;
-      margin-bottom: 8px;
-      color: #1e293b;
-    }
-
-    .trend-box {
-      margin-top: 12px;
-      padding: 10px 12px;
-      background: #f8fafc;
-      border-radius: 10px;
-      font-size: 0.9em;
-      color: #475569;
-      text-align: left;
-    }
-
-    .footer {
-      text-align: center;
-      font-size: 0.9em;
-      margin-top: 40px;
-      padding-bottom: 30px;
-    }
-    .footer a {
-      color: #2563eb;
-      text-decoration: none;
-      font-weight: bold;
-    }
+    body { margin: 0; font-family: Arial, sans-serif; background-color: #ffffff; color: #333; overflow-x: hidden; }
+    .header { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background-color: #f8fafc; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); position: sticky; top: 0; z-index: 100; }
+    .header-left { display: flex; align-items: center; cursor: pointer; }
+    .header-left img { width: 60px; margin-right: 10px; }
+    .title { font-size: 1.5em; font-weight: bold; }
+    .highlight { color: #2563eb; }
+    .menu-group { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+    .language-btn { font-size: 0.9em; border: 1px solid #ccc; border-radius: 6px; background-color: #fff; padding: 6px 10px; cursor: pointer; }
+    .menu-button { font-size: 1.8em; background: none; border: none; cursor: pointer; color: #333; }
+    .main-title { font-size: 1.4em; font-weight: bold; margin: 30px auto 20px; text-align: center; background-color: #e0f2fe; color: #0c4a6e; padding: 10px 20px; width: fit-content; border-radius: 999px; }
+    .main-title span { color: #0c4a6e; }
+    .main-title .highlight { color: #2563eb; font-weight: bold; font-size: 1.1em; }
+    .carousel-wrapper { padding-bottom: 30px; text-align: center; }
+    .nav-controls { display: flex; align-items: center; justify-content: center; margin-bottom: 20px; gap: 20px; }
+    .nav-btn { background-color: #f1f5f9; color: #475569; border: none; border-radius: 8px; width: 32px; height: 32px; font-size: 1.1em; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
+    .date-label { font-size: 1em; font-weight: bold; padding: 6px 14px; background-color: #e2e8f0; border-radius: 999px; color: #1e293b; font-family: 'Segoe UI', sans-serif; }
+    .carousel-container { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding: 20px 0; gap: 20px; justify-content: center; }
+    .card { flex: 0 0 90%; max-width: 500px; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); padding: 20px; display: flex; flex-direction: column; scroll-snap-align: center; transition: all 0.3s ease; gap: 15px; }
+    .card.inactive { opacity: 0.5; }
+    .card.active { opacity: 1; transform: scale(1.03); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); }
+    .card-header { display: flex; flex-direction: row; align-items: flex-start; }
+    .card img { width: 100px; height: 130px; object-fit: cover; border-radius: 10px; margin-right: 15px; }
+    .card-info { text-align: left; }
+    .card-info .name { font-size: 1em; font-weight: bold; color: #2563eb; }
+    .card-description { font-size: 0.95em; line-height: 1.5; color: #444; }
+    .card-description .dept { font-weight: bold; font-size: 0.95em; margin-bottom: 8px; color: #1e293b; }
+    .news-box { margin: 20px auto 30px; text-align: center; font-size: 0.9em; color: #334155; }
+    .news-box a { color: #2563eb; text-decoration: none; font-weight: bold; }
+    .footer { text-align: center; font-size: 0.9em; margin-top: 30px; padding-bottom: 30px; }
+    .footer a { color: #2563eb; text-decoration: none; font-weight: bold; }
   </style>
 </head>
 <body>
@@ -226,8 +44,8 @@
       <div class="title"><span class="highlight">H</span>int <span class="highlight">D</span>ream</div>
     </div>
     <div class="menu-group">
-      <button class="language-btn">🌐 한국어</button>
       <button class="menu-button">≡</button>
+      <button class="language-btn">🌐 한국어</button>
     </div>
   </div>
 
@@ -244,22 +62,18 @@
     <div class="carousel-container" id="carousel"></div>
   </div>
 
+  <div class="news-box">
+    <a href="https://www.kita.net/board/totalTradeNews/totalTradeNewsDetail.do?no=90153&siteId=2" target="_blank">트럼프 조선업 재건의지에 韓 협력가능성 더커져 →</a><br>
+    <a href="https://news.nate.com/view/20250414n01634" target="_blank">흑자 전환에 트럼프 훈풍까지…호황 볕 드는 중형조선사 →</a>
+  </div>
+
   <div class="footer">
     <a href="https://www.hhi.co.kr/" target="_blank">HD현대중공업 홈페이지 바로가기 →</a>
   </div>
 
   <script>
-    const trendTexts = [
-      "조선업, LNG선 수주 호황 지속 중!",
-      "AI와 스마트 조선소 구축이 가속화되고 있어요.",
-      "친환경 연료 적용 선박 기술 주목받는 중!",
-      "세계 1위 조선소, 다시 도약 중입니다.",
-      "블록 자동 용접 기술 도입 확산 중!",
-      "선박 디지털 트윈 기술 실증 추진 중"
-    ];
-
     const cardData = Array.from({ length: 6 }).map((_, i) => {
-      const baseDate = new Date("2024-04-14");
+      const baseDate = new Date("2025-04-14");
       baseDate.setDate(baseDate.getDate() + i);
       const yyyy = baseDate.getFullYear();
       const mm = String(baseDate.getMonth() + 1).padStart(2, '0');
@@ -273,8 +87,7 @@
         name: "민성제 인턴",
         dept: "🏭 엔진기계생산기술1부",
         img: "min.png",
-        desc: `민성제 인턴은 생산 라인 효율성 분석과 자동화 개선 프로젝트에 참여하며 현장 실무 경험을 쌓고 있습니다.`,
-        trend: trendTexts[i % trendTexts.length]
+        desc: `민성제 인턴은 생산 라인 효율성 분석과 자동화 개선 프로젝트에 참여하며 현장 실무 경험을 쌓고 있습니다.`
       };
     });
 
@@ -301,7 +114,6 @@
             <div class="dept">${card.dept}</div>
             ${card.desc}
           </div>
-          <div class="trend-box">${card.trend}</div>
         `;
         carousel.appendChild(cardEl);
       });
