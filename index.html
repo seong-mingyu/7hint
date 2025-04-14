@@ -10,6 +10,7 @@
       font-family: Arial, sans-serif;
       background-color: #ffffff;
       color: #333;
+      overflow-x: hidden;
     }
 
     .header {
@@ -58,21 +59,33 @@
       margin-bottom: 20px;
     }
 
-    .card-container {
+    .carousel-container {
       display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 20px;
+      gap: 20px;
       justify-content: center;
-      margin-bottom: 40px;
     }
 
     .card {
+      flex: 0 0 90%;
+      max-width: 500px;
       background: #ffffff;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       padding: 20px;
       display: flex;
       flex-direction: column;
-      width: 90%;
-      max-width: 600px;
+      scroll-snap-align: center;
+      opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+
+    .card.active {
+      opacity: 1;
+      transform: scale(1.03);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     }
 
     .card-header {
@@ -87,12 +100,6 @@
       object-fit: cover;
       border-radius: 10px;
       margin-right: 15px;
-    }
-
-    .card-info {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
     }
 
     .card-info .dept {
@@ -110,7 +117,6 @@
       font-size: 0.95em;
       line-height: 1.5;
       color: #444;
-      margin-top: 10px;
     }
   </style>
 </head>
@@ -126,33 +132,81 @@
   <div class="main-title">오늘의 직무 이야기</div>
   <div class="date" id="todayDate"></div>
 
-  <div class="card-container">
-    <div class="card">
-      <div class="card-header">
-        <img src="min.png" alt="민성제 인턴">
-        <div class="card-info">
-          <div class="dept">🏭 엔진기계생산기술1부</div>
-          <div class="name">민성제 인턴</div>
-        </div>
-      </div>
-      <div class="card-description">
-        ㅇㅇ
-ㅇㅇ
-ㅇㅇ
-ㅇㅇ
-ㅇㅇ
-ㅇㅇ
-ㅇㅇ
-      </div>
-    </div>
+  <div class="carousel-container" id="carousel">
   </div>
 
   <script>
     const today = new Date();
-    const todayText = today.toLocaleDateString('ko-KR', {
+    const todayDateStr = today.toISOString().split("T")[0];
+    document.getElementById("todayDate").textContent = today.toLocaleDateString('ko-KR', {
       year: 'numeric', month: 'long', day: 'numeric'
     });
-    document.getElementById('todayDate').textContent = todayText;
+
+    const cardData = [
+      {
+        date: "2024-04-14",
+        name: "민성제 인턴",
+        dept: "🏭 엔진기계생산기술1부",
+        img: "min.png",
+        desc: `민성제 인턴은 생산 라인 효율성 분석과 자동화 개선 프로젝트에 참여하며 현장 실무 경험을 쌓고 있습니다.`
+      },
+      {
+        date: "2024-04-15",
+        name: "김우진 인턴",
+        dept: "💻 엔진기계업무시스템기획부",
+        img: "question.png",
+        desc: `김우진 인턴은 시스템 기획부에서 디지털 전환을 위한 업무 표준화 및 자동화 도구 설계 업무를 지원하고 있습니다.`
+      },
+      {
+        date: "2024-04-16",
+        name: "전수민 인턴",
+        dept: "🔥 힘센엔진개발부",
+        img: "question.png",
+        desc: `전수민 인턴은 차세대 고출력 엔진 개발을 위한 구조 설계 및 테스트 데이터 분석을 수행하고 있습니다.`
+      },
+      {
+        date: "2024-04-17",
+        name: "성민규 인턴",
+        dept: "🔬 엔진기계사업기획부",
+        img: "question.png",
+        desc: `성민규 인턴은 엔진 사업 전략 수립을 위한 시장 조사 및 기술 동향 분석을 지원하고 있습니다.`
+      }
+    ];
+
+    const carousel = document.getElementById("carousel");
+
+    cardData.forEach((card, index) => {
+      const cardDate = new Date(card.date);
+      const isPastOrToday = cardDate <= today;
+      const visibleText = isPastOrToday ? card.desc : `${cardDate.getMonth() + 1}월 ${cardDate.getDate()}일에 공개됩니다!`;
+
+      const cardEl = document.createElement("div");
+      cardEl.className = "card";
+      cardEl.innerHTML = `
+        <div class="card-header">
+          <img src="${card.img}" alt="${card.name}">
+          <div class="card-info">
+            <div class="dept">${card.dept}</div>
+            <div class="name">${card.name}</div>
+          </div>
+        </div>
+        <div class="card-description">${visibleText}</div>
+      `;
+      carousel.appendChild(cardEl);
+    });
+
+    const allCards = document.querySelectorAll('.card');
+
+    function updateActiveCard() {
+      const todayIndex = cardData.findIndex(c => c.date === todayDateStr);
+      const selected = allCards[todayIndex];
+      if (selected) {
+        selected.classList.add('active');
+        selected.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+    }
+
+    updateActiveCard();
   </script>
 </body>
 </html>
