@@ -14,8 +14,8 @@
     .menu-group { display: flex; align-items: center; gap: 6px; margin-left: auto; }
     .menu-button { font-size: 1.4em; background: none; border: none; cursor: pointer; color: #333; padding: 4px; }
     .language-btn { font-size: 0.9em; border: 1px solid #ccc; border-radius: 6px; background-color: #fff; padding: 6px 10px; cursor: pointer; }
-    .main-title { font-size: 1.7em; font-weight: bold; margin: 30px auto 20px; text-align: center; background-color: #e0f2fe; color: #0c4a6e; padding: 12px 26px; width: fit-content; border-radius: 999px; }
-    .main-title .highlight { color: #2563eb; font-weight: bold; font-size: 1.2em; }
+    .main-title { font-size: 1.3em; font-weight: bold; margin: 30px auto 20px; text-align: center; background-color: #e0f2fe; color: #0c4a6e; padding: 12px 26px; width: fit-content; border-radius: 999px; }
+    .main-title .highlight { color: #2563eb; font-weight: bold; font-size: 1em; }
     .carousel-wrapper { padding-bottom: 30px; text-align: center; }
     .nav-controls { display: flex; align-items: center; justify-content: center; margin-bottom: 20px; gap: 20px; }
     .nav-btn { background-color: #f1f5f9; color: #475569; border: none; border-radius: 8px; width: 32px; height: 32px; font-size: 1.1em; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
@@ -157,9 +157,24 @@
       renderCards();
     }
 
-    carousel.addEventListener("wheel", (e) => {
-      if (e.deltaY > 0 || e.deltaX > 0) moveSlide(1);
-      else moveSlide(-1);
+    carousel.addEventListener("scroll", () => {
+      const cards = document.querySelectorAll(".card");
+      let closestIndex = 0;
+      let minOffset = Infinity;
+
+      cards.forEach((card, index) => {
+        const rect = card.getBoundingClientRect();
+        const offset = Math.abs(rect.left + rect.width / 2 - window.innerWidth / 2);
+        if (offset < minOffset) {
+          minOffset = offset;
+          closestIndex = index;
+        }
+      });
+
+      if (closestIndex !== currentIndex) {
+        currentIndex = closestIndex;
+        renderCards();
+      }
     });
 
     scrollToToday();
