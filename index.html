@@ -20,10 +20,12 @@
       color: #333;
     }
 
-    .title-vertical {
-      font-size: 1.8em;
+    .title {
+      font-size: 2.4em;
+      font-weight: bold;
+      line-height: 1.2;
+      word-break: keep-all;
       color: #2563eb;
-      line-height: 1.1;
     }
 
     .subtitle {
@@ -124,16 +126,9 @@
 <body>
   <div style="display: flex; flex-direction: column; align-items: center;">
     <img src="logo.png" alt="로고" style="width: 80px; margin-bottom: 8px;" />
-    <div class="title-vertical">
-      <div><span class="highlight">H</span></div>
-      <div>i</div>
-      <div>n</div>
-      <div>t</div>
-      <div style="margin-top: 8px;"><span class="highlight">D</span></div>
-      <div>r</div>
-      <div>e</div>
-      <div>a</div>
-      <div>m</div>
+    <div class="title">
+      <div>Hint</div>
+      <div>Dream</div>
     </div>
   </div>
   <div class="subtitle">현대중공업 오늘의 직무 이야기 ✨</div>
@@ -147,7 +142,6 @@
   </div>
 
   <script>
-    // Firebase 설정 (자신의 Firebase 설정으로 교체 필요)
     const firebaseConfig = {
       apiKey: "YOUR_API_KEY",
       authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
@@ -176,14 +170,12 @@
       { name: "전수민 인턴", dept: "🔥 힘센엔진개발부", img: "question.png", desc: "" },
     ];
 
-    // 방문자 수 기록
     const todayKey = new Date().toISOString().split("T")[0];
     db.ref(`visits/${todayKey}`).transaction(count => (count || 0) + 1);
     db.ref(`visits/${todayKey}`).on("value", snapshot => {
       document.getElementById("visitorCount").textContent = `오늘 방문자 수: ${snapshot.val()}명`;
     });
 
-    // 날짜 출력
     const startDate = new Date("2024-04-11");
     function updateDate(index) {
       const targetDate = new Date(startDate);
@@ -193,7 +185,6 @@
       });
     }
 
-    // 카드 렌더링
     function renderCards() {
       carousel.innerHTML = "";
       cardData.forEach((card, index) => {
@@ -234,7 +225,6 @@
       });
     });
 
-    // 터치 슬라이드
     let startX = 0;
     carousel.addEventListener("touchstart", e => startX = e.touches[0].clientX);
     carousel.addEventListener("touchend", e => {
