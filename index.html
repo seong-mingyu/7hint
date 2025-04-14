@@ -14,10 +14,20 @@
       background-position: center;
       background-repeat: no-repeat;
       background-attachment: fixed;
-      text-align: center;
-      padding: 20px;
       margin: 0;
       color: #333;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding-top: 20px;
+    }
+
+    header img {
+      width: 160px;
     }
 
     .title {
@@ -25,30 +35,39 @@
       font-weight: bold;
       line-height: 1.2;
       word-break: keep-all;
-      color: #2563eb;
     }
 
     .highlight {
+      color: #2563eb;
       font-size: 1.5em;
     }
 
-    .subtitle {
-      font-size: 1.1em;
-      color: #f1f5f9;
-      margin-bottom: 5px;
+    .plain {
+      color: #111;
     }
 
-    .visitor {
-      font-size: 0.95em;
-      color: #fff;
-      margin-bottom: 15px;
+    .subtitle {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #0f172a;
+      border-top: 2px solid #2563eb;
+      border-bottom: 2px solid #2563eb;
+      padding: 10px 0;
+      background-color: rgba(255, 255, 255, 0.7);
     }
 
     .date {
-      font-size: 1em;
-      color: #ffffff;
+      text-align: center;
+      font-size: 1.4em;
       font-weight: bold;
-      margin-bottom: 20px;
+      color: #ef4444;
+      margin: 10px auto 20px;
+      background: #fff3f3;
+      padding: 8px 14px;
+      border-radius: 12px;
+      width: fit-content;
     }
 
     .carousel-container {
@@ -57,13 +76,13 @@
       display: flex;
       justify-content: center;
       overflow: hidden;
+      margin-bottom: 40px;
     }
 
     .carousel {
       display: flex;
-      transition: transform 0.3s ease-in-out;
+      transition: transform 0.4s ease-in-out;
       width: fit-content;
-      justify-content: center;
     }
 
     .card {
@@ -76,14 +95,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      opacity: 0.9;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      opacity: 0.8;
-      scale: 0.95;
     }
 
     .card.active {
       opacity: 1;
-      scale: 1;
+      transform: scale(1.05);
       box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
     }
 
@@ -125,18 +143,38 @@
 
     .arrow.left { left: 5px; }
     .arrow.right { right: 5px; }
+
+    .visitor {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      font-size: 0.9em;
+      color: #ffffff;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 6px 12px;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        flex: 0 0 240px;
+        margin: 0 6px;
+      }
+      .carousel {
+        gap: 0;
+      }
+    }
   </style>
 </head>
 <body>
-  <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 10px;">
-    <img src="logo.png" alt="로고" style="width: 80px;" />
+  <header>
+    <img src="logo.png" alt="로고">
     <div class="title">
-      <div><span class="highlight">H</span>int</div>
-      <div><span class="highlight">D</span>ream</div>
+      <div><span class="highlight">H</span><span class="plain">int</span></div>
+      <div><span class="highlight">D</span><span class="plain">ream</span></div>
     </div>
-  </div>
+  </header>
   <div class="subtitle">현대중공업 오늘의 직무 이야기 ✨</div>
-  <div class="visitor" id="visitorCount">오늘 방문자 수: 0명</div>
   <div class="date" id="todayDate"></div>
 
   <div class="carousel-container">
@@ -144,6 +182,8 @@
     <div class="carousel" id="carousel"></div>
     <button class="arrow right" onclick="moveSlide(1)">&#8594;</button>
   </div>
+
+  <div class="visitor" id="visitorCount">오늘 방문자 수: 0명</div>
 
   <script>
     const firebaseConfig = {
@@ -160,7 +200,7 @@
 
     const carousel = document.getElementById("carousel");
     const currentIndex = { value: 0 };
-    const cardWidth = 304;
+    const cardWidth = 280 + 24; // 카드 너비 + 마진
 
     const cardData = [
       {
@@ -213,7 +253,8 @@
       currentIndex.value += direction;
       if (currentIndex.value < 0) currentIndex.value = 0;
       if (currentIndex.value > maxIndex) currentIndex.value = maxIndex;
-      carousel.style.transform = `translateX(calc(50% - ${cardWidth / 2}px - ${currentIndex.value * cardWidth}px))`;
+      const offset = currentIndex.value * cardWidth;
+      carousel.style.transform = `translateX(calc(50vw - ${cardWidth / 2}px - ${offset}px))`;
       updateDate(currentIndex.value);
       renderCards();
     }
