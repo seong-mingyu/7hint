@@ -115,6 +115,8 @@
     const newsText = document.getElementById("newsText");
     const newsLink = document.getElementById("newsLink");
     let currentIndex = 0;
+    let isScrolling = false;
+    let isProgrammaticScroll = false;
 
     function renderCards() {
       carousel.innerHTML = "";
@@ -151,28 +153,31 @@
       const newIndex = currentIndex + direction;
       if (newIndex >= 0 && newIndex < cardData.length) {
         currentIndex = newIndex;
+        isProgrammaticScroll = true;
         const targetCard = document.querySelector(`.card[data-index='${currentIndex}']`);
         if (targetCard) {
           carousel.scrollTo({ left: targetCard.offsetLeft - 20, behavior: 'smooth' });
         }
         updateInfo();
         renderCards();
+        setTimeout(() => { isProgrammaticScroll = false; }, 400);
       }
     }
 
     function scrollToToday() {
       currentIndex = 0;
+      isProgrammaticScroll = true;
       const targetCard = document.querySelector(`.card[data-index='0']`);
       if (targetCard) {
         carousel.scrollTo({ left: targetCard.offsetLeft - 20, behavior: 'smooth' });
       }
       updateInfo();
       renderCards();
+      setTimeout(() => { isProgrammaticScroll = false; }, 400);
     }
 
-    let isScrolling = false;
     carousel.addEventListener("scroll", () => {
-      if (isScrolling) return;
+      if (isScrolling || isProgrammaticScroll) return;
       isScrolling = true;
 
       setTimeout(() => {
