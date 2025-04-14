@@ -76,9 +76,15 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       padding: 20px;
       display: flex;
-      flex-direction: column;
       scroll-snap-align: center;
       transition: all 0.3s ease;
+      gap: 15px;
+    }
+
+    .card.inactive .card-description {
+      visibility: hidden;
+      height: 0;
+      overflow: hidden;
     }
 
     .card.inactive {
@@ -93,8 +99,8 @@
 
     .card-header {
       display: flex;
-      align-items: flex-start;
-      margin-bottom: 15px;
+      flex-direction: column;
+      align-items: center;
     }
 
     .card img {
@@ -102,7 +108,11 @@
       height: 130px;
       object-fit: cover;
       border-radius: 10px;
-      margin-right: 15px;
+      margin-bottom: 10px;
+    }
+
+    .card-info {
+      text-align: center;
     }
 
     .card-info .dept {
@@ -120,6 +130,7 @@
       font-size: 0.95em;
       line-height: 1.5;
       color: #444;
+      flex: 1;
     }
   </style>
 </head>
@@ -178,7 +189,7 @@
     function renderCards() {
       carousel.innerHTML = "";
 
-      cardData.forEach((card, index) => {
+      cardData.forEach((card) => {
         const cardDate = new Date(card.date);
         const isToday = card.date === todayStr;
         const isPast = cardDate < todayDate;
@@ -230,8 +241,16 @@
       cards.forEach(card => observer.observe(card));
     }
 
+    function scrollToToday() {
+      const todayCard = document.querySelector(`.card[data-date="${todayStr}"]`);
+      if (todayCard) {
+        todayCard.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+    }
+
     renderCards();
     observeCards();
+    scrollToToday();
   </script>
 </body>
 </html>
