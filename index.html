@@ -2,8 +2,10 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>현대중공업 직무 Hint Dream!</title>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -18,17 +20,10 @@
       color: #333;
     }
 
-    .title {
-      font-size: 2.4em;
-      margin-bottom: 10px;
-      line-height: 1.2;
-      word-break: keep-all;
-    }
-
-    .title .highlight {
+    .title-vertical {
+      font-size: 1.8em;
       color: #2563eb;
-      font-weight: bold;
-      font-size: 1.4em;
+      line-height: 1.1;
     }
 
     .subtitle {
@@ -52,7 +47,9 @@
 
     .carousel-container {
       position: relative;
-      max-width: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
       overflow: hidden;
     }
 
@@ -60,6 +57,7 @@
       display: flex;
       transition: transform 0.3s ease-in-out;
       width: fit-content;
+      justify-content: center;
     }
 
     .card {
@@ -84,17 +82,11 @@
     }
 
     .card img {
-      width: 90%;
-      max-height: 160px;
+      width: 90px;
+      height: 120px;
       object-fit: cover;
       border-radius: 12px;
       margin-bottom: 10px;
-    }
-
-    .card h2 {
-      font-size: 1em;
-      color: #2563eb;
-      margin: 5px 0 10px;
     }
 
     .card p {
@@ -125,29 +117,24 @@
       border-radius: 50%;
     }
 
-    .arrow.left {
-      left: 5px;
-    }
-
-    .arrow.right {
-      right: 5px;
-    }
-
-    @media (max-width: 600px) {
-      .card {
-        flex: 0 0 250px;
-      }
-
-      .card img {
-        max-height: 140px;
-      }
-    }
+    .arrow.left { left: 5px; }
+    .arrow.right { right: 5px; }
   </style>
 </head>
 <body>
-  <div class="title">
-    <span class="highlight">H</span><span>int </span>
-    <span class="highlight">D</span><span>ream</span>
+  <div style="display: flex; flex-direction: column; align-items: center;">
+    <img src="logo.png" alt="로고" style="width: 80px; margin-bottom: 8px;" />
+    <div class="title-vertical">
+      <div><span class="highlight">H</span></div>
+      <div>i</div>
+      <div>n</div>
+      <div>t</div>
+      <div style="margin-top: 8px;"><span class="highlight">D</span></div>
+      <div>r</div>
+      <div>e</div>
+      <div>a</div>
+      <div>m</div>
+    </div>
   </div>
   <div class="subtitle">현대중공업 오늘의 직무 이야기 ✨</div>
   <div class="visitor" id="visitorCount">오늘 방문자 수: 0명</div>
@@ -160,82 +147,43 @@
   </div>
 
   <script>
-    const cardData = [
-      {
-        name: "민성제 인턴",
-        dept: "🏭 엔진기계생산기술1부",
-        img: "min.png",
-        desc: `저는 스마트팩토리와 엔진 블록 가공 업무를 담당하기 위해 엔진 공정을 배우고 있습니다. 이 과정에서 엔진 생산의 흐름을 이해하고, 각 공정에서의 세부 사항을 학습하며 실무 경험을 쌓고 있습니다.\n특히, “엔진 블록 Holding point 적용으로 품질 및 안전 개선”이라는 개인 과제를 하며, 품질 향상과 안전성 강화 방안을 모색하고 있습니다.`
-      },
-      {
-        name: "성민규 인턴",
-        dept: "🔬 엔진기계사업기획부",
-        img: "question.png",
-        desc: ""
-      },
-      {
-        name: "김동현 인턴",
-        dept: "🚀 엔진개발부",
-        img: "question.png",
-        desc: ""
-      },
-      {
-        name: "전수민 인턴",
-        dept: "🔥 힘센엔진개발부",
-        img: "question.png",
-        desc: ""
-      },
-      {
-        name: "정명수 인턴",
-        dept: "📞 엔진시스템기술영업부",
-        img: "question.png",
-        desc: ""
-      },
-      {
-        name: "노건우 인턴",
-        dept: "🏭 생산기술2부",
-        img: "question.png",
-        desc: ""
-      },
-      {
-        name: "김동현 인턴",
-        dept: "📐 대형엔진설계부",
-        img: "question.png",
-        desc: ""
-      },
-      {
-        name: "김우진 인턴",
-        dept: "💻 엔진기계업무시스템기획부",
-        img: "question.png",
-        desc: ""
-      },
-      {
-        name: "이제진 인턴",
-        dept: "🔬 엔진개발시험부",
-        img: "question.png",
-        desc: ""
-      },
-      {
-        name: "이민규 인턴",
-        dept: "🏗 생산기술2부",
-        img: "question.png",
-        desc: ""
-      }
-    ];
+    // Firebase 설정 (자신의 Firebase 설정으로 교체 필요)
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "SENDER_ID",
+      appId: "APP_ID"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
     const carousel = document.getElementById("carousel");
     const currentIndex = { value: 0 };
     const cardWidth = 304;
 
-    // 방문자 수 (간단 구현)
-    const today = new Date().toLocaleDateString();
-    let visits = JSON.parse(localStorage.getItem("visits") || "{}");
-    if (!visits[today]) visits[today] = 0;
-    visits[today]++;
-    localStorage.setItem("visits", JSON.stringify(visits));
-    document.getElementById("visitorCount").textContent = `오늘 방문자 수: ${visits[today]}명`;
+    const cardData = [
+      {
+        name: "민성제 인턴",
+        dept: "🏭 엔진기계생산기술1부",
+        img: "min.png",
+        desc: `저는 스마트팩토리와 엔진 블록 가공 업무를 담당하기 위해 엔진 공정을 배우고 있습니다.\n특히, \"엔진 블록 Holding point 적용으로 품질 및 안전 개선\"이라는 개인 과제를 하며 방안을 모색하고 있습니다.`
+      },
+      { name: "성민규 인턴", dept: "🔬 엔진기계사업기획부", img: "question.png", desc: "" },
+      { name: "김동현 인턴", dept: "🚀 엔진개발부", img: "question.png", desc: "" },
+      { name: "전수민 인턴", dept: "🔥 힘센엔진개발부", img: "question.png", desc: "" },
+    ];
 
-    // 날짜 표시
+    // 방문자 수 기록
+    const todayKey = new Date().toISOString().split("T")[0];
+    db.ref(`visits/${todayKey}`).transaction(count => (count || 0) + 1);
+    db.ref(`visits/${todayKey}`).on("value", snapshot => {
+      document.getElementById("visitorCount").textContent = `오늘 방문자 수: ${snapshot.val()}명`;
+    });
+
+    // 날짜 출력
     const startDate = new Date("2024-04-11");
     function updateDate(index) {
       const targetDate = new Date(startDate);
@@ -245,7 +193,7 @@
       });
     }
 
-    // 카드 생성
+    // 카드 렌더링
     function renderCards() {
       carousel.innerHTML = "";
       cardData.forEach((card, index) => {
@@ -254,45 +202,47 @@
         if (index === currentIndex.value) cardEl.classList.add("active");
         cardEl.innerHTML = `
           <img src="${card.img}" alt="${card.name}" />
-          <h2>${card.dept} - ${card.name}</h2>
-          <p>${card.desc || "?"}</p>
-          <button class="heart-btn" onclick="likeCard(this)">❤️ <span>0</span></button>
+          <div style="margin-top: 5px;">
+            <div style="font-weight: bold; font-size: 0.95em; color: #1e293b;">${card.dept}</div>
+            <div style="font-size: 0.9em; color: #2563eb; margin-top: 4px;">${card.name}</div>
+          </div>
+          <p>${card.desc || "작성 중입니다 😊"}</p>
+          <button class="heart-btn" onclick="likeCard(${index})">❤️ <span id="like-${index}">0</span></button>
         `;
         carousel.appendChild(cardEl);
       });
     }
 
-    // 이동 기능
     function moveSlide(direction) {
       const maxIndex = cardData.length - 1;
       currentIndex.value += direction;
       if (currentIndex.value < 0) currentIndex.value = 0;
       if (currentIndex.value > maxIndex) currentIndex.value = maxIndex;
-      carousel.style.transform = `translateX(-${currentIndex.value * cardWidth}px)`;
+      carousel.style.transform = `translateX(calc(50% - ${cardWidth / 2}px - ${currentIndex.value * cardWidth}px))`;
       updateDate(currentIndex.value);
       renderCards();
     }
 
-    // 하트 버튼
-    function likeCard(btn) {
-      const span = btn.querySelector("span");
-      span.textContent = parseInt(span.textContent) + 1;
+    function likeCard(index) {
+      const ref = db.ref(`likes/${index}`);
+      ref.transaction(like => (like || 0) + 1);
     }
+
+    cardData.forEach((_, index) => {
+      db.ref(`likes/${index}`).on("value", snapshot => {
+        document.getElementById(`like-${index}`).textContent = snapshot.val() || 0;
+      });
+    });
 
     // 터치 슬라이드
     let startX = 0;
-    carousel.addEventListener("touchstart", (e) => {
-      startX = e.touches[0].clientX;
-    });
-
-    carousel.addEventListener("touchend", (e) => {
-      const endX = e.changedTouches[0].clientX;
-      const diff = startX - endX;
+    carousel.addEventListener("touchstart", e => startX = e.touches[0].clientX);
+    carousel.addEventListener("touchend", e => {
+      const diff = startX - e.changedTouches[0].clientX;
       if (diff > 50) moveSlide(1);
       else if (diff < -50) moveSlide(-1);
     });
 
-    // 초기 실행
     updateDate(currentIndex.value);
     renderCards();
   </script>
