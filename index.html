@@ -81,12 +81,6 @@
       gap: 15px;
     }
 
-    .card.inactive .card-description {
-      visibility: hidden;
-      height: 0;
-      overflow: hidden;
-    }
-
     .card.inactive {
       opacity: 0.5;
     }
@@ -165,21 +159,21 @@
         name: "김우진 인턴",
         dept: "💻 엔진기계업무시스템기획부",
         img: "question.png",
-        desc: `김우진 인턴은 시스템 기획부에서 디지털 전환을 위한 업무 표준화 및 자동화 도구 설계 업무를 지원하고 있습니다.`
+        desc: `4월 15일에 공개됩니다!`
       },
       {
         date: "2024-04-16",
         name: "전수민 인턴",
         dept: "🔥 힘센엔진개발부",
         img: "question.png",
-        desc: `전수민 인턴은 차세대 고출력 엔진 개발을 위한 구조 설계 및 테스트 데이터 분석을 수행하고 있습니다.`
+        desc: `4월 16일에 공개됩니다!`
       },
       {
         date: "2024-04-17",
         name: "성민규 인턴",
         dept: "🔬 엔진기계사업기획부",
         img: "question.png",
-        desc: `성민규 인턴은 엔진 사업 전략 수립을 위한 시장 조사 및 기술 동향 분석을 지원하고 있습니다.`
+        desc: `4월 17일에 공개됩니다!`
       }
     ];
 
@@ -192,12 +186,7 @@
       cardData.forEach((card) => {
         const cardDate = new Date(card.date);
         const isToday = card.date === todayStr;
-        const isPast = cardDate < todayDate;
         const isFuture = cardDate > todayDate;
-
-        const description = isPast || isToday
-          ? card.desc
-          : `${cardDate.getMonth() + 1}월 ${cardDate.getDate()}일에 공개됩니다!`;
 
         const cardEl = document.createElement("div");
         cardEl.className = `card${isToday ? ' active' : ''}${isFuture ? ' inactive' : ''}`;
@@ -210,7 +199,7 @@
               <div class="name">${card.name}</div>
             </div>
           </div>
-          <div class="card-description">${description}</div>
+          <div class="card-description">${card.desc}</div>
         `;
         carousel.appendChild(cardEl);
       });
@@ -242,9 +231,9 @@
     }
 
     function scrollToToday() {
-      const todayCard = document.querySelector(`.card[data-date="${todayStr}"]`);
+      const todayCard = document.querySelector(`.card[data-date="2024-04-14"]`); // 고정 날짜 민성제
       if (todayCard) {
-        todayCard.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        todayCard.scrollIntoView({ behavior: 'instant', inline: 'center', block: 'nearest' });
       }
     }
 
