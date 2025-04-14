@@ -51,13 +51,21 @@
       gap: 10px;
     }
 
-    .language-btn, .menu-button {
+    .language-btn {
       font-size: 0.9em;
       border: 1px solid #ccc;
       border-radius: 6px;
       background-color: #fff;
       padding: 6px 10px;
       cursor: pointer;
+    }
+
+    .menu-button {
+      font-size: 1.8em;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #333;
     }
 
     .main-title {
@@ -81,7 +89,7 @@
     }
 
     .carousel-wrapper {
-      padding-bottom: 40px;
+      padding-bottom: 60px;
       text-align: center;
     }
 
@@ -94,8 +102,8 @@
     }
 
     .nav-btn {
-      background-color: #2563eb;
-      color: white;
+      background-color: #f1f5f9;
+      color: #475569;
       border: none;
       border-radius: 8px;
       width: 32px;
@@ -105,15 +113,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.08);
     }
 
     .date-label {
       font-size: 1em;
       font-weight: bold;
-      padding: 6px 12px;
-      background-color: #f1f5f9;
+      padding: 6px 14px;
+      background-color: #e2e8f0;
       border-radius: 999px;
-      color: #334155;
+      color: #1e293b;
+      font-family: 'Segoe UI', sans-serif;
     }
 
     .carousel-container {
@@ -133,7 +143,7 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       padding: 20px;
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       scroll-snap-align: center;
       transition: all 0.3s ease;
       gap: 15px;
@@ -151,9 +161,8 @@
 
     .card-header {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 120px;
+      flex-direction: row;
+      align-items: flex-start;
     }
 
     .card img {
@@ -161,15 +170,16 @@
       height: 130px;
       object-fit: cover;
       border-radius: 10px;
-      margin-bottom: 8px;
+      margin-right: 15px;
     }
 
     .card-info {
-      text-align: center;
+      text-align: left;
     }
 
     .card-info .name {
-      font-size: 0.95em;
+      font-size: 1em;
+      font-weight: bold;
       color: #2563eb;
     }
 
@@ -177,7 +187,6 @@
       font-size: 0.95em;
       line-height: 1.5;
       color: #444;
-      flex: 1;
     }
 
     .card-description .dept {
@@ -185,6 +194,28 @@
       font-size: 0.95em;
       margin-bottom: 8px;
       color: #1e293b;
+    }
+
+    .trend-box {
+      margin-top: 12px;
+      padding: 10px 12px;
+      background: #f8fafc;
+      border-radius: 10px;
+      font-size: 0.9em;
+      color: #475569;
+      text-align: left;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.9em;
+      margin-top: 40px;
+      padding-bottom: 30px;
+    }
+    .footer a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -196,7 +227,7 @@
     </div>
     <div class="menu-group">
       <button class="language-btn">🌐 한국어</button>
-      <button class="menu-button">메뉴</button>
+      <button class="menu-button">≡</button>
     </div>
   </div>
 
@@ -213,7 +244,20 @@
     <div class="carousel-container" id="carousel"></div>
   </div>
 
+  <div class="footer">
+    <a href="https://www.hhi.co.kr/" target="_blank">HD현대중공업 홈페이지 바로가기 →</a>
+  </div>
+
   <script>
+    const trendTexts = [
+      "조선업, LNG선 수주 호황 지속 중!",
+      "AI와 스마트 조선소 구축이 가속화되고 있어요.",
+      "친환경 연료 적용 선박 기술 주목받는 중!",
+      "세계 1위 조선소, 다시 도약 중입니다.",
+      "블록 자동 용접 기술 도입 확산 중!",
+      "선박 디지털 트윈 기술 실증 추진 중"
+    ];
+
     const cardData = Array.from({ length: 6 }).map((_, i) => {
       const baseDate = new Date("2024-04-14");
       baseDate.setDate(baseDate.getDate() + i);
@@ -221,13 +265,16 @@
       const mm = String(baseDate.getMonth() + 1).padStart(2, '0');
       const dd = String(baseDate.getDate()).padStart(2, '0');
       const date = `${yyyy}-${mm}-${dd}`;
+      const dayStr = baseDate.toLocaleDateString("ko-KR", { weekday: "long" });
 
       return {
         date,
+        day: dayStr,
         name: "민성제 인턴",
         dept: "🏭 엔진기계생산기술1부",
         img: "min.png",
-        desc: `민성제 인턴은 생산 라인 효율성 분석과 자동화 개선 프로젝트에 참여하며 현장 실무 경험을 쌓고 있습니다.`
+        desc: `민성제 인턴은 생산 라인 효율성 분석과 자동화 개선 프로젝트에 참여하며 현장 실무 경험을 쌓고 있습니다.`,
+        trend: trendTexts[i % trendTexts.length]
       };
     });
 
@@ -254,11 +301,13 @@
             <div class="dept">${card.dept}</div>
             ${card.desc}
           </div>
+          <div class="trend-box">${card.trend}</div>
         `;
         carousel.appendChild(cardEl);
       });
 
-      dateLabel.textContent = cardData[currentIndex].date;
+      const card = cardData[currentIndex];
+      dateLabel.textContent = `${card.date} (${card.day})`;
 
       const activeCard = document.querySelector(`.card[data-index='${currentIndex}']`);
       if (activeCard) {
