@@ -8,11 +8,11 @@
     body { margin: 0; font-family: Arial, sans-serif; background-color: #ffffff; color: #333; overflow-x: hidden; }
     .header { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background-color: #f8fafc; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); position: sticky; top: 0; z-index: 100; }
     .header-left { display: flex; align-items: center; cursor: pointer; }
-    .header-left img { width: 60px; margin-right: 10px; }
+    .header-left img { width: 80px; margin-right: 10px; }
     .title { font-size: 1.5em; font-weight: bold; }
     .highlight { color: #2563eb; font-weight: bold; }
-    .menu-group { display: flex; align-items: center; gap: 10px; margin-left: auto; }
-    .menu-button { font-size: 1.8em; background: none; border: none; cursor: pointer; color: #333; }
+    .menu-group { display: flex; align-items: center; gap: 6px; margin-left: auto; }
+    .menu-button { font-size: 1.4em; background: none; border: none; cursor: pointer; color: #333; padding: 4px; }
     .language-btn { font-size: 0.9em; border: 1px solid #ccc; border-radius: 6px; background-color: #fff; padding: 6px 10px; cursor: pointer; }
     .main-title { font-size: 1.7em; font-weight: bold; margin: 30px auto 20px; text-align: center; background-color: #e0f2fe; color: #0c4a6e; padding: 12px 26px; width: fit-content; border-radius: 999px; }
     .main-title .highlight { color: #2563eb; font-weight: bold; font-size: 1.2em; }
@@ -32,7 +32,8 @@
     .card-description .dept { font-weight: bold; font-size: 0.95em; margin-bottom: 8px; color: #1e293b; }
     .news-title { font-size: 1.1em; font-weight: bold; text-align: center; margin-top: 40px; color: #1e293b; }
     .news-box { text-align: center; margin: 10px auto 40px; }
-    .news-box a { display: inline-block; background-color: #f1f5f9; padding: 10px 16px; border-radius: 8px; text-decoration: none; color: #2563eb; font-weight: bold; transition: background 0.3s; }
+    .news-text { margin-bottom: 10px; font-size: 0.95em; color: #334155; }
+    .news-box a { display: inline-block; background-color: #f1f5f9; padding: 8px 16px; border-radius: 8px; text-decoration: none; color: #2563eb; font-weight: bold; transition: background 0.3s; }
     .news-box a:hover { background-color: #e2e8f0; }
     .footer { text-align: center; font-size: 0.9em; margin-top: 30px; padding-bottom: 30px; }
     .footer a { color: #2563eb; text-decoration: none; font-weight: bold; }
@@ -63,8 +64,11 @@
     <div class="carousel-container" id="carousel"></div>
   </div>
 
-  <div class="news-title">오늘의 주요 NEWS</div>
-  <div class="news-box" id="newsBox"></div>
+  <div class="news-title">📰 오늘의 주요 NEWS</div>
+  <div class="news-box">
+    <div class="news-text" id="newsText"></div>
+    <a id="newsLink" href="#" target="_blank">본문 읽기</a>
+  </div>
 
   <div class="footer">
     <a href="https://www.hhi.co.kr/" target="_blank">HD현대중공업 홈페이지 바로가기 →</a>
@@ -102,7 +106,8 @@
 
     const carousel = document.getElementById("carousel");
     const dateLabel = document.getElementById("dateLabel");
-    const newsBox = document.getElementById("newsBox");
+    const newsText = document.getElementById("newsText");
+    const newsLink = document.getElementById("newsLink");
     let currentIndex = 0;
 
     function renderCards() {
@@ -130,7 +135,8 @@
 
       const card = cardData[currentIndex];
       dateLabel.textContent = `${card.date} (${card.day})`;
-      newsBox.innerHTML = `<a href="${card.news.url}" target="_blank">본문 읽기: ${card.news.title}</a>`;
+      newsText.textContent = card.news.title;
+      newsLink.href = card.news.url;
 
       const activeCard = document.querySelector(`.card[data-index='${currentIndex}']`);
       if (activeCard) {
