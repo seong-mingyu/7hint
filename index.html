@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hint Dream 직무 소개</title>
   <style>
     @font-face {
       font-family: 'HDHyundaiLight';
       src: url('./fonts/HDHyundai-Light.ttf') format('truetype');
+      font-weight: 300;
     }
+
     @font-face {
       font-family: 'HDHyundaiBold';
       src: url('./fonts/HDHyundai-Bold.ttf') format('truetype');
+      font-weight: 700;
     }
+
     body {
       margin: 0;
       font-family: 'HDHyundaiLight', sans-serif;
@@ -20,6 +24,7 @@
       color: #333;
       overflow-x: hidden;
     }
+
     .header {
       display: flex;
       align-items: center;
@@ -31,56 +36,39 @@
       top: 0;
       z-index: 100;
     }
+
     .header-left {
       display: flex;
       align-items: center;
       cursor: pointer;
     }
+
     .header-left img {
       width: 120px;
       margin-right: 10px;
     }
+
     .title {
-      font-size: 1.8em;
+      font-size: 1.5em;
       font-family: 'HDHyundaiBold';
       color: #003087;
     }
+
     .menu-group {
       display: flex;
       align-items: center;
       gap: 6px;
     }
+
     .menu-button {
-      font-size: 2em;
+      font-size: 1.4em;
       background: none;
       border: none;
       cursor: pointer;
       color: #333;
       padding: 4px;
     }
-    .side-menu {
-      position: fixed;
-      top: 0;
-      right: -250px;
-      width: 250px;
-      height: 100%;
-      background-color: #f8fafc;
-      box-shadow: -2px 0 6px rgba(0,0,0,0.1);
-      transition: right 0.3s ease;
-      padding: 60px 20px;
-      z-index: 200;
-    }
-    .side-menu.open {
-      right: 0;
-    }
-    .side-menu a {
-      display: block;
-      font-size: 1.1em;
-      margin-bottom: 16px;
-      color: #003087;
-      text-decoration: none;
-      font-family: 'HDHyundaiBold';
-    }
+
     .main-title {
       font-size: 1.3em;
       font-family: 'HDHyundaiBold';
@@ -92,154 +80,36 @@
       width: fit-content;
       border-radius: 999px;
     }
+
     .main-title .highlight {
       color: #003087;
     }
+
     .main-title .green {
       color: #008233;
     }
-    .carousel-wrapper {
-      padding-bottom: 30px;
-      text-align: center;
-    }
-    .nav-controls {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-      gap: 20px;
-    }
-    .nav-btn {
-      background-color: #f1f5f9;
-      color: #475569;
-      border: none;
-      border-radius: 8px;
-      width: 32px;
-      height: 32px;
-      font-size: 1.1em;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.08);
-    }
-    .date-label {
-      font-size: 1em;
-      font-weight: bold;
-      padding: 6px 14px;
-      background-color: #e2e8f0;
-      border-radius: 999px;
-      color: #1e293b;
-      font-family: 'HDHyundaiBold';
-    }
-    .carousel-container {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      padding: 20px 0;
-      gap: 20px;
-      justify-content: center;
-      scroll-behavior: smooth;
-    }
-    .card {
-      flex: 0 0 90%;
-      max-width: 500px;
-      background: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      display: flex;
-      flex-direction: row;
-      scroll-snap-align: center;
-      transition: all 0.3s ease;
-      gap: 15px;
-    }
-    .card.inactive {
-      opacity: 0.5;
-    }
-    .card.active {
-      opacity: 1;
-      transform: scale(1.03);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-    }
-    .card-header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 120px;
-    }
-    .card img {
-      width: 100px;
-      height: 130px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 8px;
-    }
-    .card-info {
-      text-align: center;
-    }
-    .card-info .name {
-      font-size: 1em;
-      font-family: 'HDHyundaiBold';
-      color: #2563eb;
-    }
-    .card-description {
-      font-size: 0.95em;
-      line-height: 1.5;
-      color: #444;
-      flex: 1;
-      font-family: 'HDHyundaiLight';
-    }
-    .card-description .dept {
-      font-weight: bold;
-      font-size: 0.95em;
-      margin-bottom: 8px;
-      color: #1e293b;
-      font-family: 'HDHyundaiBold';
-    }
-    .news-title {
-      font-size: 1.1em;
-      font-weight: bold;
-      text-align: center;
-      margin-top: 40px;
-      color: #1e293b;
-      font-family: 'HDHyundaiBold';
-    }
-    .news-box {
-      text-align: center;
-      margin: 10px auto 40px;
-    }
-    .news-text {
-      margin-bottom: 10px;
-      font-size: 0.95em;
-      color: #334155;
-      font-family: 'HDHyundaiLight';
-    }
-    .news-box a {
-      display: inline-block;
-      background-color: #f1f5f9;
-      padding: 8px 16px;
-      border-radius: 8px;
-      text-decoration: none;
-      color: #2563eb;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-    .news-box a:hover {
-      background-color: #e2e8f0;
-    }
-    .footer {
-      text-align: center;
-      font-size: 0.9em;
-      margin-top: 30px;
-      padding-bottom: 30px;
-      font-family: 'HDHyundaiLight';
-    }
-    .footer a {
-      color: #2563eb;
-      text-decoration: none;
-      font-weight: bold;
-    }
+
+    .carousel-wrapper { padding-bottom: 30px; text-align: center; }
+    .nav-controls { display: flex; align-items: center; justify-content: center; margin-bottom: 20px; gap: 20px; }
+    .nav-btn { background-color: #f1f5f9; color: #475569; border: none; border-radius: 8px; width: 32px; height: 32px; font-size: 1.1em; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
+    .date-label { font-size: 1em; font-weight: bold; padding: 6px 14px; background-color: #e2e8f0; border-radius: 999px; color: #1e293b; font-family: 'HDHyundaiBold'; }
+    .carousel-container { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding: 20px 0; gap: 20px; justify-content: center; scroll-behavior: smooth; }
+    .card { flex: 0 0 90%; max-width: 500px; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); padding: 20px; display: flex; flex-direction: row; scroll-snap-align: center; transition: all 0.3s ease; gap: 15px; }
+    .card.inactive { opacity: 0.5; }
+    .card.active { opacity: 1; transform: scale(1.03); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); }
+    .card-header { display: flex; flex-direction: column; align-items: center; width: 120px; }
+    .card img { width: 100px; height: 130px; object-fit: cover; border-radius: 10px; margin-bottom: 8px; }
+    .card-info { text-align: center; }
+    .card-info .name { font-size: 1em; font-family: 'HDHyundaiBold'; color: #2563eb; }
+    .card-description { font-size: 0.95em; line-height: 1.5; color: #444; flex: 1; font-family: 'HDHyundaiLight'; }
+    .card-description .dept { font-weight: bold; font-size: 0.95em; margin-bottom: 8px; color: #1e293b; font-family: 'HDHyundaiBold'; }
+    .news-title { font-size: 1.1em; font-weight: bold; text-align: center; margin-top: 40px; color: #1e293b; font-family: 'HDHyundaiBold'; }
+    .news-box { text-align: center; margin: 10px auto 40px; }
+    .news-text { margin-bottom: 10px; font-size: 0.95em; color: #334155; font-family: 'HDHyundaiLight'; }
+    .news-box a { display: inline-block; background-color: #f1f5f9; padding: 8px 16px; border-radius: 8px; text-decoration: none; color: #2563eb; font-weight: bold; transition: background 0.3s; }
+    .news-box a:hover { background-color: #e2e8f0; }
+    .footer { text-align: center; font-size: 0.9em; margin-top: 30px; padding-bottom: 30px; font-family: 'HDHyundaiLight'; }
+    .footer a { color: #2563eb; text-decoration: none; font-weight: bold; }
   </style>
 </head>
 <body>
@@ -249,15 +119,8 @@
       <div class="title"><span class="highlight">H</span>int <span class="highlight">D</span>ream</div>
     </div>
     <div class="menu-group">
-      <button class="menu-button" onclick="toggleMenu()">≡</button>
+      <button class="menu-button">≡</button>
     </div>
-  </div>
-
-  <div class="side-menu" id="sideMenu">
-    <a href="index.html">직무 Hint Dream</a>
-    <a href="internship.html">인턴십 Hint Dream</a>
-    <a href="recruit.html">채용 Hint Dream</a>
-    <a href="major.html">학과별 Hint Dream</a>
   </div>
 
   <div class="main-title">
@@ -284,11 +147,205 @@
   </div>
 
   <script>
-    function toggleMenu() {
-      const menu = document.getElementById("sideMenu");
-      menu.classList.toggle("open");
+    const newsLinks = [
+      { title: "LNG선 수주 세계 1위 지속 중", url: "https://www.kita.net/board/totalTradeNews/totalTradeNewsDetail.do?no=90153&siteId=2" },
+      { title: "흑자 전환에 트럼프 훈풍까지…호황 볕 드는 중형조선사", url: "https://news.nate.com/view/20250414n01634" },
+      { title: "친환경 연료 시장 확산, 조선업계 탄소 중립 박차", url: "https://www.sedaily.com/NewsView/29P8NYZNH8" },
+      { title: "HD현대, 디지털 트윈 기술 상용화 착수", url: "https://biz.chosun.com/industry/company/2025/04/01/VBGONIE6K5AHTAMNLMQDR4VOGY/" },
+      { title: "고부가가치 선박 집중 수주로 업계 호황 기대", url: "https://www.hankyung.com/economy/article/2025032984381" },
+      { title: "중형조선소, 블록 자동화 기술로 경쟁력 확보", url: "https://www.mk.co.kr/news/business/10852676" }
+    ];
+
+    const cardData = [
+      {
+        date: "2025-05-08",
+        day: "목요일",
+        name: "김동현 인턴",
+        dept: "🧪 엔진개발부",
+        img: "",
+        desc: "김동현 인턴은 엔진 신기술 개발과 실험 검증 업무를 지원하고 있습니다.",
+        news: newsLinks[0]
+      },
+      {
+        date: "2025-05-09",
+        day: "금요일",
+        name: "전수민 인턴",
+        dept: "🧠 힘센엔진설계부",
+        img: "",
+        desc: "전수민 인턴은 힘센엔진 설계 모델링 및 검토 보조 업무를 수행하고 있습니다.",
+        news: newsLinks[1]
+      },
+      {
+        date: "2025-05-10",
+        day: "토요일",
+        name: "정명수 인턴",
+        dept: "📞 엔진시스템기술영업부",
+        img: "",
+        desc: "정명수 인턴은 고객 대응 기술자료 정리 및 기술영업 지원 업무를 맡고 있습니다.",
+        news: newsLinks[2]
+      },
+      {
+        date: "2025-05-11",
+        day: "일요일",
+        name: "노건우 인턴",
+        dept: "🏭 생산기술2부",
+        img: "",
+        desc: "노건우 인턴은 생산현장 개선 과제와 관련한 공정 분석을 수행하고 있습니다.",
+        news: newsLinks[3]
+      },
+      {
+        date: "2025-05-12",
+        day: "월요일",
+        name: "민성제 인턴",
+        dept: "🏭 생산기술1부",
+        img: "min.png",
+        desc: "민성제 인턴은 생산 라인 효율성 분석과 자동화 개선 프로젝트에 참여하며 현장 실무 경험을 쌓고 있습니다.",
+        news: newsLinks[4]
+      },
+      {
+        date: "2025-05-13",
+        day: "화요일",
+        name: "김동현 인턴",
+        dept: "🛠️ 대형엔진설계부",
+        img: "",
+        desc: "김동현 인턴은 대형 선박엔진의 설계 검토와 도면 정리에 참여하고 있습니다.",
+        news: newsLinks[5]
+      },
+      {
+        date: "2025-05-14",
+        day: "수요일",
+        name: "김우진 인턴",
+        dept: "📊 엔진기계업무시스템기획부",
+        img: "",
+        desc: "김우진 인턴은 업무 시스템 기획 및 내부 데이터 정비 업무를 맡고 있습니다.",
+        news: newsLinks[0]
+      },
+      {
+        date: "2025-05-15",
+        day: "목요일",
+        name: "성민규 인턴",
+        dept: "📈 엔진기계사업기획부",
+        img: "",
+        desc: "성민규 인턴은 엔진기계사업 기획 자료 작성과 시장 분석 업무를 보조하고 있습니다.",
+        news: newsLinks[1]
+      },
+      {
+        date: "2025-05-16",
+        day: "금요일",
+        name: "이민규 인턴",
+        dept: "🏭 생산기술2부",
+        img: "",
+        desc: "이민규 인턴은 공정 개선을 위한 설비 레이아웃 분석과 표준 작업 지원을 하고 있습니다.",
+        news: newsLinks[2]
+      },
+      {
+        date: "2025-05-17",
+        day: "토요일",
+        name: "이제진 인턴",
+        dept: "🧪 엔진개발시험부",
+        img: "",
+        desc: "이제진 인턴은 시험 장비 셋업과 시험 결과 정리 등 개발 시험 업무를 보조하고 있습니다.",
+        news: newsLinks[3]
+      }
+    ];
+
+    const carousel = document.getElementById("carousel");
+    const dateLabel = document.getElementById("dateLabel");
+    const newsText = document.getElementById("newsText");
+    const newsLink = document.getElementById("newsLink");
+    let currentIndex = 0;
+    let isScrolling = false;
+    let isProgrammaticScroll = false;
+
+    function renderCards() {
+      carousel.innerHTML = "";
+
+      cardData.forEach((card, index) => {
+        const isActive = index === currentIndex;
+        const cardEl = document.createElement("div");
+        cardEl.className = `card${isActive ? ' active' : ' inactive'}`;
+        cardEl.setAttribute("data-index", index);
+        cardEl.innerHTML = `
+          <div class="card-header">
+            <img src="${card.img}" alt="${card.name}">
+            <div class="card-info">
+              <div class="name">${card.name}</div>
+            </div>
+          </div>
+          <div class="card-description">
+            <div class="dept">${card.dept}</div>
+            ${card.desc}
+          </div>
+        `;
+        carousel.appendChild(cardEl);
+      });
     }
+
+    function updateInfo() {
+      const card = cardData[currentIndex];
+      dateLabel.textContent = `${card.date} (${card.day})`;
+      newsText.textContent = card.news.title;
+      newsLink.href = card.news.url;
+    }
+
+    function moveSlide(direction) {
+      const newIndex = currentIndex + direction;
+      if (newIndex >= 0 && newIndex < cardData.length) {
+        currentIndex = newIndex;
+        isProgrammaticScroll = true;
+        const targetCard = document.querySelector(`.card[data-index='${currentIndex}']`);
+        if (targetCard) {
+          carousel.scrollTo({ left: targetCard.offsetLeft - 20, behavior: 'smooth' });
+        }
+        updateInfo();
+        renderCards();
+        setTimeout(() => { isProgrammaticScroll = false; }, 400);
+      }
+    }
+
+    function scrollToToday() {
+      currentIndex = 0;
+      renderCards();
+      updateInfo();
+      setTimeout(() => {
+        const targetCard = document.querySelector(`.card[data-index='0']`);
+        if (targetCard) {
+          isProgrammaticScroll = true;
+          carousel.scrollTo({ left: targetCard.offsetLeft - 20, behavior: 'smooth' });
+          setTimeout(() => { isProgrammaticScroll = false; }, 400);
+        }
+      }, 0);
+    }
+
+    carousel.addEventListener("scroll", () => {
+      if (isScrolling || isProgrammaticScroll) return;
+      isScrolling = true;
+
+      setTimeout(() => {
+        const cards = document.querySelectorAll(".card");
+        let closestIndex = 0;
+        let minOffset = Infinity;
+
+        cards.forEach((card, index) => {
+          const rect = card.getBoundingClientRect();
+          const offset = Math.abs(rect.left + rect.width / 2 - window.innerWidth / 2);
+          if (offset < minOffset) {
+            minOffset = offset;
+            closestIndex = index;
+          }
+        });
+
+        if (closestIndex !== currentIndex) {
+          currentIndex = closestIndex;
+          updateInfo();
+          renderCards();
+        }
+
+        isScrolling = false;
+      }, 100);
+    });
+
+    scrollToToday();
   </script>
-  <script src="cards.js"></script>
 </body>
 </html>
