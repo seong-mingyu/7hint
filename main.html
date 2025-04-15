@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hint Dream 메인</title>
+  <style>
+    @font-face {
+      font-family: 'HDHyundaiLight';
+      src: url('./fonts/HDHyundai-Light.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'HDHyundaiBold';
+      src: url('./fonts/HDHyundai-Bold.ttf') format('truetype');
+    }
+
+    body {
+      margin: 0;
+      font-family: 'HDHyundaiLight', sans-serif;
+      background-color: #ffffff;
+      color: #1e293b;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      background-color: #f8fafc;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .header img {
+      width: 120px;
+      margin-right: 12px;
+    }
+
+    .title {
+      font-size: 1.8em;
+      font-family: 'HDHyundaiBold';
+      color: #003087;
+    }
+
+    .main-section {
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .button-group {
+      margin-top: 40px;
+    }
+
+    .hint-button {
+      display: inline-block;
+      background-color: #2563eb;
+      color: white;
+      font-family: 'HDHyundaiBold';
+      padding: 14px 30px;
+      margin: 10px;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .hint-button:hover {
+      background-color: #1e40af;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      font-family: 'HDHyundaiBold';
+    }
+
+    .team-label {
+      font-size: 1em;
+      margin-bottom: 20px;
+    }
+
+    .photo-boxes {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .photo-box {
+      width: 120px;
+      height: 160px;
+      background-color: #f1f5f9;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9em;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-left" style="display: flex; align-items: center;">
+      <img src="logo.png" alt="로고">
+      <div class="title"><span style="color:#003087; font-weight:bold;">H</span>int <span style="color:#003087; font-weight:bold;">D</span>ream</div>
+    </div>
+  </div>
+
+  <div class="main-section">
+    <h2 style="font-family:'HDHyundaiBold';">Hint Dream에 오신 것을 환영합니다!</h2>
+    <p>다양한 Hint Dream 항목을 선택해 탐색해보세요.</p>
+
+    <div class="button-group">
+      <a href="index.html" class="hint-button">직무 Hint Dream</a>
+      <a href="#" class="hint-button">ㅇㅇ Hint Dream</a>
+      <a href="#" class="hint-button">ㅁㅁ Hint Dream</a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="team-label">Made by 엔진기계사업부 Hint-7조</div>
+    <div class="photo-boxes">
+      <div class="photo-box">
+        <img src="team_photo.jpg" alt="Hint 7조 단체사진" style="width:100%; height:100%; object-fit: cover; border-radius: 12px;">
+      </div>
+    </div>
+    <div style="margin-top: 20px; font-family: 'HDHyundaiLight';">
+      <p>김동현 · 전수민 · 정명수 · 노건우 · 민성제 · 김우진 · 김동현 · 성민규 · 이민규 · 이제진</p>
+    </div>
+      <div class="photo-box">사진</div>
+      <div class="photo-box">사진</div>
+    </div>
+  </div>
+</body>
+</html>
