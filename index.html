@@ -39,8 +39,11 @@
     .title {
       font-size: 1.8em;
       font-family: 'HDHyundaiBold';
-      color: #003087;
+      cursor: pointer;
     }
+
+    .title .blue { color: #003087; font-weight: bold; }
+    .title .black { color: #000000; }
 
     .main-section {
       text-align: center;
@@ -53,20 +56,20 @@
 
     .hint-button {
       display: inline-block;
-      background-color: #2563eb;
-      color: white;
+      background-color: #e0f2fe;
+      color: #0c4a6e;
       font-family: 'HDHyundaiBold';
       padding: 14px 30px;
       margin: 10px;
       font-size: 1.1em;
       border: none;
-      border-radius: 12px;
+      border-radius: 999px;
       text-decoration: none;
       transition: background 0.3s;
     }
 
     .hint-button:hover {
-      background-color: #1e40af;
+      background-color: #bae6fd;
     }
 
     .footer {
@@ -102,9 +105,11 @@
 </head>
 <body>
   <div class="header">
-    <div class="header-left" style="display: flex; align-items: center;">
+    <div class="header-left" onclick="location.href='index.html'" style="display: flex; align-items: center; cursor: pointer;">
       <img src="logo.png" alt="로고">
-      <div class="title"><span style="color:#003087; font-weight:bold;">H</span>int <span style="color:#003087; font-weight:bold;">D</span>ream</div>
+      <div class="title">
+        <span class="blue">H</span><span class="black">int </span><span class="blue">D</span><span class="black">ream</span>
+      </div>
     </div>
   </div>
 
@@ -128,9 +133,6 @@
     </div>
     <div style="margin-top: 20px; font-family: 'HDHyundaiLight';">
       <p>김동현 · 전수민 · 정명수 · 노건우 · 민성제 · 김우진 · 김동현 · 성민규 · 이민규 · 이제진</p>
-    </div>
-      <div class="photo-box">사진</div>
-      <div class="photo-box">사진</div>
     </div>
   </div>
 </body>
