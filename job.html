@@ -8,15 +8,11 @@
     @font-face {
       font-family: 'HDHyundaiLight';
       src: url('./fonts/HDHyundai-Light.ttf') format('truetype');
-      font-weight: 300;
     }
-
     @font-face {
       font-family: 'HDHyundaiBold';
       src: url('./fonts/HDHyundai-Bold.ttf') format('truetype');
-      font-weight: 700;
     }
-
     body {
       margin: 0;
       font-family: 'HDHyundaiLight', sans-serif;
@@ -24,42 +20,37 @@
       color: #333;
       overflow-x: hidden;
     }
-
     .header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 20px;
+      padding: 12px 20px;
       background-color: #f8fafc;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
       position: sticky;
       top: 0;
       z-index: 100;
     }
-
     .header-left {
       display: flex;
       align-items: center;
       cursor: pointer;
     }
-
     .header-left img {
       width: 120px;
-      margin-right: 10px;
+      margin-right: 12px;
     }
-
     .title {
-      font-size: 1.5em;
+      font-size: 1.8em;
       font-family: 'HDHyundaiBold';
-      color: #003087;
     }
-
+    .title .blue { color: #003087; font-weight: bold; }
+    .title .black { color: #000000; }
     .menu-group {
       display: flex;
       align-items: center;
       gap: 6px;
     }
-
     .menu-button {
       font-size: 1.4em;
       background: none;
@@ -68,7 +59,6 @@
       color: #333;
       padding: 4px;
     }
-
     .main-title {
       font-size: 1.3em;
       font-family: 'HDHyundaiBold';
@@ -80,15 +70,8 @@
       width: fit-content;
       border-radius: 999px;
     }
-
-    .main-title .highlight {
-      color: #003087;
-    }
-
-    .main-title .green {
-      color: #008233;
-    }
-
+    .main-title .highlight { color: #003087; }
+    .main-title .green { color: #008233; }
     .carousel-wrapper { padding-bottom: 30px; text-align: center; }
     .nav-controls { display: flex; align-items: center; justify-content: center; margin-bottom: 20px; gap: 20px; }
     .nav-btn { background-color: #f1f5f9; color: #475569; border: none; border-radius: 8px; width: 32px; height: 32px; font-size: 1.1em; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
@@ -114,9 +97,9 @@
 </head>
 <body>
   <div class="header">
-    <div class="header-left" onclick="scrollToToday()">
+    <div class="header-left" onclick="location.href='index.html'">
       <img src="logo.png" alt="로고" />
-      <div class="title"><span class="highlight">H</span>int <span class="highlight">D</span>ream</div>
+      <div class="title"><span class="blue">H</span><span class="black">int </span><span class="blue">D</span><span class="black">ream</span></div>
     </div>
     <div class="menu-group">
       <button class="menu-button">≡</button>
@@ -158,94 +141,44 @@
 
     const cardData = [
       {
-        date: "2025-05-08",
-        day: "목요일",
-        name: "김동현 인턴",
-        dept: "🧪 엔진개발부",
-        img: "",
-        desc: "김동현 인턴은 엔진 신기술 개발과 실험 검증 업무를 지원하고 있습니다.",
-        news: newsLinks[0]
+        date: "2025-05-08", day: "목요일", name: "김동현 인턴", dept: "🧪 엔진개발부",
+        img: "", desc: "김동현 인턴은 엔진 신기술 개발과 실험 검증 업무를 지원하고 있습니다.", news: newsLinks[0]
       },
       {
-        date: "2025-05-09",
-        day: "금요일",
-        name: "전수민 인턴",
-        dept: "🧠 힘센엔진설계부",
-        img: "",
-        desc: "전수민 인턴은 힘센엔진 설계 모델링 및 검토 보조 업무를 수행하고 있습니다.",
-        news: newsLinks[1]
+        date: "2025-05-09", day: "금요일", name: "전수민 인턴", dept: "🧠 힘센엔진설계부",
+        img: "", desc: "전수민 인턴은 힘센엔진 설계 모델링 및 검토 보조 업무를 수행하고 있습니다.", news: newsLinks[1]
       },
       {
-        date: "2025-05-10",
-        day: "토요일",
-        name: "정명수 인턴",
-        dept: "📞 엔진시스템기술영업부",
-        img: "",
-        desc: "정명수 인턴은 고객 대응 기술자료 정리 및 기술영업 지원 업무를 맡고 있습니다.",
-        news: newsLinks[2]
+        date: "2025-05-10", day: "토요일", name: "정명수 인턴", dept: "📞 엔진시스템기술영업부",
+        img: "", desc: "정명수 인턴은 고객 대응 기술자료 정리 및 기술영업 지원 업무를 맡고 있습니다.", news: newsLinks[2]
       },
       {
-        date: "2025-05-11",
-        day: "일요일",
-        name: "노건우 인턴",
-        dept: "🏭 생산기술2부",
-        img: "",
-        desc: "노건우 인턴은 생산현장 개선 과제와 관련한 공정 분석을 수행하고 있습니다.",
-        news: newsLinks[3]
+        date: "2025-05-11", day: "일요일", name: "노건우 인턴", dept: "🏭 생산기술2부",
+        img: "", desc: "노건우 인턴은 생산현장 개선 과제와 관련한 공정 분석을 수행하고 있습니다.", news: newsLinks[3]
       },
       {
-        date: "2025-05-12",
-        day: "월요일",
-        name: "민성제 인턴",
-        dept: "🏭 생산기술1부",
-        img: "min.png",
-        desc: "민성제 인턴은 생산 라인 효율성 분석과 자동화 개선 프로젝트에 참여하며 현장 실무 경험을 쌓고 있습니다.",
-        news: newsLinks[4]
+        date: "2025-05-12", day: "월요일", name: "민성제 인턴", dept: "🏭 생산기술1부",
+        img: "min.png", desc: "민성제 인턴은 생산 라인 효율성 분석과 자동화 개선 프로젝트에 참여하며 현장 실무 경험을 쌓고 있습니다.", news: newsLinks[4]
       },
       {
-        date: "2025-05-13",
-        day: "화요일",
-        name: "김동현 인턴",
-        dept: "🛠️ 대형엔진설계부",
-        img: "",
-        desc: "김동현 인턴은 대형 선박엔진의 설계 검토와 도면 정리에 참여하고 있습니다.",
-        news: newsLinks[5]
+        date: "2025-05-13", day: "화요일", name: "김동현 인턴", dept: "🛠️ 대형엔진설계부",
+        img: "", desc: "김동현 인턴은 대형 선박엔진의 설계 검토와 도면 정리에 참여하고 있습니다.", news: newsLinks[5]
       },
       {
-        date: "2025-05-14",
-        day: "수요일",
-        name: "김우진 인턴",
-        dept: "📊 엔진기계업무시스템기획부",
-        img: "",
-        desc: "김우진 인턴은 업무 시스템 기획 및 내부 데이터 정비 업무를 맡고 있습니다.",
-        news: newsLinks[0]
+        date: "2025-05-14", day: "수요일", name: "김우진 인턴", dept: "📊 엔진기계업무시스템기획부",
+        img: "", desc: "김우진 인턴은 업무 시스템 기획 및 내부 데이터 정비 업무를 맡고 있습니다.", news: newsLinks[0]
       },
       {
-        date: "2025-05-15",
-        day: "목요일",
-        name: "성민규 인턴",
-        dept: "📈 엔진기계사업기획부",
-        img: "",
-        desc: "성민규 인턴은 엔진기계사업 기획 자료 작성과 시장 분석 업무를 보조하고 있습니다.",
-        news: newsLinks[1]
+        date: "2025-05-15", day: "목요일", name: "성민규 인턴", dept: "📈 엔진기계사업기획부",
+        img: "", desc: "성민규 인턴은 엔진기계사업 기획 자료 작성과 시장 분석 업무를 보조하고 있습니다.", news: newsLinks[1]
       },
       {
-        date: "2025-05-16",
-        day: "금요일",
-        name: "이민규 인턴",
-        dept: "🏭 생산기술2부",
-        img: "",
-        desc: "이민규 인턴은 공정 개선을 위한 설비 레이아웃 분석과 표준 작업 지원을 하고 있습니다.",
-        news: newsLinks[2]
+        date: "2025-05-16", day: "금요일", name: "이민규 인턴", dept: "🏭 생산기술2부",
+        img: "", desc: "이민규 인턴은 공정 개선을 위한 설비 레이아웃 분석과 표준 작업 지원을 하고 있습니다.", news: newsLinks[2]
       },
       {
-        date: "2025-05-17",
-        day: "토요일",
-        name: "이제진 인턴",
-        dept: "🧪 엔진개발시험부",
-        img: "",
-        desc: "이제진 인턴은 시험 장비 셋업과 시험 결과 정리 등 개발 시험 업무를 보조하고 있습니다.",
-        news: newsLinks[3]
+        date: "2025-05-17", day: "토요일", name: "이제진 인턴", dept: "🧪 엔진개발시험부",
+        img: "", desc: "이제진 인턴은 시험 장비 셋업과 시험 결과 정리 등 개발 시험 업무를 보조하고 있습니다.", news: newsLinks[3]
       }
     ];
 
@@ -259,7 +192,6 @@
 
     function renderCards() {
       carousel.innerHTML = "";
-
       cardData.forEach((card, index) => {
         const isActive = index === currentIndex;
         const cardEl = document.createElement("div");
@@ -267,7 +199,7 @@
         cardEl.setAttribute("data-index", index);
         cardEl.innerHTML = `
           <div class="card-header">
-            <img src="${card.img}" alt="${card.name}">
+            <img src="${card.img || 'default.png'}" alt="${card.name}">
             <div class="card-info">
               <div class="name">${card.name}</div>
             </div>
@@ -320,12 +252,10 @@
     carousel.addEventListener("scroll", () => {
       if (isScrolling || isProgrammaticScroll) return;
       isScrolling = true;
-
       setTimeout(() => {
         const cards = document.querySelectorAll(".card");
         let closestIndex = 0;
         let minOffset = Infinity;
-
         cards.forEach((card, index) => {
           const rect = card.getBoundingClientRect();
           const offset = Math.abs(rect.left + rect.width / 2 - window.innerWidth / 2);
@@ -334,13 +264,11 @@
             closestIndex = index;
           }
         });
-
         if (closestIndex !== currentIndex) {
           currentIndex = closestIndex;
           updateInfo();
           renderCards();
         }
-
         isScrolling = false;
       }, 100);
     });
