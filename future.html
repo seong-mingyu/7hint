@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>미래 Hint Dream</title>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
   <style>
     @font-face {
       font-family: 'HDHyundaiLight';
@@ -52,49 +54,41 @@
       color: #475569;
       cursor: pointer;
     }
-
     .container {
       max-width: 800px;
       margin: 0 auto;
-      padding: 30px 20px;
+      padding: 40px 20px;
     }
     .main-title {
       font-size: 1.3em;
       font-family: 'HDHyundaiBold';
       margin: 30px auto 20px;
       text-align: center;
-      background-color: #e0f2fe;
-      color: #0c4a6e;
+      background: linear-gradient(to right, #003087, #008233);
+      color: #fff;
       padding: 12px 26px;
       width: fit-content;
       border-radius: 999px;
     }
-    .step {
-      display: none;
-    }
-    .step.active {
-      display: block;
-    }
+    .step { display: none; }
+    .step.active { display: block; }
     .button {
-      display: inline-block;
       background: #2563eb;
       color: white;
       font-family: 'HDHyundaiBold';
       padding: 14px 26px;
       border-radius: 30px;
-      text-align: center;
-      cursor: pointer;
       border: none;
-      margin-top: 30px;
       font-size: 1em;
+      cursor: pointer;
     }
+    .center-button { display: flex; justify-content: center; margin-top: 30px; }
     select {
-      width: 100%;
-      padding: 14px;
-      border-radius: 12px;
-      font-size: 1em;
-      margin-top: 20px;
-      border: 1px solid #cbd5e1;
+      width: 100%; padding: 14px; border-radius: 12px;
+      font-size: 1em; margin-top: 20px; border: 1px solid #cbd5e1;
+    }
+    .bottom-button {
+      display: flex; justify-content: flex-end; margin-top: 40px;
     }
     .question-title {
       font-family: 'HDHyundaiBold';
@@ -107,6 +101,7 @@
       flex-wrap: wrap;
       gap: 12px;
       justify-content: center;
+      flex-direction: row;
     }
     .choice {
       flex: 1 1 calc(45%);
@@ -123,11 +118,6 @@
       background-color: #dbeafe;
       font-weight: bold;
     }
-    .bottom-button {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 40px;
-    }
     .result-animate {
       animation: fadeSlideIn 0.8s ease forwards;
       opacity: 0;
@@ -135,6 +125,11 @@
     @keyframes fadeSlideIn {
       0% { opacity: 0; transform: translateY(-20px); }
       100% { opacity: 1; transform: translateY(0); }
+    }
+    .loading-img {
+      display: block;
+      margin: 30px auto;
+      width: 120px;
     }
   </style>
 </head>
@@ -148,52 +143,45 @@
     </div>
     <button class="menu-button">≡</button>
   </div>
-
   <div class="container">
     <div class="main-title">미래 Hint Dream</div>
-
     <div class="step active" id="step-intro">
-      <h2 style="text-align:center; line-height:1.6;">
-        AI가 당신의 성향을 분석하여<br/>
-        HD현대중공업의 직무를 추천합니다!
-      </h2>
-      <button class="button" onclick="goToStep('step-major')">🔍 Hint 찾기</button>
+      <h2 style="text-align:center; line-height:1.6;">AI가 당신의 성향을 분석하여<br/>HD현대중공업의 직무를 추천합니다!</h2>
+      <div class="center-button"><button class="button" onclick="goToStep('step-major')">🔍 Hint 찾기</button></div>
     </div>
-
     <div class="step" id="step-major">
-      <div class="main-title">미래 Hint Dream</div>
       <h2 style="text-align:center;">전공이 무엇인가요?</h2>
       <select id="major-select">
         <option value="">전공을 선택하세요</option>
-        <option>기계공학</option>
-        <option>전기전자</option>
-        <option>조선해양</option>
-        <option>산업공학</option>
-        <option>컴퓨터공학</option>
-        <option>재료/금속</option>
-        <option>화학공학</option>
-        <option>경영학</option>
-        <option>기타</option>
+        <option>기계공학</option><option>전기전자</option><option>조선해양</option>
+        <option>산업공학</option><option>컴퓨터공학</option><option>재료/금속</option>
+        <option>화학공학</option><option>경영학</option><option>기타</option>
       </select>
-      <button class="button" onclick="startQuestions()">다음</button>
+      <div class="bottom-button"><button class="button" onclick="startQuestions()">다음</button></div>
     </div>
-
     <div class="step" id="step-questions">
       <div class="main-title">미래 Hint Dream</div>
       <h2 id="question-count" style="text-align:center;"></h2>
       <div class="question-title" id="question-text"></div>
       <div class="choices" id="question-choices"></div>
-      <div class="bottom-button">
-        <button class="button" onclick="nextQuestion()">다음</button>
-      </div>
+      <div class="bottom-button"><button class="button" onclick="nextQuestion()">다음</button></div>
     </div>
-
+    <div class="step" id="step-loading">
+      <div class="main-title">미래 Hint Dream</div>
+      <h2 style="text-align:center;">답변을 분석 중입니다...</h2>
+      <img src="loading.gif" alt="로딩중" class="loading-img" />
+    </div>
     <div class="step" id="step-result">
       <div class="main-title">미래 Hint Dream</div>
       <h2 style="text-align:center;">추천 직무 결과</h2>
-      <div id="result-content" style="margin-top: 20px; line-height: 1.6;"></div>
-      <div class="bottom-button" style="justify-content:center;">
-        <a href="job.html" class="button">더 많은 직무가 궁금하다면?</a>
+      <div id="result-content" class="result-animate" style="margin-top: 20px; line-height: 1.6;"></div>
+      <div class="center-button" style="margin-top:30px;">
+        <button class="button" onclick="saveResultImage()">내 결과 저장하기</button>
+      </div>
+      <div class="center-button" style="flex-direction: column; align-items: center; margin-top: 30px;">
+        <p style="margin-bottom: 10px;">더 많은 직무가 궁금하다면?</p>
+        <a href="job.html" class="button">직무 Hint Dream →</a>
+        <p style="margin-top: 20px; font-size: 0.95em; color: #555; cursor: pointer;" onclick="restartTest()">다시 검사하기</p>
       </div>
     </div>
   </div>
@@ -204,42 +192,21 @@
     const questionChoices = document.getElementById("question-choices");
     const questionCount = document.getElementById("question-count");
     const resultContent = document.getElementById("result-content");
-
     let currentQuestionIndex = 0;
     let selectedAnswers = [];
     let shuffledQuestions = [];
 
     const questions = [
-      {
-        type: "scale",
-        text: "새로운 기술을 빠르게 익히는 편이다.",
-        options: ["전혀 아니다", "아니다", "보통이다", "그렇다", "매우 그렇다"],
-        values: [-2, -1, 0, 1, 2]
-      },
-      {
-        type: "binary",
-        text: "현장에서 몸으로 부딪히는 일을 좋아한다.",
-        options: ["YES", "NO"],
-        values: [1, -1]
-      },
-      {
-        type: "scale",
-        text: "혼자 집중할 수 있는 환경을 선호한다.",
-        options: ["전혀 아니다", "아니다", "보통이다", "그렇다", "매우 그렇다"],
-        values: [-2, -1, 0, 1, 2]
-      },
-      {
-        type: "binary",
-        text: "기술보다 전략기획에 더 흥미를 느낀다.",
-        options: ["YES", "NO"],
-        values: [1, -1]
-      },
-      {
-        type: "scale",
-        text: "수치와 데이터를 기반으로 문제를 해결한다.",
-        options: ["전혀 아니다", "아니다", "보통이다", "그렇다", "매우 그렇다"],
-        values: [-2, -1, 0, 1, 2]
-      }
+      { type: "scale", text: "새로운 기술을 빠르게 익히는 편이다.", options: ["전혀 아니다", "아니다", "보통이다", "그렇다", "매우 그렇다"], values: [-2, -1, 0, 1, 2] },
+      { type: "binary", text: "현장에서 직접 일하는 것이 좋다.", options: ["YES", "NO"], values: [1, -1] },
+      { type: "scale", text: "혼자서 집중해서 일하는 걸 선호한다.", options: ["전혀 아니다", "아니다", "보통이다", "그렇다", "매우 그렇다"], values: [-2, -1, 0, 1, 2] },
+      { type: "binary", text: "기술보다 기획이 더 흥미롭다.", options: ["YES", "NO"], values: [1, -1] },
+      { type: "scale", text: "숫자와 데이터를 기반으로 판단한다.", options: ["전혀 아니다", "아니다", "보통이다", "그렇다", "매우 그렇다"], values: [-2, -1, 0, 1, 2] },
+      { type: "binary", text: "사람과 협력하는 일을 즐긴다.", options: ["YES", "NO"], values: [1, -1] },
+      { type: "scale", text: "창의적인 아이디어를 내는 것을 좋아한다.", options: ["전혀 아니다", "아니다", "보통이다", "그렇다", "매우 그렇다"], values: [-2, -1, 0, 1, 2] },
+      { type: "binary", text: "다양한 업무를 경험하고 싶다.", options: ["YES", "NO"], values: [1, -1] },
+      { type: "scale", text: "글로벌 환경에서 일하고 싶다.", options: ["전혀 아니다", "아니다", "보통이다", "그렇다", "매우 그렇다"], values: [-2, -1, 0, 1, 2] },
+      { type: "binary", text: "책임감을 갖고 프로젝트를 끝낸 경험이 있다.", options: ["YES", "NO"], values: [1, -1] }
     ];
 
     function goToStep(id) {
@@ -249,13 +216,10 @@
 
     function startQuestions() {
       const major = document.getElementById("major-select").value;
-      if (!major) {
-        alert("전공을 선택해 주세요!");
-        return;
-      }
+      if (!major) { alert("전공을 선택해 주세요!"); return; }
       shuffledQuestions = [...questions].sort(() => Math.random() - 0.5);
-      currentQuestionIndex = 0;
       selectedAnswers = [];
+      currentQuestionIndex = 0;
       goToStep("step-questions");
       showQuestion();
     }
@@ -287,7 +251,8 @@
       if (currentQuestionIndex < shuffledQuestions.length) {
         showQuestion();
       } else {
-        showResult();
+        goToStep("step-loading");
+        setTimeout(showResult, 3000);
       }
     }
 
@@ -295,21 +260,58 @@
       goToStep("step-result");
       const total = selectedAnswers.reduce((a, b) => a + b, 0);
       const jobList = [
-        { name: "기본설계", desc: "선박의 전체 구조와 주요 사양을 기획하는 설계 직무입니다." },
-        { name: "엔진설계", desc: "선박의 심장인 엔진을 설계하고 검증하는 기술 직무입니다." },
-        { name: "생산관리", desc: "현장의 흐름을 조율하며 효율적 생산을 이끄는 전략 직무입니다." },
-        { name: "특수선영업", desc: "방산/특수 목적 선박을 해외로 수주하는 글로벌 세일즈 직무입니다." },
-        { name: "R&D", desc: "친환경 연료, 스마트십 등 미래 기술을 선도하는 연구 직무입니다." }
+  { name: "기본설계", desc: "선박의 전체 구조 및 사양을 결정하는 설계의 시작점입니다." },
+  { name: "상세설계", desc: "기본설계를 기반으로 제작 가능한 도면을 상세히 작성합니다." },
+  { name: "생산기술", desc: "생산 공정의 효율성과 품질을 향상시키기 위한 기술 지원을 수행합니다." },
+  { name: "품질관리", desc: "제품의 품질을 보증하고 고객 요구사항을 만족시키는 역할을 합니다." },
+  { name: "R&D", desc: "신기술, 신소재, 친환경 연료 등에 대한 연구개발을 진행합니다." },
+  { name: "엔진설계", desc: "선박용 대형 엔진의 성능 향상과 신모델 개발을 담당합니다." },
+  { name: "전장설계", desc: "선박의 전기 시스템, 제어기기, 통신 등을 설계 및 적용합니다." },
+  { name: "생산관리", desc: "생산 계획 수립, 일정 관리, 자재·인력 운영을 총괄합니다." },
+  { name: "구매/자재", desc: "원자재 및 부품을 적절한 시기에 최적의 조건으로 조달합니다." },
+  { name: "ICT/정보보안", desc: "스마트 조선소 구현 및 시스템 보안 체계를 관리합니다." },
+  { name: "해양설계", desc: "해양플랜트 및 구조물 설계를 수행하며, 구조해석이 핵심입니다." },
+  { name: "특수선설계", desc: "군함, 쇄빙선 등 특수 목적 선박의 고난이도 설계를 수행합니다." },
+  { name: "특수선영업", desc: "방산 분야의 고객과 협력하며 제안 및 수주 전략을 수립합니다." },
+  { name: "엔진영업", desc: "국내외 선주사를 대상으로 대형 엔진의 판매 및 기술 협상을 수행합니다." },
+  { name: "경영기획", desc: "회사의 중장기 전략 수립, 손익 분석, KPI 설정을 총괄합니다." },
+  { name: "인사/총무", desc: "인재 채용, 복지 운영, 사내 조직문화 개선 업무를 맡습니다." },
+  { name: "안전환경", desc: "조선소 내 산업안전 관리 및 환경 법규 준수를 책임집니다." },
+  { name: "설비보전", desc: "생산 설비의 정비·점검 및 고장 예방을 위한 유지관리 직무입니다." },
+  { name: "자재관리", desc: "공정에 필요한 자재를 적시에 적소에 공급하는 물류관리 역할입니다." },
+  { name: "영업지원", desc: "선주와의 소통, 계약 이행, 납기 및 문서 관리 등 영업 전반을 지원합니다." }
+];
+
+// Now starting jobList...
+const jobList = [
+        { name: "기본설계", desc: "선박의 구조 및 주요 사양을 기획하는 직무입니다." },
+        { name: "상세설계", desc: "설계 도면을 작성하고 조립 가능하게 구체화하는 설계직무입니다." },
+        { name: "생산기술", desc: "효율적인 생산 공정을 설계하고 개선하는 기술직무입니다." },
+        { name: "품질관리", desc: "제품의 품질을 관리하고 고객 만족을 보장하는 직무입니다." },
+        { name: "R&D", desc: "친환경 선박, 스마트 기술 등 미래 조선기술을 개발합니다." }
       ];
       const index = Math.abs(total) % jobList.length;
       const job = jobList[index];
       resultContent.innerHTML = `
-        <div class="result-animate">
+        <div id="capture-area">
           <h2 style="color:#003087; font-family:'HDHyundaiBold'; font-size:1.5em;">${job.name}</h2>
           <p style="margin-top: 18px; font-size: 1.05em; line-height: 1.7;">${job.desc}</p>
           <img src="future_${job.name}.png" alt="${job.name}" style="margin-top: 28px; max-width: 100%; border-radius: 14px;">
         </div>
       `;
+    }
+
+    function restartTest() {
+      goToStep("step-intro");
+    }
+
+    function saveResultImage() {
+      html2canvas(document.getElementById("capture-area")).then(canvas => {
+        const link = document.createElement("a");
+        link.download = 'my_hint_result.png';
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      });
     }
   </script>
 </body>
