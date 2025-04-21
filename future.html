@@ -147,7 +147,7 @@
 
     <div class="step active" id="step-intro">
       <h2 style="text-align:center; line-height:1.6;">AI가 당신의 성향을 분석하여<br/>HD현대중공업의 직무를 추천합니다!</h2>
-      <div class="center-button"><button class="button" onclick="goToStep('step-major')">🔍 Hint 찾기</button></div>
+      <div class="center-button"><button class="button" onclick="startMajorStep()">🔍 Hint 찾기</button></div>
     </div>
 
     <div class="step" id="step-major">
@@ -211,7 +211,13 @@
       { type: "binary", text: "책임감을 갖고 프로젝트를 끝낸 경험이 있다.", options: ["YES", "NO"], values: [1, -1] }
     ];
 
+    
+    function startMajorStep() {
+      goToStep("step-major");
+    }
+
     function goToStep(id) {
+
       steps.forEach(s => s.classList.remove("active"));
       document.getElementById(id).classList.add("active");
     }
@@ -262,22 +268,6 @@
       goToStep("step-result");
       const total = selectedAnswers.reduce((a, b) => a + b, 0);
       const jobList = [
-        { name: "기본설계", desc: "선박의 구조 및 주요 사양을 기획하고, 성능과 안전을 고려하여 기본 형태를 결정하는 설계 직무입니다." },
-        { name: "상세설계", desc: "기본설계를 바탕으로 실제 제작이 가능하도록 상세한 도면과 시방서를 작성하는 실무 중심의 설계 직무입니다." },
-        { name: "생산기술", desc: "설계와 제작을 연결하는 다리 역할로서, 효율적인 공정 구성과 품질 확보를 위한 생산 프로세스를 개발하고 개선하는 직무입니다." },
-        { name: "품질관리", desc: "자재 입고부터 제품 출하까지 전 공정에 걸쳐 품질을 관리하고, 고객의 요구사항을 만족시키는 체계를 구축하는 직무입니다." },
-        { name: "R&D", desc: "미래 선박 기술을 위한 친환경 연료, 신소재, 스마트 기술 등을 연구개발하여 차세대 기술력을 확보하는 전략적 직무입니다." },
-        { name: "엔진설계", desc: "대형 선박용 엔진을 설계하고 신모델을 개발하며, 연비 개선과 환경 규제를 동시에 만족시키는 고난이도 기술직입니다." },
-        { name: "전장설계", desc: "선박의 제어 시스템, 통신 장비, 센서 네트워크 등을 설계하여 전기적 안정성과 기능성을 확보하는 직무입니다." },
-        { name: "설비보전", desc: "조선소 내 생산설비의 정기점검, 예방보전, 고장 대응을 통해 안정적인 생산 환경을 유지하는 직무입니다." },
-        { name: "안전환경", desc: "산업안전과 환경보전을 위한 법규 준수, 작업장 안전관리, 교육 등을 총괄하는 직무입니다." },
-        { name: "ICT기획", desc: "스마트 조선소 구현을 위해 IT 시스템을 기획하고, MES/ERP 등 디지털 플랫폼을 운영하는 직무입니다." },
-        { name: "생산관리", desc: "생산 일정 및 자재 흐름을 조율하고 납기 준수를 위한 전체 생산 체계를 통제하는 운영 직무입니다." },
-        { name: "구매조달", desc: "선박 건조에 필요한 자재와 부품을 전 세계에서 최적 조건으로 조달하고 공급망을 관리하는 직무입니다." },
-        { name: "영업관리", desc: "국내외 고객을 대상으로 선박 및 플랜트 제품을 수주하고, 계약, 견적, 협상을 진행하는 전략적 직무입니다." },
-        { name: "특수선설계", desc: "군함, 쇄빙선 등 특수 목적 선박의 복잡한 요구사항을 반영한 맞춤형 설계를 수행하는 고난이도 설계 직무입니다." },
-        { name: "기술영업", desc: "기술 지식을 바탕으로 고객 요구에 맞는 설계 및 솔루션을 제시하며, 제품 판매를 촉진하는 기술 기반 영업 직무입니다." }
-
         { name: "기본설계", desc: "선박의 구조 및 주요 사양을 기획하는 직무입니다." },
         { name: "상세설계", desc: "설계 도면을 작성하고 조립 가능하게 구체화하는 설계직무입니다." },
         { name: "생산기술", desc: "효율적인 생산 공정을 설계하고 개선하는 기술직무입니다." },
