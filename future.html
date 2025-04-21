@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>미래 Hint Dream</title>
   <style>
     @font-face {
@@ -45,19 +45,6 @@
     }
     .title .blue { color: #003087; font-weight: bold; }
     .title .black { color: #000000; }
-    .menu-group {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .menu-button {
-      font-size: 1.4em;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #333;
-      padding: 4px;
-    }
     .main-title {
       font-size: 1.3em;
       font-family: 'HDHyundaiBold';
@@ -76,17 +63,6 @@
       margin: 40px auto;
       padding: 0 20px;
     }
-    .section h2 {
-      font-family: 'HDHyundaiBold';
-      font-size: 1.4em;
-      color: #003087;
-      margin-bottom: 16px;
-    }
-    .section p, .section label {
-      line-height: 1.6;
-      font-size: 1em;
-      color: #334155;
-    }
     select {
       width: 100%;
       padding: 12px;
@@ -95,15 +71,14 @@
       border: 2px solid #60a5fa;
       border-radius: 12px;
       background-color: #f0f9ff;
-      font-family: 'HDHyundaiLight';
       font-size: 1em;
     }
     .choice-buttons {
       display: flex;
       gap: 6px;
       flex-wrap: wrap;
-      margin-top: 8px;
       justify-content: space-between;
+      margin-bottom: 20px;
     }
     .choice-buttons button {
       flex: 1 0 calc(20% - 6px);
@@ -113,13 +88,11 @@
       border: 1px solid #3b82f6;
       border-radius: 8px;
       font-size: 0.9em;
-      font-family: 'HDHyundaiLight';
       cursor: pointer;
-      transition: 0.2s;
     }
     .choice-buttons button.selected {
       background-color: #3b82f6;
-      color: #ffffff;
+      color: white;
       font-weight: bold;
     }
     #submit-button {
@@ -134,10 +107,6 @@
       font-family: 'HDHyundaiBold';
       cursor: pointer;
       box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-      transition: transform 0.2s ease;
-    }
-    #submit-button:hover {
-      transform: scale(1.05);
     }
     #result-modal {
       display: none;
@@ -192,39 +161,129 @@
   </style>
 </head>
 <body>
-  <!-- 기존 상단 및 본문은 동일 -->
-  <!-- 아래 JavaScript 내부에 추가 -->
+  <div class="header">
+    <div class="header-left" onclick="location.href='index.html'">
+      <img src="logo.png" alt="로고">
+      <div class="title"><span class="blue">H</span><span class="black">int </span><span class="blue">D</span><span class="black">ream</span></div>
+    </div>
+  </div>
+
+  <div class="main-title">
+    <span class="highlight green">미래</span> <span class="highlight">Hint Dream</span>
+  </div>
+
+  <div class="section">
+    <label for="major">전공 선택</label>
+    <select id="major">
+      <option>기계공학</option>
+      <option>전기전자</option>
+      <option>조선해양</option>
+      <option>산업공학</option>
+      <option>컴퓨터공학</option>
+      <option>재료/금속</option>
+      <option>화학공학</option>
+      <option>경영학</option>
+      <option>기타</option>
+    </select>
+
+    <div id="questions"></div>
+    <button id="submit-button" onclick="generateResult()">🔮 나의 미래 예측하기</button>
+  </div>
+
+  <div id="result-modal">
+    <div class="result-content">
+      <div class="result-close" onclick="closeResult()">✕</div>
+      <div id="result"></div>
+      <div class="result-footer">
+        다른 직무가 더 궁금하다면?
+        <a href="job.html">직무 Hint Dream</a>
+      </div>
+    </div>
+  </div>
+
   <script>
-    const jobDescriptions = {
-      '엔진설계': 'HD현대의 심장인 엔진의 구조와 성능을 설계하고 개선합니다. 설계 도면과 해석 기술이 필수입니다.',
-      '생산기술': '효율적인 생산을 위한 자동화 및 공정 기술을 개발합니다. 스마트 팩토리와 밀접한 관련이 있습니다.',
-      '품질관리': '생산된 제품의 품질을 분석하고 개선점을 찾아내며 기준을 수립하는 역할입니다.',
-      'AI엔지니어': '생산 및 운영에 AI 기술을 접목하여 효율성과 정확도를 향상시키는 스마트 제조의 핵심입니다.',
-      '전장설계': '엔진 및 시스템에 적용되는 전기 설계 업무를 담당합니다. 전기회로와 배선 시스템의 이해가 요구됩니다.',
-      '시운전': '설비가 정상 작동하는지 현장에서 테스트하고 검증하는 실무 중심의 업무입니다.',
-      '기본설계': '조선소에서 건조될 선박의 기본적인 형태, 구조, 성능을 설계하는 초기 단계 역할입니다.',
-      '스마트팩토리개발': 'IoT, 빅데이터, 자동화 기술을 통합하여 공정의 디지털화를 구현합니다.'
+    const questions = [
+      "나는 새로운 기술에 관심이 많다.",
+      "문제 해결보다 사람과의 협력이 중요하다고 생각한다.",
+      "디테일한 도면이나 수치를 다루는 것이 재미있다.",
+      "나는 현장 중심보다 이론 설계에 흥미를 느낀다.",
+      "데이터나 수치 분석보다 아이디어 도출을 좋아한다.",
+      "팀보다 개인 과업을 더 선호한다.",
+      "나는 위험을 감수하는 도전을 즐긴다.",
+      "업무의 반복성보다 창의성이 중요하다고 생각한다.",
+      "기계보다 사람, 사람보다 조직에 관심이 많다.",
+      "나는 글로벌한 환경에서 일하고 싶다."
+    ];
+
+    const jobMap = {
+      '기계공학': ['엔진설계', '생산기술', '품질관리'],
+      '전기전자': ['전장설계', '시운전', '전기설계'],
+      '조선해양': ['기본설계', '선체구조', '해양플랜트'],
+      '산업공학': ['생산관리', '공정개선', '물류최적화'],
+      '컴퓨터공학': ['스마트팩토리개발', 'AI엔지니어', 'IoT시스템설계'],
+      '재료/금속': ['용접기술', '재료시험', '표면처리'],
+      '화학공학': ['도장설계', '환경안전', '에너지공정'],
+      '경영학': ['경영기획', '인사총무', 'SCM'],
+      '기타': ['다기능지원', '전략기획']
     };
+
+    const jobDescriptions = {
+      '엔진설계': 'HD현대의 심장인 엔진의 구조와 성능을 설계하고 개선합니다.',
+      '생산기술': '생산 효율과 품질을 높이기 위한 기술 개선과 자동화 설계를 수행합니다.',
+      '품질관리': '제품의 신뢰성을 확보하기 위한 검사 기준 수립과 불량 원인 분석 업무를 수행합니다.',
+      'AI엔지니어': 'AI 기반 공정 예측, 자동화 알고리즘을 개발해 스마트 제조를 이끕니다.',
+      '전장설계': '설비에 들어가는 전기/전자 시스템 설계를 담당하며 하드웨어 구성 이해가 필요합니다.',
+      '시운전': '생산된 장비가 실제로 잘 작동하는지 테스트하고 문제를 해결하는 현장 업무입니다.',
+      '기본설계': '선박 건조 전 전체 구조의 기본 사양을 설계하며, 조선 기술의 핵심입니다.',
+      '스마트팩토리개발': 'IoT/빅데이터를 활용해 전체 공정의 자동화·디지털화를 주도하는 핵심 인재입니다.'
+    };
+
+    const answers = new Array(questions.length).fill(null);
+    const container = document.getElementById("questions");
+
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.innerHTML = `<p>${i+1}. ${q}</p>
+        <div class="choice-buttons" id="choice${i}">
+          <button onclick="selectAnswer(${i}, 2)">매우 그렇다</button>
+          <button onclick="selectAnswer(${i}, 1)">그렇다</button>
+          <button onclick="selectAnswer(${i}, 0)">보통이다</button>
+          <button onclick="selectAnswer(${i}, -1)">아니다</button>
+          <button onclick="selectAnswer(${i}, -2)">전혀 아니다</button>
+        </div>`;
+      container.appendChild(div);
+    });
+
+    function selectAnswer(index, value) {
+      answers[index] = value;
+      const buttons = document.querySelectorAll(`#choice${index} button`);
+      buttons.forEach(btn => btn.classList.remove("selected"));
+      buttons[value + 2].classList.add("selected");
+    }
 
     function generateResult() {
       if (answers.includes(null)) {
         alert("모든 항목에 응답해 주세요!");
         return;
       }
-      const major = document.getElementById('major').value;
+
+      const major = document.getElementById("major").value;
       const sum = answers.reduce((a, b) => a + b, 0);
       const possibleJobs = jobMap[major];
       const job = possibleJobs[Math.floor((sum + 20) / (40 / possibleJobs.length)) % possibleJobs.length];
+      const desc = jobDescriptions[job] || "이 직무는 현재 준비 중입니다.";
 
-      const resultDiv = document.getElementById('result');
-      const description = jobDescriptions[job] || `${job} 직무에 대한 자세한 정보는 곧 업데이트됩니다.`;
-
-      resultDiv.innerHTML = `
-        <h3 style="font-family: 'HDHyundaiBold'; font-size: 1.4em; color: #003087;">예상 직무: ${job}</h3>
-        <p style="margin-top: 10px; color: #475569; font-size: 1em;">${description}</p>
+      const result = document.getElementById("result");
+      result.innerHTML = `
+        <h3>${job}</h3>
+        <p>${desc}</p>
         <img src="future_${job}.png" alt="${job}">
       `;
-      document.getElementById('result-modal').style.display = 'flex';
+      document.getElementById("result-modal").style.display = "flex";
+    }
+
+    function closeResult() {
+      document.getElementById("result-modal").style.display = "none";
     }
   </script>
 </body>
