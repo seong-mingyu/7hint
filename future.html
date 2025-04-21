@@ -18,12 +18,56 @@
       background-color: #f9fafb;
       color: #1e293b;
       margin: 0;
-      padding: 0;
     }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      background-color: #f8fafc;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .header-left img {
+      width: 120px;
+      margin-right: 10px;
+    }
+    .title {
+      font-size: 1.8em;
+      font-family: 'HDHyundaiBold';
+    }
+    .title .blue { color: #003087; font-weight: bold; }
+    .title .black { color: #000000; }
+    .menu-button {
+      font-size: 1.6em;
+      background: none;
+      border: none;
+      color: #475569;
+      cursor: pointer;
+    }
+
     .container {
       max-width: 800px;
       margin: 0 auto;
       padding: 30px 20px;
+    }
+    .main-title {
+      font-size: 1.3em;
+      font-family: 'HDHyundaiBold';
+      margin: 30px auto 20px;
+      text-align: center;
+      background-color: #e0f2fe;
+      color: #0c4a6e;
+      padding: 12px 26px;
+      width: fit-content;
+      border-radius: 999px;
     }
     .step {
       display: none;
@@ -31,45 +75,41 @@
     .step.active {
       display: block;
     }
-    h1 {
-      text-align: center;
-      font-family: 'HDHyundaiBold';
-      color: #003087;
-    }
-    .intro-text {
-      font-size: 1.1em;
-      text-align: center;
-      line-height: 1.6;
-      margin-bottom: 30px;
-    }
     .button {
       display: inline-block;
       background: #2563eb;
       color: white;
       font-family: 'HDHyundaiBold';
-      padding: 12px 28px;
+      padding: 14px 26px;
       border-radius: 30px;
       text-align: center;
       cursor: pointer;
       border: none;
-      margin-top: 20px;
+      margin-top: 30px;
       font-size: 1em;
     }
-    .question-block {
-      margin: 30px 0;
+    select {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 1em;
+      margin-top: 20px;
+      border: 1px solid #cbd5e1;
     }
     .question-title {
       font-family: 'HDHyundaiBold';
       font-size: 1.1em;
-      margin-bottom: 10px;
+      margin: 30px 0 10px;
+      text-align: center;
     }
     .choices {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 12px;
+      justify-content: center;
     }
     .choice {
-      flex: 1 1 calc(50% - 10px);
+      flex: 1 1 calc(45%);
       background: #e0f2fe;
       border-radius: 12px;
       padding: 14px;
@@ -83,46 +123,46 @@
       background-color: #dbeafe;
       font-weight: bold;
     }
-    select {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      margin-top: 20px;
-      font-size: 1em;
-      border: 1px solid #cbd5e1;
-    }
-
-    /* 결과 애니메이션 */
-    @keyframes fadeSlideIn {
-      0% {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .bottom-button {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 40px;
     }
     .result-animate {
       animation: fadeSlideIn 0.8s ease forwards;
       opacity: 0;
     }
+    @keyframes fadeSlideIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="step active" id="step-intro">
-      <h1>미래 Hint Dream</h1>
-      <div class="intro-text">
-        나에게 맞는 HD현대중공업 직무를 알아보는<br />
-        간단한 성향 테스트입니다.<br />
-        총 10개의 질문에 답하면 결과가 나옵니다.
+  <div class="header">
+    <div class="header-left" onclick="location.href='index.html'">
+      <img src="logo.png" alt="로고">
+      <div class="title">
+        <span class="blue">H</span><span class="black">int </span><span class="blue">D</span><span class="black">ream</span>
       </div>
+    </div>
+    <button class="menu-button">≡</button>
+  </div>
+
+  <div class="container">
+    <div class="main-title">미래 Hint Dream</div>
+
+    <div class="step active" id="step-intro">
+      <h2 style="text-align:center; line-height:1.6;">
+        AI가 당신의 성향을 분석하여<br/>
+        HD현대중공업의 직무를 추천합니다!
+      </h2>
       <button class="button" onclick="goToStep('step-major')">🔍 Hint 찾기</button>
     </div>
 
     <div class="step" id="step-major">
-      <h1>전공 선택</h1>
+      <div class="main-title">미래 Hint Dream</div>
+      <h2 style="text-align:center;">전공이 무엇인가요?</h2>
       <select id="major-select">
         <option value="">전공을 선택하세요</option>
         <option>기계공학</option>
@@ -139,93 +179,71 @@
     </div>
 
     <div class="step" id="step-questions">
-      <h1 id="question-count">질문 1 / 10</h1>
-      <div class="question-block" id="question-block"></div>
-      <button class="button" onclick="nextQuestion()">다음</button>
+      <div class="main-title">미래 Hint Dream</div>
+      <h2 id="question-count" style="text-align:center;"></h2>
+      <div class="question-title" id="question-text"></div>
+      <div class="choices" id="question-choices"></div>
+      <div class="bottom-button">
+        <button class="button" onclick="nextQuestion()">다음</button>
+      </div>
     </div>
 
     <div class="step" id="step-result">
-      <h1>나의 추천 직무는?</h1>
+      <div class="main-title">미래 Hint Dream</div>
+      <h2 style="text-align:center;">추천 직무 결과</h2>
       <div id="result-content" style="margin-top: 20px; line-height: 1.6;"></div>
+      <div class="bottom-button" style="justify-content:center;">
+        <a href="job.html" class="button">더 많은 직무가 궁금하다면?</a>
+      </div>
     </div>
   </div>
 
   <script>
     const steps = document.querySelectorAll(".step");
-    const questionBlock = document.getElementById("question-block");
+    const questionText = document.getElementById("question-text");
+    const questionChoices = document.getElementById("question-choices");
     const questionCount = document.getElementById("question-count");
     const resultContent = document.getElementById("result-content");
 
     let currentQuestionIndex = 0;
     let selectedAnswers = [];
-    let selectedMajor = "";
     let shuffledQuestions = [];
 
     const questions = [
       {
         type: "scale",
-        text: "나는 새로운 기술에 대한 호기심이 많다.",
+        text: "새로운 기술을 빠르게 익히는 편이다.",
         options: ["전혀 아니다", "아니다", "보통이다", "그렇다", "매우 그렇다"],
         values: [-2, -1, 0, 1, 2]
       },
       {
         type: "binary",
-        text: "나는 조직보다는 개인의 창의성이 더 중요하다고 생각한다.",
+        text: "현장에서 몸으로 부딪히는 일을 좋아한다.",
         options: ["YES", "NO"],
         values: [1, -1]
       },
       {
         type: "scale",
-        text: "나는 현장에서 직접 움직이는 일이 좋다.",
+        text: "혼자 집중할 수 있는 환경을 선호한다.",
         options: ["전혀 아니다", "아니다", "보통이다", "그렇다", "매우 그렇다"],
         values: [-2, -1, 0, 1, 2]
       },
       {
         type: "binary",
-        text: "정확한 수치와 데이터가 중요하다.",
+        text: "기술보다 전략기획에 더 흥미를 느낀다.",
         options: ["YES", "NO"],
         values: [1, -1]
       },
       {
         type: "scale",
-        text: "팀워크보다는 혼자 해결하는 걸 선호한다.",
+        text: "수치와 데이터를 기반으로 문제를 해결한다.",
         options: ["전혀 아니다", "아니다", "보통이다", "그렇다", "매우 그렇다"],
         values: [-2, -1, 0, 1, 2]
-      },
-      {
-        type: "binary",
-        text: "문제 해결보다 사람과 협력하는 게 더 중요하다.",
-        options: ["YES", "NO"],
-        values: [1, -1]
-      },
-      {
-        type: "scale",
-        text: "나는 현실적인 솔루션보다 새로운 아이디어를 떠올리는 걸 좋아한다.",
-        options: ["전혀 아니다", "아니다", "보통이다", "그렇다", "매우 그렇다"],
-        values: [-2, -1, 0, 1, 2]
-      },
-      {
-        type: "binary",
-        text: "기술보다 경영 전략이 더 흥미롭다.",
-        options: ["YES", "NO"],
-        values: [1, -1]
-      },
-      {
-        type: "scale",
-        text: "나는 반복적인 작업보다 다양하고 유연한 업무를 선호한다.",
-        options: ["전혀 아니다", "아니다", "보통이다", "그렇다", "매우 그렇다"],
-        values: [-2, -1, 0, 1, 2]
-      },
-      {
-        type: "binary",
-        text: "나는 해외와 연결된 글로벌 프로젝트에 참여하고 싶다.",
-        options: ["YES", "NO"],
-        values: [1, -1]
       }
     ];
 
     function goToStep(id) {
-      steps.forEach(step => step.classList.remove("active"));
+      steps.forEach(s => s.classList.remove("active"));
       document.getElementById(id).classList.add("active");
     }
 
@@ -235,10 +253,9 @@
         alert("전공을 선택해 주세요!");
         return;
       }
-      selectedMajor = major;
       shuffledQuestions = [...questions].sort(() => Math.random() - 0.5);
-      selectedAnswers = [];
       currentQuestionIndex = 0;
+      selectedAnswers = [];
       goToStep("step-questions");
       showQuestion();
     }
@@ -246,19 +263,19 @@
     function showQuestion() {
       const q = shuffledQuestions[currentQuestionIndex];
       questionCount.innerText = `질문 ${currentQuestionIndex + 1} / ${shuffledQuestions.length}`;
-      let html = `<div class="question-title">${q.text}</div><div class="choices">`;
+      questionText.innerText = q.text;
+      questionChoices.innerHTML = "";
       q.options.forEach((opt, i) => {
-        html += `<div class="choice" onclick="selectChoice(this, ${q.values[i]})">${opt}</div>`;
+        const btn = document.createElement("div");
+        btn.className = "choice";
+        btn.innerText = opt;
+        btn.onclick = () => {
+          [...questionChoices.children].forEach(c => c.classList.remove("selected"));
+          btn.classList.add("selected");
+          selectedAnswers[currentQuestionIndex] = q.values[i];
+        };
+        questionChoices.appendChild(btn);
       });
-      html += "</div>";
-      questionBlock.innerHTML = html;
-    }
-
-    function selectChoice(element, value) {
-      const siblings = element.parentElement.querySelectorAll(".choice");
-      siblings.forEach(btn => btn.classList.remove("selected"));
-      element.classList.add("selected");
-      selectedAnswers[currentQuestionIndex] = value;
     }
 
     function nextQuestion() {
@@ -266,8 +283,8 @@
         alert("답변을 선택해 주세요!");
         return;
       }
-      if (currentQuestionIndex + 1 < shuffledQuestions.length) {
-        currentQuestionIndex++;
+      currentQuestionIndex++;
+      if (currentQuestionIndex < shuffledQuestions.length) {
         showQuestion();
       } else {
         showResult();
@@ -277,7 +294,14 @@
     function showResult() {
       goToStep("step-result");
       const total = selectedAnswers.reduce((a, b) => a + b, 0);
-      const index = (total + 20) % jobList.length;
+      const jobList = [
+        { name: "기본설계", desc: "선박의 전체 구조와 주요 사양을 기획하는 설계 직무입니다." },
+        { name: "엔진설계", desc: "선박의 심장인 엔진을 설계하고 검증하는 기술 직무입니다." },
+        { name: "생산관리", desc: "현장의 흐름을 조율하며 효율적 생산을 이끄는 전략 직무입니다." },
+        { name: "특수선영업", desc: "방산/특수 목적 선박을 해외로 수주하는 글로벌 세일즈 직무입니다." },
+        { name: "R&D", desc: "친환경 연료, 스마트십 등 미래 기술을 선도하는 연구 직무입니다." }
+      ];
+      const index = Math.abs(total) % jobList.length;
       const job = jobList[index];
       resultContent.innerHTML = `
         <div class="result-animate">
@@ -287,29 +311,6 @@
         </div>
       `;
     }
-
-    const jobList = [
-      { name: "기본설계", desc: "선박의 기본 골격을 설계하고 배의 성능과 안정성에 직접적인 영향을 주는 기본 치수, 구획 등을 결정하는 직무입니다." },
-      { name: "상세설계", desc: "설계된 기본 사양을 바탕으로 실제 제작 가능한 수준의 정밀 도면을 설계하고 구조 해석, 공법 개선 등을 수행합니다." },
-      { name: "기술기획", desc: "미래 기술을 예측하고 개발 전략을 수립하여 기술 사업화를 추진합니다. 시장 동향 및 기술 이슈 분석이 중요합니다." },
-      { name: "생산관리", desc: "현장의 작업자들을 효율적으로 배치하고 일정 관리, 품질 확보 등 생산 전 과정을 관리하는 핵심 역할입니다." },
-      { name: "생산지원", desc: "공정 흐름과 자원 사용을 분석하여 최적의 생산 공정을 구현하고 개선합니다." },
-      { name: "해양설계", desc: "해양플랜트 및 에너지 설비의 설계를 담당하며, 구조 안정성과 기능을 모두 고려한 고난이도 설계 역량이 요구됩니다." },
-      { name: "특수선영업", desc: "국방 관련 함정과 특수선 수출을 위한 해외 고객과의 영업 협상, 제안서 작성 등을 수행합니다." },
-      { name: "특수선설계", desc: "함정 및 특수 목적 선박의 요구 사양에 맞춘 도면 설계 및 구조 해석을 수행하며, 방위산업 지식이 요구됩니다." },
-      { name: "엔진영업", desc: "고객에게 선박용 엔진을 제안하고 기술적 상담을 하며, 계약 체결까지 담당하는 기술기반 영업 직무입니다." },
-      { name: "엔진설계", desc: "선박 추진을 위한 대형 엔진을 설계하고 테스트하며, 구조와 열역학의 전문지식이 요구되는 핵심 기술직입니다." },
-      { name: "엔진생산관리", desc: "엔진 제조 공정의 흐름을 최적화하고 자재와 인력 배치를 효율화하여 생산성을 극대화합니다." },
-      { name: "엔진품질관리", desc: "완성된 엔진의 성능 테스트 및 품질 보증 업무를 수행하며, 품질 기준에 부합하는지 검사하고 개선합니다." },
-      { name: "R&D", desc: "기술혁신을 위한 연구개발을 진행하며, 친환경 연료, 자동화 기술 등 미래형 기술을 연구합니다." },
-      { name: "ICT/정보보안", desc: "조선소의 전산 시스템을 설계하고 해킹, 데이터 유출 방지를 위한 보안 체계를 구축합니다." },
-      { name: "영업", desc: "선박 수주를 위한 영업 전략 수립, 고객과의 계약 협상, 시장 분석 및 경쟁사 전략 파악 등을 수행합니다." },
-      { name: "영업지원", desc: "수주 이후 진행되는 계약 이행, 고객 커뮤니케이션, 사후관리 등의 실무를 담당합니다." },
-      { name: "경영기획", desc: "회사의 중장기 목표를 설정하고 전체 전략을 수립하며, 각 부서와의 조율을 통해 방향성을 설정합니다." },
-      { name: "구매/자재", desc: "조선에 필요한 부품 및 자재를 구매하고 협력업체와 가격 및 납기 협상을 담당합니다." },
-      { name: "인사/총무", desc: "조직 운영을 위한 인력 채용, 인사 평가, 복지 기획 등을 담당하며, 내부 조직문화 조성과 연계됩니다." },
-      { name: "안전환경", desc: "현장의 안전을 위한 시스템을 운영하고, 환경 관련 규제를 준수하기 위한 모니터링 및 개선을 수행합니다." }
-    ];
   </script>
 </body>
 </html>
