@@ -65,13 +65,15 @@
     }
     select {
       width: 100%;
-      padding: 12px;
-      margin-top: 8px;
-      margin-bottom: 24px;
-      border: 2px solid #60a5fa;
+      padding: 14px;
+      margin: 12px 0 24px;
+      border: 2px solid #2563eb;
       border-radius: 12px;
       background-color: #f0f9ff;
       font-size: 1em;
+      font-family: 'HDHyundaiLight';
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+      transition: 0.3s ease;
     }
     .choice-buttons {
       display: flex;
@@ -82,12 +84,13 @@
     }
     .choice-buttons button {
       flex: 1 0 calc(20% - 6px);
-      padding: 10px 8px;
+      padding: 8px 4px;
+      font-size: 0.8em;
+      white-space: nowrap;
       background-color: #f0f9ff;
       color: #1e3a8a;
       border: 1px solid #3b82f6;
       border-radius: 8px;
-      font-size: 0.9em;
       cursor: pointer;
     }
     .choice-buttons button.selected {
@@ -152,11 +155,12 @@
     }
     .result-footer a {
       margin-left: 8px;
-      padding: 10px 24px;
-      background: #003087;
+      padding: 12px 28px;
+      background: linear-gradient(to right, #008233, #003087);
       color: white;
       border-radius: 999px;
       text-decoration: none;
+      font-family: 'HDHyundaiBold';
     }
   </style>
 </head>
@@ -167,11 +171,9 @@
       <div class="title"><span class="blue">H</span><span class="black">int </span><span class="blue">D</span><span class="black">ream</span></div>
     </div>
   </div>
-
   <div class="main-title">
     <span class="highlight green">미래</span> <span class="highlight">Hint Dream</span>
   </div>
-
   <div class="section">
     <label for="major">전공 선택</label>
     <select id="major">
@@ -185,22 +187,19 @@
       <option>경영학</option>
       <option>기타</option>
     </select>
-
     <div id="questions"></div>
     <button id="submit-button" onclick="generateResult()">🔮 나의 미래 예측하기</button>
   </div>
-
   <div id="result-modal">
     <div class="result-content">
       <div class="result-close" onclick="closeResult()">✕</div>
       <div id="result"></div>
       <div class="result-footer">
-        다른 직무가 더 궁금하다면?
+        오늘의 직무를 더 알고 싶다면?
         <a href="job.html">직무 Hint Dream</a>
       </div>
     </div>
   </div>
-
   <script>
     const questions = [
       "나는 새로운 기술에 관심이 많다.",
@@ -240,10 +239,9 @@
 
     const answers = new Array(questions.length).fill(null);
     const container = document.getElementById("questions");
-
     questions.forEach((q, i) => {
       const div = document.createElement("div");
-      div.innerHTML = `<p>${i+1}. ${q}</p>
+      div.innerHTML = `<p>${i + 1}. ${q}</p>
         <div class="choice-buttons" id="choice${i}">
           <button onclick="selectAnswer(${i}, 2)">매우 그렇다</button>
           <button onclick="selectAnswer(${i}, 1)">그렇다</button>
@@ -266,13 +264,11 @@
         alert("모든 항목에 응답해 주세요!");
         return;
       }
-
       const major = document.getElementById("major").value;
       const sum = answers.reduce((a, b) => a + b, 0);
       const possibleJobs = jobMap[major];
       const job = possibleJobs[Math.floor((sum + 20) / (40 / possibleJobs.length)) % possibleJobs.length];
       const desc = jobDescriptions[job] || "이 직무는 현재 준비 중입니다.";
-
       const result = document.getElementById("result");
       result.innerHTML = `
         <h3>${job}</h3>
