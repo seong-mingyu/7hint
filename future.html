@@ -98,14 +98,20 @@
     .choices {
       display: flex;
       gap: 8px;
-      justify-content: center;
-      flex-wrap: wrap;
+      justify-content: flex-start;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding-bottom: 10px;
+    }
+    .choice {
+      flex: none;
+      display: inline-block;
     }
     .choice {
       flex: 1 0 18%;
       max-width: 18%;
       min-width: 80px;
-      min-height: 48px;
+      min-height: 48px; padding: 10px 16px; font-size: 1em;
       background: #e0f2fe;
       border-radius: 12px;
       padding: 14px 10px;
@@ -168,7 +174,7 @@
       <h2 id="question-count" style="text-align:center; font-size: 0.95em; color: #666;"></h2>
       <div class="question-title" id="question-text"></div>
       <div class="choices" id="question-choices"></div>
-      <div class="bottom-button"><button class="button" onclick="prevQuestion()">이전</button><button class="button" onclick="nextQuestion()">다음</button></div>
+      <div class="bottom-button" style="justify-content: space-between;"><button class="button" onclick="prevQuestion()">이전</button><button class="button" onclick="nextQuestion()">다음</button></div>
     </div>
 
     <div class="step" id="step-loading">
@@ -239,9 +245,11 @@
       questionText.innerText = q.text;
       questionChoices.innerHTML = "";
       q.options.forEach((opt, i) => {
+        const isSelected = selectedAnswers[currentQuestionIndex] === q.values[i];
         const btn = document.createElement("div");
         btn.className = "choice";
         btn.innerText = opt;
+        btn.className = isSelected ? "choice selected" : "choice";
         btn.onclick = () => {
           [...questionChoices.children].forEach(c => c.classList.remove("selected"));
           btn.classList.add("selected");
