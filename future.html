@@ -97,13 +97,15 @@
     }
     .choices {
       display: flex;
-      gap: 10px;
-      justify-content: space-between;
-      flex-wrap: nowrap;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
     }
     .choice {
       flex: 1 0 18%;
       max-width: 18%;
+      min-width: 80px;
+      min-height: 48px;
       background: #e0f2fe;
       border-radius: 12px;
       padding: 14px 10px;
@@ -166,7 +168,7 @@
       <h2 id="question-count" style="text-align:center; font-size: 0.95em; color: #666;"></h2>
       <div class="question-title" id="question-text"></div>
       <div class="choices" id="question-choices"></div>
-      <div class="bottom-button"><button class="button" onclick="nextQuestion()">다음</button></div>
+      <div class="bottom-button"><button class="button" onclick="prevQuestion()">이전</button><button class="button" onclick="nextQuestion()">다음</button></div>
     </div>
 
     <div class="step" id="step-loading">
@@ -176,7 +178,6 @@
     </div>
 
     <div class="step" id="step-result">
-      <div class="main-title">미래 Hint Dream</div>
       <h2 style="text-align:center;">추천 직무 결과</h2>
       <div id="result-content" class="result-animate" style="margin-top: 20px; line-height: 1.6;"></div>
       <div class="center-button" style="margin-top:30px;">
@@ -250,7 +251,16 @@
       });
     }
 
+    
+    function prevQuestion() {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        showQuestion();
+      }
+    }
+
     function nextQuestion() {
+
       if (selectedAnswers[currentQuestionIndex] == null) {
         alert("답변을 선택해 주세요!");
         return;
@@ -277,7 +287,7 @@
       const index = Math.abs(total) % jobList.length;
       const job = jobList[index];
       resultContent.innerHTML = `
-        <div id="capture-area">
+        <div id="capture-area"><div class="main-title">미래 Hint Dream</div>
           <h2 style="color:#003087; font-family:'HDHyundaiBold'; font-size:1.5em;">${job.name}</h2>
           <p style="margin-top: 18px; font-size: 1.05em; line-height: 1.7;">${job.desc}</p>
           <img src="future_${job.name}.png" alt="${job.name}" style="margin-top: 28px; max-width: 100%; border-radius: 14px;">
