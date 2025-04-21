@@ -14,290 +14,302 @@
       src: url('./fonts/HDHyundai-Bold.ttf') format('truetype');
     }
     body {
-      margin: 0;
       font-family: 'HDHyundaiLight', sans-serif;
       background-color: #f9fafb;
       color: #1e293b;
+      margin: 0;
+      padding: 0;
     }
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 20px;
-      background-color: #ffffff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .header-left {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-    }
-    .header-left img {
-      width: 120px;
-      margin-right: 12px;
-    }
-    .title {
-      font-size: 1.8em;
-      font-family: 'HDHyundaiBold';
-    }
-    .title .blue { color: #003087; font-weight: bold; }
-    .title .black { color: #000000; }
-    .main-title {
-      font-size: 1.3em;
-      font-family: 'HDHyundaiBold';
-      margin: 30px auto 20px;
-      text-align: center;
-      background: linear-gradient(to right, #e0f2fe, #f3e8ff);
-      color: #0c4a6e;
-      padding: 14px 30px;
-      width: fit-content;
-      border-radius: 999px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    .main-title .highlight { color: #003087; }
-    .main-title .green { color: #008233; }
-    .section {
+    .container {
       max-width: 800px;
-      margin: 40px auto;
-      padding: 0 24px;
+      margin: 0 auto;
+      padding: 30px 20px;
     }
-    label {
+    .step {
+      display: none;
+    }
+    .step.active {
       display: block;
-      margin-bottom: 8px;
+    }
+    h1 {
+      text-align: center;
       font-family: 'HDHyundaiBold';
-      font-size: 1.05em;
+      color: #003087;
+    }
+    .intro-text {
+      font-size: 1.1em;
+      text-align: center;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+    .button {
+      display: inline-block;
+      background: #2563eb;
+      color: white;
+      font-family: 'HDHyundaiBold';
+      padding: 12px 28px;
+      border-radius: 30px;
+      text-align: center;
+      cursor: pointer;
+      border: none;
+      margin-top: 20px;
+      font-size: 1em;
+    }
+    .question-block {
+      margin: 30px 0;
+    }
+    .question-title {
+      font-family: 'HDHyundaiBold';
+      font-size: 1.1em;
+      margin-bottom: 10px;
+    }
+    .choices {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .choice {
+      flex: 1 1 calc(50% - 10px);
+      background: #e0f2fe;
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: 0.3s ease;
+    }
+    .choice.selected {
+      border-color: #3b82f6;
+      background-color: #dbeafe;
+      font-weight: bold;
     }
     select {
       width: 100%;
-      padding: 14px;
-      margin-bottom: 32px;
-      border: 2px solid #a5b4fc;
-      border-radius: 12px;
-      background-color: #f0f9ff;
-      font-size: 1em;
-      font-family: 'HDHyundaiLight';
-      transition: all 0.3s ease;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    }
-    .choice-buttons {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-    .choice-buttons button {
-      flex: 1 0 calc(20% - 6px);
-      padding: 8px 4px;
-      font-size: 0.8em;
-      white-space: nowrap;
-      background-color: #eef2ff;
-      color: #1e3a8a;
-      border: 1px solid #c7d2fe;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .choice-buttons button.selected {
-      background-color: #6366f1;
-      color: white;
-      font-weight: bold;
-    }
-    #submit-button {
-      display: block;
-      margin: 60px auto 20px;
-      padding: 16px 36px;
-      font-size: 1.1em;
-      background: linear-gradient(to right, #2563eb, #1e40af);
-      color: white;
-      border: none;
-      border-radius: 999px;
-      font-family: 'HDHyundaiBold';
-      cursor: pointer;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-    }
-    #result-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(6px);
-      z-index: 999;
-      justify-content: center;
-      align-items: center;
-    }
-    .result-content {
-      background: #ffffffee;
-      padding: 40px;
-      border-radius: 20px;
-      text-align: center;
-      max-width: 90%;
-      max-height: 90%;
-      overflow: auto;
-      position: relative;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
-    }
-    .result-content img {
-      max-width: 100%;
-      border-radius: 12px;
+      padding: 12px;
+      border-radius: 10px;
       margin-top: 20px;
-    }
-    .result-close {
-      position: absolute;
-      top: 12px;
-      right: 16px;
-      font-size: 24px;
-      cursor: pointer;
-      color: #1e293b;
-    }
-    .result-footer {
-      margin-top: 30px;
       font-size: 1em;
-      font-family: 'HDHyundaiBold';
+      border: 1px solid #cbd5e1;
     }
-    .result-footer a {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 12px 28px;
-      background: linear-gradient(to right, #008233, #003087);
-      color: white;
-      border-radius: 999px;
-      text-decoration: none;
-      font-family: 'HDHyundaiBold';
+
+    /* 결과 애니메이션 */
+    @keyframes fadeSlideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+    .result-animate {
+      animation: fadeSlideIn 0.8s ease forwards;
+      opacity: 0;
     }
   </style>
 </head>
 <body>
-  <div class="header">
-    <div class="header-left" onclick="location.href='index.html'">
-      <img src="logo.png" alt="로고">
-      <div class="title"><span class="blue">H</span><span class="black">int </span><span class="blue">D</span><span class="black">ream</span></div>
-    </div>
-  </div>
-  <div class="main-title">
-    <span class="highlight green">미래</span> <span class="highlight">Hint Dream</span>
-  </div>
-  <div class="section">
-    <label for="major">전공을 선택해주세요</label>
-    <select id="major">
-      <option>기계공학</option>
-      <option>전기전자</option>
-      <option>조선해양</option>
-      <option>산업공학</option>
-      <option>컴퓨터공학</option>
-      <option>재료/금속</option>
-      <option>화학공학</option>
-      <option>경영학</option>
-      <option>기타</option>
-    </select>
-    <div id="questions"></div>
-    <button id="submit-button" onclick="generateResult()">🔮 나의 미래 예측하기</button>
-  </div>
-  <div id="result-modal">
-    <div class="result-content">
-      <div id="result"></div>
-      <div class="result-footer">
-        오늘의 직무를 더 알고 싶다면?<br>
-        <a href="job.html">직무 Hint Dream</a>
+  <div class="container">
+    <div class="step active" id="step-intro">
+      <h1>미래 Hint Dream</h1>
+      <div class="intro-text">
+        나에게 맞는 HD현대중공업 직무를 알아보는<br />
+        간단한 성향 테스트입니다.<br />
+        총 10개의 질문에 답하면 결과가 나옵니다.
       </div>
-      <div class="result-close" onclick="closeResult()">✕</div>
+      <button class="button" onclick="goToStep('step-major')">🔍 Hint 찾기</button>
+    </div>
+
+    <div class="step" id="step-major">
+      <h1>전공 선택</h1>
+      <select id="major-select">
+        <option value="">전공을 선택하세요</option>
+        <option>기계공학</option>
+        <option>전기전자</option>
+        <option>조선해양</option>
+        <option>산업공학</option>
+        <option>컴퓨터공학</option>
+        <option>재료/금속</option>
+        <option>화학공학</option>
+        <option>경영학</option>
+        <option>기타</option>
+      </select>
+      <button class="button" onclick="startQuestions()">다음</button>
+    </div>
+
+    <div class="step" id="step-questions">
+      <h1 id="question-count">질문 1 / 10</h1>
+      <div class="question-block" id="question-block"></div>
+      <button class="button" onclick="nextQuestion()">다음</button>
+    </div>
+
+    <div class="step" id="step-result">
+      <h1>나의 추천 직무는?</h1>
+      <div id="result-content" style="margin-top: 20px; line-height: 1.6;"></div>
     </div>
   </div>
+
   <script>
+    const steps = document.querySelectorAll(".step");
+    const questionBlock = document.getElementById("question-block");
+    const questionCount = document.getElementById("question-count");
+    const resultContent = document.getElementById("result-content");
+
+    let currentQuestionIndex = 0;
+    let selectedAnswers = [];
+    let selectedMajor = "";
+    let shuffledQuestions = [];
+
     const questions = [
-      "나는 새로운 기술에 관심이 많다.",
-      "문제 해결보다 사람과의 협력이 중요하다고 생각한다.",
-      "디테일한 도면이나 수치를 다루는 것이 재미있다.",
-      "나는 현장 중심보다 이론 설계에 흥미를 느낀다.",
-      "데이터나 수치 분석보다 아이디어 도출을 좋아한다.",
-      "팀보다 개인 과업을 더 선호한다.",
-      "나는 위험을 감수하는 도전을 즐긴다.",
-      "업무의 반복성보다 창의성이 중요하다고 생각한다.",
-      "기계보다 사람, 사람보다 조직에 관심이 많다.",
-      "나는 글로벌한 환경에서 일하고 싶다."
+      {
+        type: "scale",
+        text: "나는 새로운 기술에 대한 호기심이 많다.",
+        options: ["전혀 아니다", "아니다", "보통이다", "그렇다", "매우 그렇다"],
+        values: [-2, -1, 0, 1, 2]
+      },
+      {
+        type: "binary",
+        text: "나는 조직보다는 개인의 창의성이 더 중요하다고 생각한다.",
+        options: ["YES", "NO"],
+        values: [1, -1]
+      },
+      {
+        type: "scale",
+        text: "나는 현장에서 직접 움직이는 일이 좋다.",
+        options: ["전혀 아니다", "아니다", "보통이다", "그렇다", "매우 그렇다"],
+        values: [-2, -1, 0, 1, 2]
+      },
+      {
+        type: "binary",
+        text: "정확한 수치와 데이터가 중요하다.",
+        options: ["YES", "NO"],
+        values: [1, -1]
+      },
+      {
+        type: "scale",
+        text: "팀워크보다는 혼자 해결하는 걸 선호한다.",
+        options: ["전혀 아니다", "아니다", "보통이다", "그렇다", "매우 그렇다"],
+        values: [-2, -1, 0, 1, 2]
+      },
+      {
+        type: "binary",
+        text: "문제 해결보다 사람과 협력하는 게 더 중요하다.",
+        options: ["YES", "NO"],
+        values: [1, -1]
+      },
+      {
+        type: "scale",
+        text: "나는 현실적인 솔루션보다 새로운 아이디어를 떠올리는 걸 좋아한다.",
+        options: ["전혀 아니다", "아니다", "보통이다", "그렇다", "매우 그렇다"],
+        values: [-2, -1, 0, 1, 2]
+      },
+      {
+        type: "binary",
+        text: "기술보다 경영 전략이 더 흥미롭다.",
+        options: ["YES", "NO"],
+        values: [1, -1]
+      },
+      {
+        type: "scale",
+        text: "나는 반복적인 작업보다 다양하고 유연한 업무를 선호한다.",
+        options: ["전혀 아니다", "아니다", "보통이다", "그렇다", "매우 그렇다"],
+        values: [-2, -1, 0, 1, 2]
+      },
+      {
+        type: "binary",
+        text: "나는 해외와 연결된 글로벌 프로젝트에 참여하고 싶다.",
+        options: ["YES", "NO"],
+        values: [1, -1]
+      }
     ];
 
-    const jobMap = {
-      '기계공학': ['엔진설계', '생산기술', '품질관리'],
-      '전기전자': ['전장설계', '시운전', '전기설계'],
-      '조선해양': ['기본설계', '선체구조', '해양플랜트'],
-      '산업공학': ['생산관리', '공정개선', '물류최적화'],
-      '컴퓨터공학': ['스마트팩토리개발', 'AI엔지니어', 'IoT시스템설계'],
-      '재료/금속': ['용접기술', '재료시험', '표면처리'],
-      '화학공학': ['도장설계', '환경안전', '에너지공정'],
-      '경영학': ['경영기획', '인사총무', 'SCM'],
-      '기타': ['다기능지원', '전략기획']
-    };
-
-    const jobDescriptions = {
-      '엔진설계': '엔진의 구조 해석, 연비 개선 및 친환경 설계까지 담당하는 핵심 직무입니다.',
-      '생산기술': '공정 최적화와 현장 문제 해결을 통해 생산성을 높이는 중심 역할입니다.',
-      '품질관리': '제품의 신뢰성을 확보하기 위한 검사 기준 수립과 불량 원인 분석 업무를 수행합니다.',
-      'AI엔지니어': '딥러닝, 예측 모델링 등으로 미래 공정을 데이터 기반으로 혁신합니다.',
-      '전장설계': '모터, 센서, 전기배선 등 전자 시스템을 설계하여 기계와 통합하는 업무입니다.',
-      '시운전': '설비 최종 성능을 검증하며, 프로젝트 완성도를 책임지는 현장 엔지니어입니다.',
-      '기본설계': '조선 설계의 기초를 다지며 선박의 안정성과 경제성을 확보합니다.',
-      '스마트팩토리개발': 'IoT/빅데이터를 활용해 전체 공정의 자동화·디지털화를 주도하는 핵심 인재입니다.'
-    };
-
-    const answers = new Array(questions.length).fill(null);
-    const container = document.getElementById("questions");
-    questions.forEach((q, i) => {
-      const div = document.createElement("div");
-      div.innerHTML = `<p>${i + 1}. ${q}</p>
-        <div class="choice-buttons" id="choice${i}">
-          <button onclick="selectAnswer(${i}, 2)">매우 그렇다</button>
-          <button onclick="selectAnswer(${i}, 1)">그렇다</button>
-          <button onclick="selectAnswer(${i}, 0)">보통이다</button>
-          <button onclick="selectAnswer(${i}, -1)">아니다</button>
-          <button onclick="selectAnswer(${i}, -2)">전혀 아니다</button>
-        </div>`;
-      container.appendChild(div);
-    });
-
-    function selectAnswer(index, value) {
-      answers[index] = value;
-      const buttons = document.querySelectorAll(`#choice${index} button`);
-      buttons.forEach(btn => btn.classList.remove("selected"));
-      const btnIndex = 2 - value;
-      if (buttons[btnIndex]) buttons[btnIndex].classList.add("selected");
+    function goToStep(id) {
+      steps.forEach(step => step.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
     }
 
-    function generateResult() {
-      if (answers.includes(null)) {
-        alert("모든 항목에 응답해 주세요!");
+    function startQuestions() {
+      const major = document.getElementById("major-select").value;
+      if (!major) {
+        alert("전공을 선택해 주세요!");
         return;
       }
-      const major = document.getElementById("major").value;
-      const sum = answers.reduce((a, b) => a + b, 0);
-      const possibleJobs = jobMap[major];
-      const job = possibleJobs[Math.floor((sum + 20) / (40 / possibleJobs.length)) % possibleJobs.length];
-      const desc = jobDescriptions[job] || "이 직무는 현재 준비 중입니다.";
-      const result = document.getElementById("result");
-      result.innerHTML = "<p style='font-size:1.1em;'>답변을 분석 중입니다...</p><br><div class='loader' style='width:40px;height:40px;border:5px solid #ccc;border-top-color:#2563eb;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto;'></div>";
-      document.getElementById("result-modal").style.display = "flex";
-      setTimeout(() => {
-        result.innerHTML = `
-          <h3>${job}</h3>
-          <p>${desc}</p>
-          <img src="future_${job}.png" alt="${job}">
-        `;
-      }, 3000);
+      selectedMajor = major;
+      shuffledQuestions = [...questions].sort(() => Math.random() - 0.5);
+      selectedAnswers = [];
+      currentQuestionIndex = 0;
+      goToStep("step-questions");
+      showQuestion();
     }
 
-    function closeResult() {
-      document.getElementById("result-modal").style.display = "none";
+    function showQuestion() {
+      const q = shuffledQuestions[currentQuestionIndex];
+      questionCount.innerText = `질문 ${currentQuestionIndex + 1} / ${shuffledQuestions.length}`;
+      let html = `<div class="question-title">${q.text}</div><div class="choices">`;
+      q.options.forEach((opt, i) => {
+        html += `<div class="choice" onclick="selectChoice(this, ${q.values[i]})">${opt}</div>`;
+      });
+      html += "</div>";
+      questionBlock.innerHTML = html;
     }
+
+    function selectChoice(element, value) {
+      const siblings = element.parentElement.querySelectorAll(".choice");
+      siblings.forEach(btn => btn.classList.remove("selected"));
+      element.classList.add("selected");
+      selectedAnswers[currentQuestionIndex] = value;
+    }
+
+    function nextQuestion() {
+      if (selectedAnswers[currentQuestionIndex] == null) {
+        alert("답변을 선택해 주세요!");
+        return;
+      }
+      if (currentQuestionIndex + 1 < shuffledQuestions.length) {
+        currentQuestionIndex++;
+        showQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      goToStep("step-result");
+      const total = selectedAnswers.reduce((a, b) => a + b, 0);
+      const index = (total + 20) % jobList.length;
+      const job = jobList[index];
+      resultContent.innerHTML = `
+        <div class="result-animate">
+          <h2 style="color:#003087; font-family:'HDHyundaiBold'; font-size:1.5em;">${job.name}</h2>
+          <p style="margin-top: 18px; font-size: 1.05em; line-height: 1.7;">${job.desc}</p>
+          <img src="future_${job.name}.png" alt="${job.name}" style="margin-top: 28px; max-width: 100%; border-radius: 14px;">
+        </div>
+      `;
+    }
+
+    const jobList = [
+      { name: "기본설계", desc: "선박의 기본 골격을 설계하고 배의 성능과 안정성에 직접적인 영향을 주는 기본 치수, 구획 등을 결정하는 직무입니다." },
+      { name: "상세설계", desc: "설계된 기본 사양을 바탕으로 실제 제작 가능한 수준의 정밀 도면을 설계하고 구조 해석, 공법 개선 등을 수행합니다." },
+      { name: "기술기획", desc: "미래 기술을 예측하고 개발 전략을 수립하여 기술 사업화를 추진합니다. 시장 동향 및 기술 이슈 분석이 중요합니다." },
+      { name: "생산관리", desc: "현장의 작업자들을 효율적으로 배치하고 일정 관리, 품질 확보 등 생산 전 과정을 관리하는 핵심 역할입니다." },
+      { name: "생산지원", desc: "공정 흐름과 자원 사용을 분석하여 최적의 생산 공정을 구현하고 개선합니다." },
+      { name: "해양설계", desc: "해양플랜트 및 에너지 설비의 설계를 담당하며, 구조 안정성과 기능을 모두 고려한 고난이도 설계 역량이 요구됩니다." },
+      { name: "특수선영업", desc: "국방 관련 함정과 특수선 수출을 위한 해외 고객과의 영업 협상, 제안서 작성 등을 수행합니다." },
+      { name: "특수선설계", desc: "함정 및 특수 목적 선박의 요구 사양에 맞춘 도면 설계 및 구조 해석을 수행하며, 방위산업 지식이 요구됩니다." },
+      { name: "엔진영업", desc: "고객에게 선박용 엔진을 제안하고 기술적 상담을 하며, 계약 체결까지 담당하는 기술기반 영업 직무입니다." },
+      { name: "엔진설계", desc: "선박 추진을 위한 대형 엔진을 설계하고 테스트하며, 구조와 열역학의 전문지식이 요구되는 핵심 기술직입니다." },
+      { name: "엔진생산관리", desc: "엔진 제조 공정의 흐름을 최적화하고 자재와 인력 배치를 효율화하여 생산성을 극대화합니다." },
+      { name: "엔진품질관리", desc: "완성된 엔진의 성능 테스트 및 품질 보증 업무를 수행하며, 품질 기준에 부합하는지 검사하고 개선합니다." },
+      { name: "R&D", desc: "기술혁신을 위한 연구개발을 진행하며, 친환경 연료, 자동화 기술 등 미래형 기술을 연구합니다." },
+      { name: "ICT/정보보안", desc: "조선소의 전산 시스템을 설계하고 해킹, 데이터 유출 방지를 위한 보안 체계를 구축합니다." },
+      { name: "영업", desc: "선박 수주를 위한 영업 전략 수립, 고객과의 계약 협상, 시장 분석 및 경쟁사 전략 파악 등을 수행합니다." },
+      { name: "영업지원", desc: "수주 이후 진행되는 계약 이행, 고객 커뮤니케이션, 사후관리 등의 실무를 담당합니다." },
+      { name: "경영기획", desc: "회사의 중장기 목표를 설정하고 전체 전략을 수립하며, 각 부서와의 조율을 통해 방향성을 설정합니다." },
+      { name: "구매/자재", desc: "조선에 필요한 부품 및 자재를 구매하고 협력업체와 가격 및 납기 협상을 담당합니다." },
+      { name: "인사/총무", desc: "조직 운영을 위한 인력 채용, 인사 평가, 복지 기획 등을 담당하며, 내부 조직문화 조성과 연계됩니다." },
+      { name: "안전환경", desc: "현장의 안전을 위한 시스템을 운영하고, 환경 관련 규제를 준수하기 위한 모니터링 및 개선을 수행합니다." }
+    ];
   </script>
 </body>
 </html>
