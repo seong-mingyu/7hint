@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>미래 Hint Dream</title>
+  <style>
+    @font-face {
+      font-family: 'HDHyundaiLight';
+      src: url('./fonts/HDHyundai-Light.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'HDHyundaiBold';
+      src: url('./fonts/HDHyundai-Bold.ttf') format('truetype');
+    }
+    body {
+      margin: 0;
+      font-family: 'HDHyundaiLight', sans-serif;
+      background-color: #ffffff;
+      color: #1e293b;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      background-color: #f8fafc;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .header-left img {
+      width: 120px;
+      margin-right: 12px;
+    }
+    .title {
+      font-size: 1.8em;
+      font-family: 'HDHyundaiBold';
+    }
+    .title .blue { color: #003087; font-weight: bold; }
+    .title .black { color: #000000; }
+    .menu-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .menu-button {
+      font-size: 1.4em;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #333;
+      padding: 4px;
+    }
+    .main-title {
+      font-size: 1.3em;
+      font-family: 'HDHyundaiBold';
+      margin: 30px auto 20px;
+      text-align: center;
+      background-color: #e0f2fe;
+      color: #0c4a6e;
+      padding: 12px 26px;
+      width: fit-content;
+      border-radius: 999px;
+    }
+    .main-title .highlight { color: #003087; }
+    .main-title .green { color: #008233; }
+    .section {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .section h2 {
+      font-family: 'HDHyundaiBold';
+      font-size: 1.4em;
+      color: #003087;
+      margin-bottom: 16px;
+    }
+    .section p, .section label {
+      line-height: 1.6;
+      font-size: 1em;
+      color: #334155;
+    }
+    input[type="text"], select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: 'HDHyundaiLight';
+    }
+    .question {
+      margin-bottom: 24px;
+    }
+    button {
+      background-color: #2563eb;
+      color: white;
+      font-family: 'HDHyundaiBold';
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 40px;
+      padding: 20px;
+      background: #f1f5f9;
+      border-radius: 12px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-left" onclick="location.href='index.html'">
+      <img src="logo.png" alt="로고">
+      <div class="title"><span class="blue">H</span><span class="black">int </span><span class="blue">D</span><span class="black">ream</span></div>
+    </div>
+    <div class="menu-group">
+      <button class="menu-button">≡</button>
+    </div>
+  </div>
+
+  <div class="main-title">
+    <span class="highlight green">미래</span> <span class="highlight">Hint Dream</span>
+  </div>
+
+  <div class="section">
+    <h2>나의 미래설계도</h2>
+    <p>당신의 전공과 성향을 바탕으로 HD현대중공업에서의 미래 직무를 예측합니다.</p>
+
+    <label for="major">전공 선택</label>
+    <select id="major">
+      <option>기계공학</option>
+      <option>전기전자</option>
+      <option>조선해양</option>
+      <option>산업공학</option>
+      <option>컴퓨터공학</option>
+      <option>재료/금속</option>
+      <option>화학공학</option>
+      <option>경영학</option>
+      <option>기타</option>
+    </select>
+
+    <div id="questions"></div>
+    <button onclick="generateResult()">미래 직무 예측하기</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const questions = [
+      "나는 새로운 기술에 관심이 많다.",
+      "문제 해결보다 사람과의 협력이 중요하다고 생각한다.",
+      "디테일한 도면이나 수치를 다루는 것이 재미있다.",
+      "나는 현장 중심보다 이론 설계에 흥미를 느낀다.",
+      "데이터나 수치 분석보다 아이디어 도출을 좋아한다.",
+      "팀보다 개인 과업을 더 선호한다.",
+      "나는 위험을 감수하는 도전을 즐긴다.",
+      "업무의 반복성보다 창의성이 중요하다고 생각한다.",
+      "기계보다 사람, 사람보다 조직에 관심이 많다.",
+      "나는 글로벌한 환경에서 일하고 싶다."
+    ];
+
+    const jobMap = {
+      '기계공학': ['엔진설계', '생산기술', '품질관리'],
+      '전기전자': ['전장설계', '시운전', '전기설계'],
+      '조선해양': ['기본설계', '선체구조', '해양플랜트'],
+      '산업공학': ['생산관리', '공정개선', '물류최적화'],
+      '컴퓨터공학': ['스마트팩토리개발', 'AI엔지니어', 'IoT시스템설계'],
+      '재료/금속': ['용접기술', '재료시험', '표면처리'],
+      '화학공학': ['도장설계', '환경안전', '에너지공정'],
+      '경영학': ['경영기획', '인사총무', 'SCM'],
+      '기타': ['다기능지원', '전략기획']
+    };
+
+    const container = document.getElementById('questions');
+    questions.forEach((q, i) => {
+      container.innerHTML += `
+        <div class="question">
+          <label>${i + 1}. ${q}</label><br>
+          <select id="q${i}">
+            <option value="2">매우 그렇다</option>
+            <option value="1">그렇다</option>
+            <option value="0">보통이다</option>
+            <option value="-1">아니다</option>
+            <option value="-2">전혀 아니다</option>
+          </select>
+        </div>
+      `;
+    });
+
+    function generateResult() {
+      const major = document.getElementById('major').value;
+      const scores = questions.map((_, i) => parseInt(document.getElementById(`q${i}`).value));
+      const sum = scores.reduce((a, b) => a + b, 0);
+
+      const possibleJobs = jobMap[major];
+      const job = possibleJobs[Math.floor((sum + 20) / (40 / possibleJobs.length)) % possibleJobs.length];
+
+      const resultDiv = document.getElementById('result');
+      resultDiv.style.display = 'block';
+      resultDiv.innerHTML = `
+        <h3>예상 직무: ${job}</h3>
+        <p>당신은 <strong>${major}</strong> 전공자로서, ${job} 분야에서 강점을 보일 수 있습니다.</p>
+        <img src="future_${job}.png" alt="${job}" style="width:100%; max-width:400px; margin-top:20px; border-radius:12px;">
+      `;
+    }
+  </script>
+</body>
+</html>
