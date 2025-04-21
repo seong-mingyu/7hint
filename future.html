@@ -16,7 +16,7 @@
     body {
       margin: 0;
       font-family: 'HDHyundaiLight', sans-serif;
-      background-color: #ffffff;
+      background-color: #f9fafb;
       color: #1e293b;
     }
     .header {
@@ -24,7 +24,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 12px 20px;
-      background-color: #f8fafc;
+      background-color: #ffffff;
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
       position: sticky;
       top: 0;
@@ -50,29 +50,37 @@
       font-family: 'HDHyundaiBold';
       margin: 30px auto 20px;
       text-align: center;
-      background-color: #e0f2fe;
+      background: linear-gradient(to right, #e0f2fe, #f3e8ff);
       color: #0c4a6e;
-      padding: 12px 26px;
+      padding: 14px 30px;
       width: fit-content;
       border-radius: 999px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     .main-title .highlight { color: #003087; }
     .main-title .green { color: #008233; }
     .section {
       max-width: 800px;
       margin: 40px auto;
-      padding: 0 20px;
+      padding: 0 24px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-family: 'HDHyundaiBold';
+      font-size: 1.05em;
     }
     select {
       width: 100%;
       padding: 14px;
-      margin: 12px 0 24px;
-      border: 2px solid #2563eb;
+      margin-bottom: 32px;
+      border: 2px solid #a5b4fc;
       border-radius: 12px;
       background-color: #f0f9ff;
       font-size: 1em;
       font-family: 'HDHyundaiLight';
-      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     }
     .choice-buttons {
       display: flex;
@@ -86,29 +94,30 @@
       padding: 8px 4px;
       font-size: 0.8em;
       white-space: nowrap;
-      background-color: #f0f9ff;
+      background-color: #eef2ff;
       color: #1e3a8a;
-      border: 1px solid #3b82f6;
+      border: 1px solid #c7d2fe;
       border-radius: 8px;
       cursor: pointer;
+      transition: background 0.3s;
     }
     .choice-buttons button.selected {
-      background-color: #3b82f6;
+      background-color: #6366f1;
       color: white;
       font-weight: bold;
     }
     #submit-button {
       display: block;
-      margin: 40px auto;
-      padding: 16px 32px;
-      font-size: 1.2em;
+      margin: 60px auto 20px;
+      padding: 16px 36px;
+      font-size: 1.1em;
       background: linear-gradient(to right, #2563eb, #1e40af);
       color: white;
       border: none;
       border-radius: 999px;
       font-family: 'HDHyundaiBold';
       cursor: pointer;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
     }
     #result-modal {
       display: none;
@@ -179,7 +188,7 @@
     <span class="highlight green">미래</span> <span class="highlight">Hint Dream</span>
   </div>
   <div class="section">
-    <label for="major">전공 선택</label>
+    <label for="major">전공을 선택해주세요</label>
     <select id="major">
       <option>기계공학</option>
       <option>전기전자</option>
@@ -217,6 +226,7 @@
       "기계보다 사람, 사람보다 조직에 관심이 많다.",
       "나는 글로벌한 환경에서 일하고 싶다."
     ];
+
     const jobMap = {
       '기계공학': ['엔진설계', '생산기술', '품질관리'],
       '전기전자': ['전장설계', '시운전', '전기설계'],
@@ -228,16 +238,18 @@
       '경영학': ['경영기획', '인사총무', 'SCM'],
       '기타': ['다기능지원', '전략기획']
     };
+
     const jobDescriptions = {
       '엔진설계': '엔진의 구조 해석, 연비 개선 및 친환경 설계까지 담당하는 핵심 직무입니다.',
       '생산기술': '공정 최적화와 현장 문제 해결을 통해 생산성을 높이는 중심 역할입니다.',
-      '품질관리': '엄격한 품질 기준으로 불량률을 최소화하고, 고객 신뢰를 이끄는 직무입니다.',
+      '품질관리': '제품의 신뢰성을 확보하기 위한 검사 기준 수립과 불량 원인 분석 업무를 수행합니다.',
       'AI엔지니어': '딥러닝, 예측 모델링 등으로 미래 공정을 데이터 기반으로 혁신합니다.',
       '전장설계': '모터, 센서, 전기배선 등 전자 시스템을 설계하여 기계와 통합하는 업무입니다.',
       '시운전': '설비 최종 성능을 검증하며, 프로젝트 완성도를 책임지는 현장 엔지니어입니다.',
       '기본설계': '조선 설계의 기초를 다지며 선박의 안정성과 경제성을 확보합니다.',
-      '스마트팩토리개발': '공정 데이터를 수집·분석해 실시간 제어와 자동화를 이끄는 역할입니다.'
+      '스마트팩토리개발': 'IoT/빅데이터를 활용해 전체 공정의 자동화·디지털화를 주도하는 핵심 인재입니다.'
     };
+
     const answers = new Array(questions.length).fill(null);
     const container = document.getElementById("questions");
     questions.forEach((q, i) => {
@@ -252,12 +264,15 @@
         </div>`;
       container.appendChild(div);
     });
+
     function selectAnswer(index, value) {
       answers[index] = value;
       const buttons = document.querySelectorAll(`#choice${index} button`);
       buttons.forEach(btn => btn.classList.remove("selected"));
-      buttons[4 - value].classList.add("selected");
+      const btnIndex = 2 - value;
+      if (buttons[btnIndex]) buttons[btnIndex].classList.add("selected");
     }
+
     function generateResult() {
       if (answers.includes(null)) {
         alert("모든 항목에 응답해 주세요!");
@@ -279,6 +294,7 @@
         `;
       }, 3000);
     }
+
     function closeResult() {
       document.getElementById("result-modal").style.display = "none";
     }
