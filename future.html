@@ -87,26 +87,59 @@
       font-size: 1em;
       color: #334155;
     }
-    input[type="text"], select {
+    select {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       margin-top: 8px;
-      margin-bottom: 16px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+      margin-bottom: 24px;
+      border: 2px solid #60a5fa;
+      border-radius: 12px;
+      background-color: #f0f9ff;
       font-family: 'HDHyundaiLight';
+      font-size: 1em;
     }
     .question {
       margin-bottom: 24px;
     }
-    button {
+    .choice-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .choice-buttons button {
+      flex: 1;
+      min-width: 90px;
+      padding: 10px 12px;
+      background-color: #e0f2fe;
+      color: #0c4a6e;
+      border: 1px solid #60a5fa;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'HDHyundaiLight';
+    }
+    .choice-buttons button.selected {
       background-color: #2563eb;
       color: white;
-      font-family: 'HDHyundaiBold';
-      padding: 12px 20px;
+      font-weight: bold;
+    }
+    #submit-button {
+      display: block;
+      margin: 40px auto 20px;
+      padding: 16px 32px;
+      font-size: 1.2em;
+      background-color: #003087;
+      color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 999px;
+      font-family: 'HDHyundaiBold';
       cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: background 0.3s;
+    }
+    #submit-button:hover {
+      background-color: #00236d;
     }
     #result {
       margin-top: 40px;
@@ -150,7 +183,8 @@
     </select>
 
     <div id="questions"></div>
-    <button onclick="generateResult()">미래 직무 예측하기</button>
+
+    <button id="submit-button" onclick="generateResult()">🔮 나의 미래 예측하기</button>
 
     <div id="result"></div>
   </div>
@@ -183,28 +217,34 @@
 
     const container = document.getElementById('questions');
     questions.forEach((q, i) => {
-      container.innerHTML += `
-        <div class="question">
-          <label>${i + 1}. ${q}</label><br>
-          <select id="q${i}">
-            <option value="2">매우 그렇다</option>
-            <option value="1">그렇다</option>
-            <option value="0">보통이다</option>
-            <option value="-1">아니다</option>
-            <option value="-2">전혀 아니다</option>
-          </select>
+      const div = document.createElement('div');
+      div.className = 'question';
+      div.innerHTML = `
+        <label>${i + 1}. ${q}</label>
+        <div class="choice-buttons" id="choice${i}">
+          <button onclick="selectAnswer(${i}, 2)">매우 그렇다</button>
+          <button onclick="selectAnswer(${i}, 1)">그렇다</button>
+          <button onclick="selectAnswer(${i}, 0)">보통이다</button>
+          <button onclick="selectAnswer(${i}, -1)">아니다</button>
+          <button onclick="selectAnswer(${i}, -2)">전혀 아니다</button>
         </div>
       `;
+      container.appendChild(div);
     });
+
+    const answers = new Array(questions.length).fill(0);
+    function selectAnswer(index, value) {
+      answers[index] = value;
+      const buttons = document.querySelectorAll(`#choice${index} button`);
+      buttons.forEach(btn => btn.classList.remove('selected'));
+      buttons[value + 2].classList.add('selected');
+    }
 
     function generateResult() {
       const major = document.getElementById('major').value;
-      const scores = questions.map((_, i) => parseInt(document.getElementById(`q${i}`).value));
-      const sum = scores.reduce((a, b) => a + b, 0);
-
+      const sum = answers.reduce((a, b) => a + b, 0);
       const possibleJobs = jobMap[major];
       const job = possibleJobs[Math.floor((sum + 20) / (40 / possibleJobs.length)) % possibleJobs.length];
-
       const resultDiv = document.getElementById('result');
       resultDiv.style.display = 'block';
       resultDiv.innerHTML = `
