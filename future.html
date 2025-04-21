@@ -73,7 +73,6 @@
       font-size: 1em;
       font-family: 'HDHyundaiLight';
       box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-      transition: 0.3s ease;
     }
     .choice-buttons {
       display: flex;
@@ -154,7 +153,8 @@
       font-family: 'HDHyundaiBold';
     }
     .result-footer a {
-      margin-left: 8px;
+      display: inline-block;
+      margin-top: 10px;
       padding: 12px 28px;
       background: linear-gradient(to right, #008233, #003087);
       color: white;
@@ -162,8 +162,11 @@
       text-decoration: none;
       font-family: 'HDHyundaiBold';
     }
-  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-</style>
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
   <div class="header">
@@ -193,12 +196,12 @@
   </div>
   <div id="result-modal">
     <div class="result-content">
-      <div class="result-close" onclick="closeResult()">✕</div>
       <div id="result"></div>
       <div class="result-footer">
-        오늘의 직무를 더 알고 싶다면?
+        오늘의 직무를 더 알고 싶다면?<br>
         <a href="job.html">직무 Hint Dream</a>
       </div>
+      <div class="result-close" onclick="closeResult()">✕</div>
     </div>
   </div>
   <script>
@@ -214,7 +217,6 @@
       "기계보다 사람, 사람보다 조직에 관심이 많다.",
       "나는 글로벌한 환경에서 일하고 싶다."
     ];
-
     const jobMap = {
       '기계공학': ['엔진설계', '생산기술', '품질관리'],
       '전기전자': ['전장설계', '시운전', '전기설계'],
@@ -226,18 +228,16 @@
       '경영학': ['경영기획', '인사총무', 'SCM'],
       '기타': ['다기능지원', '전략기획']
     };
-
     const jobDescriptions = {
-      '엔진설계': 'HD현대의 심장인 엔진의 구조와 성능을 설계하고 개선합니다.',
-      '생산기술': '생산 효율과 품질을 높이기 위한 기술 개선과 자동화 설계를 수행합니다.',
-      '품질관리': '제품의 신뢰성을 확보하기 위한 검사 기준 수립과 불량 원인 분석 업무를 수행합니다.',
-      'AI엔지니어': 'AI 기반 공정 예측, 자동화 알고리즘을 개발해 스마트 제조를 이끕니다.',
-      '전장설계': '설비에 들어가는 전기/전자 시스템 설계를 담당하며 하드웨어 구성 이해가 필요합니다.',
-      '시운전': '생산된 장비가 실제로 잘 작동하는지 테스트하고 문제를 해결하는 현장 업무입니다.',
-      '기본설계': '선박 건조 전 전체 구조의 기본 사양을 설계하며, 조선 기술의 핵심입니다.',
-      '스마트팩토리개발': 'IoT/빅데이터를 활용해 전체 공정의 자동화·디지털화를 주도하는 핵심 인재입니다.'
+      '엔진설계': '엔진의 구조 해석, 연비 개선 및 친환경 설계까지 담당하는 핵심 직무입니다.',
+      '생산기술': '공정 최적화와 현장 문제 해결을 통해 생산성을 높이는 중심 역할입니다.',
+      '품질관리': '엄격한 품질 기준으로 불량률을 최소화하고, 고객 신뢰를 이끄는 직무입니다.',
+      'AI엔지니어': '딥러닝, 예측 모델링 등으로 미래 공정을 데이터 기반으로 혁신합니다.',
+      '전장설계': '모터, 센서, 전기배선 등 전자 시스템을 설계하여 기계와 통합하는 업무입니다.',
+      '시운전': '설비 최종 성능을 검증하며, 프로젝트 완성도를 책임지는 현장 엔지니어입니다.',
+      '기본설계': '조선 설계의 기초를 다지며 선박의 안정성과 경제성을 확보합니다.',
+      '스마트팩토리개발': '공정 데이터를 수집·분석해 실시간 제어와 자동화를 이끄는 역할입니다.'
     };
-
     const answers = new Array(questions.length).fill(null);
     const container = document.getElementById("questions");
     questions.forEach((q, i) => {
@@ -252,14 +252,12 @@
         </div>`;
       container.appendChild(div);
     });
-
     function selectAnswer(index, value) {
       answers[index] = value;
       const buttons = document.querySelectorAll(`#choice${index} button`);
       buttons.forEach(btn => btn.classList.remove("selected"));
-      buttons[value + 2].classList.add("selected");
+      buttons[4 - value].classList.add("selected");
     }
-
     function generateResult() {
       if (answers.includes(null)) {
         alert("모든 항목에 응답해 주세요!");
@@ -270,27 +268,17 @@
       const possibleJobs = jobMap[major];
       const job = possibleJobs[Math.floor((sum + 20) / (40 / possibleJobs.length)) % possibleJobs.length];
       const desc = jobDescriptions[job] || "이 직무는 현재 준비 중입니다.";
-
       const result = document.getElementById("result");
-      result.innerHTML = "<p style='font-size:1.1em;'>답변을 분석 중입니다...</p><br><div class='loader' style='width:40px;height:40px;border:5px solid #ccc;border-top-color:#2563eb;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto;'></div>";height:40px;border:5px solid #ccc;border-top-color:#2563eb;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto;'></div>";
+      result.innerHTML = "<p style='font-size:1.1em;'>답변을 분석 중입니다...</p><br><div class='loader' style='width:40px;height:40px;border:5px solid #ccc;border-top-color:#2563eb;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto;'></div>";
       document.getElementById("result-modal").style.display = "flex";
-
-      setTimeout(() => {$1}, 3000);
+      setTimeout(() => {
+        result.innerHTML = `
+          <h3>${job}</h3>
+          <p>${desc}</p>
+          <img src="future_${job}.png" alt="${job}">
+        `;
+      }, 3000);
     }
-      const major = document.getElementById("major").value;
-      const sum = answers.reduce((a, b) => a + b, 0);
-      const possibleJobs = jobMap[major];
-      const job = possibleJobs[Math.floor((sum + 20) / (40 / possibleJobs.length)) % possibleJobs.length];
-      const desc = jobDescriptions[job] || "이 직무는 현재 준비 중입니다.";
-      const result = document.getElementById("result");
-      result.innerHTML = `
-        <h3>${job}</h3>
-        <p>${desc}</p>
-        <img src="future_${job}.png" alt="${job}">
-      `;
-      document.getElementById("result-modal").style.display = "flex";
-    }
-
     function closeResult() {
       document.getElementById("result-modal").style.display = "none";
     }
