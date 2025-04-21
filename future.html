@@ -91,26 +91,27 @@
     }
     .question-title {
       font-family: 'HDHyundaiBold';
-      font-size: 1.1em;
+      font-size: 1.4em;
       margin: 30px 0 10px;
       text-align: center;
     }
     .choices {
       display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-      flex-direction: row;
+      gap: 10px;
+      justify-content: space-between;
+      flex-wrap: nowrap;
     }
     .choice {
-      flex: 1 1 calc(45%);
+      flex: 1 0 18%;
+      max-width: 18%;
       background: #e0f2fe;
       border-radius: 12px;
-      padding: 14px;
+      padding: 14px 10px;
       text-align: center;
       cursor: pointer;
       border: 2px solid transparent;
       transition: 0.3s ease;
+      font-size: 0.95em;
     }
     .choice.selected {
       border-color: #3b82f6;
@@ -162,8 +163,7 @@
     </div>
 
     <div class="step" id="step-questions">
-      <div class="main-title">미래 Hint Dream</div>
-      <h2 id="question-count" style="text-align:center;"></h2>
+      <h2 id="question-count" style="text-align:center; font-size: 0.95em; color: #666;"></h2>
       <div class="question-title" id="question-text"></div>
       <div class="choices" id="question-choices"></div>
       <div class="bottom-button"><button class="button" onclick="nextQuestion()">다음</button></div>
