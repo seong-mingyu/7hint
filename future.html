@@ -104,8 +104,13 @@
       padding-bottom: 10px;
     }
     .choice {
-      flex: none;
+      flex: 1 1 45%;
+      max-width: 45%;
       display: inline-block;
+      text-align: center;
+      padding: 12px 8px;
+      font-size: 1.05em;
+      min-height: 48px;
     }
     .choice {
       flex: 1 0 18%;
@@ -178,7 +183,6 @@
     </div>
 
     <div class="step" id="step-loading">
-      <div class="main-title">미래 Hint Dream</div>
       <h2 style="text-align:center;">답변을 분석 중입니다...</h2>
       <img src="loading.gif" alt="로딩중" class="loading-img" />
     </div>
@@ -206,15 +210,15 @@
     let shuffledQuestions = [];
 
     const questions = [
-      { type: "scale", text: "새로운 기술을 빠르게 익히는 편이다.", options: ["전혀 아니다", "아니다", "보통이다", "그렇다", "매우 그렇다"], values: [-2, -1, 0, 1, 2] },
+      { type: "scale", text: "새로운 기술을 빠르게 익히는 편이다.", options: ["아니다", "보통이다", "그렇다"], values: [-1, 0, 1] },
       { type: "binary", text: "현장에서 직접 일하는 것이 좋다.", options: ["YES", "NO"], values: [1, -1] },
-      { type: "scale", text: "혼자서 집중해서 일하는 걸 선호한다.", options: ["전혀 아니다", "아니다", "보통이다", "그렇다", "매우 그렇다"], values: [-2, -1, 0, 1, 2] },
+      { type: "scale", text: "혼자서 집중해서 일하는 걸 선호한다.", options: ["아니다", "보통이다", "그렇다"], values: [-1, 0, 1] },
       { type: "binary", text: "기술보다 기획이 더 흥미롭다.", options: ["YES", "NO"], values: [1, -1] },
-      { type: "scale", text: "숫자와 데이터를 기반으로 판단한다.", options: ["전혀 아니다", "아니다", "보통이다", "그렇다", "매우 그렇다"], values: [-2, -1, 0, 1, 2] },
+      { type: "scale", text: "숫자와 데이터를 기반으로 판단한다.", options: ["아니다", "보통이다", "그렇다"], values: [-1, 0, 1] },
       { type: "binary", text: "사람과 협력하는 일을 즐긴다.", options: ["YES", "NO"], values: [1, -1] },
-      { type: "scale", text: "창의적인 아이디어를 내는 것을 좋아한다.", options: ["전혀 아니다", "아니다", "보통이다", "그렇다", "매우 그렇다"], values: [-2, -1, 0, 1, 2] },
+      { type: "scale", text: "창의적인 아이디어를 내는 것을 좋아한다.", options: ["아니다", "보통이다", "그렇다"], values: [-1, 0, 1] },
       { type: "binary", text: "다양한 업무를 경험하고 싶다.", options: ["YES", "NO"], values: [1, -1] },
-      { type: "scale", text: "글로벌 환경에서 일하고 싶다.", options: ["전혀 아니다", "아니다", "보통이다", "그렇다", "매우 그렇다"], values: [-2, -1, 0, 1, 2] },
+      { type: "scale", text: "글로벌 환경에서 일하고 싶다.", options: ["아니다", "보통이다", "그렇다"], values: [-1, 0, 1] },
       { type: "binary", text: "책임감을 갖고 프로젝트를 끝낸 경험이 있다.", options: ["YES", "NO"], values: [1, -1] }
     ];
 
